@@ -1,3 +1,11 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <h1>{{title}}</h1>
+    </mat-toolbar>
+    <div class="wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
