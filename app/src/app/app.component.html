@@ -1,6 +1,9 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav-content>
     <mat-toolbar color="primary">
+      <button mat-icon-button (click)="goBack()" *ngIf="title !== 'Teamscan'">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
       <h1>{{title}}</h1>
     </mat-toolbar>
     <div class="wrapper">

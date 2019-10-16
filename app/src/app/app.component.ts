@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -22,9 +23,10 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private breakpointObserver: BreakpointObserver,
-     private titleService: Title,
-      private router: Router,
-       private activatedRoute: ActivatedRoute
+    private titleService: Title,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private location: Location
   ) {
     this.initializeApp();
   }
@@ -36,6 +38,9 @@ export class AppComponent {
     });
   }
 
+  goBack() {
+    this.location.back();
+  }
 
   ngOnInit() {
     this.router
