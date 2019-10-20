@@ -1,7 +1,7 @@
 <div class="grid-container">
-    <mat-card class="dashboard-card" routerLink="/todo" >
+    <mat-card class="dashboard-card" [routerLink]="['/todo']"  routerLinkActive="active">
         <mat-card-content class="dashboard-card-content">
-          <button mat-button routerLink="/todo" style="width:100%;text-align:left;font-size:20px;">
+          <button mat-button style="width:100%;text-align:left;font-size:20px;">
             <mat-icon>list</mat-icon>
             To do
           </button>
@@ -12,7 +12,7 @@
       </mat-card>
       <mat-card class="dashboard-card" routerLink="/todo" >
           <mat-card-content class="dashboard-card-content">
-            <button mat-button routerLink="/todo" style="width:100%;text-align:left;font-size:20px;">
+            <button mat-button style="width:100%;text-align:left;font-size:20px;">
               <mat-icon>people</mat-icon>
               Teams
             </button>
