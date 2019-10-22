@@ -9,6 +9,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { TodoComponent } from './todo/todo.component';
+import { TeamsComponent } from './teams/teams.component';
+import { TeamComponent } from './teams/team/team.component';
+import { InvullenComponent } from './teams/team/invullen/invullen.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,13 +24,21 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatRadioModule} from '@angular/material/radio';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatStepperModule} from '@angular/material/stepper';
+
+
+
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, TodoComponent],
+  declarations: [AppComponent, MenuComponent, TodoComponent, TeamsComponent, TeamComponent, InvullenComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule,
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
-    MatGridListModule, MatMenuModule, MatIconModule, MatListModule
+    MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
+    FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule
   ],
   providers: [
     StatusBar,

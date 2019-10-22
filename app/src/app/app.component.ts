@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { Location } from '@angular/common';
+import { fadeAnimation } from './animations';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,7 +13,8 @@ import { filter, map } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
+  animations: [fadeAnimation]
 })
 export class AppComponent {
   title = 'Teamscan';

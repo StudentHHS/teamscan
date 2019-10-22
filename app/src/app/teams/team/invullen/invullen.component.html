@@ -1,0 +1,58 @@
+<mat-card>
+    <mat-card-content>
+<mat-vertical-stepper #stepper>
+    <mat-step stepControl="firstFormGroup">
+        <ng-template matStepLabel>{{title}}</ng-template>
+        <mat-radio-group [(ngModel)]="question1">
+                <mat-list>
+                    <div *ngFor="let question of questions; last as isLast">
+                    <mat-list-item ><mat-radio-button  mat-list-base [value]="question.value" style="width:100%;"><p>{{question.text}}</p></mat-radio-button><button mat-icon-button (click)="tooltip.show()" [matTooltip]="question.tooltip" matTooltipPosition="left" #tooltip="matTooltip"><mat-icon>info</mat-icon></button></mat-list-item>
+                    <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
+                    </div>
+                </mat-list>
+            </mat-radio-group>
+            <br>
+            <button mat-stroked-button matStepperPrevious>Terug</button>
+            <button mat-flat-button color="primary" style="float:right" matStepperNext>Volgende</button>
+    </mat-step>
+    <mat-step stepControl="firstFormGroup">
+        <ng-template matStepLabel>Step 2</ng-template>
+        <mat-radio-group [(ngModel)]="question1">
+            <mat-list>
+                <div *ngFor="let question of questions; last as isLast">
+                <mat-list-item ><mat-radio-button  mat-list-base [value]="question.value" style="width:100%;"><p>{{question.text}}</p></mat-radio-button><button mat-icon-button (click)="tooltip.show()" [matTooltip]="question.tooltip" matTooltipPosition="left" #tooltip="matTooltip"><mat-icon>info</mat-icon></button></mat-list-item>
+                <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
+                </div>
+            </mat-list>
+        </mat-radio-group>
+        <br>
+        <button mat-stroked-button matStepperPrevious>Terug</button>
+        <button mat-flat-button color="primary" style="float:right" matStepperNext>Volgende</button>
+    </mat-step>
+    <mat-step stepControl="firstFormGroup">
+        <ng-template matStepLabel>step 3</ng-template>
+        <div>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step stepControl="firstFormGroup">
+        <ng-template matStepLabel>step 4</ng-template>
+        <div>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step stepControl="firstFormGroup">
+        <ng-template matStepLabel>step 5</ng-template>
+        <div>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step stepControl="firstFormGroup">
+        <ng-template matStepLabel>step 6</ng-template>
+        <div>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+</mat-vertical-stepper>
+</mat-card-content>
+</mat-card>

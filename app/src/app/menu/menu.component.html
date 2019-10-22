@@ -1,27 +1,26 @@
-<div class="grid-container">
-    <mat-card class="dashboard-card" [routerLink]="['/todo']"  routerLinkActive="active">
-        <mat-card-content class="dashboard-card-content">
-          <button mat-button style="width:100%;text-align:left;font-size:20px;">
-            <mat-icon>list</mat-icon>
-            To do
-          </button>
-          <mat-list>
-              <mat-list-item>Je hebt geen taken meer te doen!</mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="dashboard-card" routerLink="/todo" >
-          <mat-card-content class="dashboard-card-content">
-            <button mat-button style="width:100%;text-align:left;font-size:20px;">
-              <mat-icon>people</mat-icon>
-              Teams
-            </button>
-            <mat-list>
-              <mat-list-item>Team HBO-ICT</mat-list-item>
-              <mat-list-item>Team Facilitair</mat-list-item>
-              <mat-list-item>...</mat-list-item>
-            </mat-list>
-            
-          </mat-card-content>
-        </mat-card>
-</div>
+<mat-card routerLink="/todo">
+  <mat-card-content class="dashboard-card-content">
+    <button mat-button style="width:100%;text-align:left;font-size:20px;">
+      <mat-icon>list</mat-icon>
+      To do
+    </button>
+    <mat-list>
+        <mat-list-item>Je hebt geen taken meer te doen!</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<br>
+<mat-card routerLink="/team" >
+  <mat-card-content class="dashboard-card-content">
+    <button mat-button style="width:100%;text-align:left;font-size:20px;">
+      <mat-icon>people</mat-icon>
+      Teams
+    </button>
+    <mat-list>
+      <mat-list-item>Team HBO-ICT</mat-list-item>
+      <mat-list-item>Team Facilitair</mat-list-item>
+      <mat-list-item>...</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+

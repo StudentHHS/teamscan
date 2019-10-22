@@ -12,7 +12,40 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$app-primary: mat-palette($mat-light-green);
+$mat-hhs-green: (
+  50: #F1F8E9,
+  100: #DCEDC8,
+  200: #C5E1A5,
+  300: #AED581,
+  400: #9CCC65,
+  500: #9EA700,
+  600: hsl(63, 100%, 27%),
+  700: hsl(63, 100%, 23%),
+  800: hsl(63, 100%, 17%),
+  900: hsl(63, 100%, 13%),
+  A100: #CCFF90,
+  A200: #B2FF59,
+  A400: #76FF03,
+  A700: #64DD17,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$app-primary: mat-palette($mat-hhs-green);
 $app-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
@@ -106,3 +139,50 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+label.mat-radio-label {
+  white-space: initial;
+}
+
+.mat-list-base mat-list-item.mat-list-item {
+  height:auto;
+}
+
+.mat-step {
+  margin-left: -16px;
+}
+
+div.mat-stepper-vertical-line::before {
+  top:0;
+  bottom:0;
+  left:-1px;
+  content:none;
+}
+
+div.mat-step-icon {
+  border-radius: unset;
+  height:36px;
+  width:36px;
+  font-size:22px;
+}
+
+div.mat-vertical-content-container {
+  margin-left:0;
+}
+
+mat-step-header.mat-vertical-stepper-header {
+  padding: 6px 16px;
+  height:auto;
+}
+
+div.mat-step-label, div.mat-step-label-selected {
+  font-size:20px;
+}
+
+
+router-outlet ~ * {
+  position: absolute;
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
