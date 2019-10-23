@@ -1,12 +1,12 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button mat-icon-button (click)="goBack()" *ngIf="title !== 'Teamscan'">
+      <button mat-icon-button (click)="goBack()" *ngIf="!us.isHome">
         <mat-icon>navigate_before</mat-icon>
       </button>
-      <h1>{{title}}</h1>
+      <h1>{{us.pageTitle}}</h1>
     </mat-toolbar>
-    <div class="wrapper" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <div class="wrapper" ><!--[@fadeAnimation]="o.isActivated ? o.activatedRoute : ''" >-->
       <router-outlet #o="outlet"></router-outlet>
     </div>
   </mat-sidenav-content>

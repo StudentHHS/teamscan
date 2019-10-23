@@ -28,6 +28,7 @@ import { MatRadioModule} from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatStepperModule} from '@angular/material/stepper';
+import { UtilityService } from './utility.service';
 
 
 
@@ -43,6 +44,7 @@ import {MatStepperModule} from '@angular/material/stepper';
   providers: [
     StatusBar,
     SplashScreen,
+    UtilityService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

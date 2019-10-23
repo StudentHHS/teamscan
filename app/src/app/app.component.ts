@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
+import { UtilityService } from './utility.service';
 
 @Component({
   selector: 'app-root',
@@ -17,15 +18,12 @@ import { filter, map } from 'rxjs/operators';
   animations: [fadeAnimation]
 })
 export class AppComponent {
-  title = 'Teamscan';
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private titleService: Title,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private us: UtilityService
   ) {
     this.initializeApp();/*
     this.render.listen('document', 'backbutton', ()=>{
@@ -46,20 +44,5 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.router
-    .events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => {
-        const child = this.activatedRoute.firstChild;
-        if (child.snapshot.data['title']) {
-          return child.snapshot.data['title'];
-        }
-        return this.title;
-      })
-    ).subscribe((ttl: string) => {
-      this.titleService.setTitle(ttl);
-      this.title = ttl;
-      console.log("change title");
-    });
   }
 }

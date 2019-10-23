@@ -186,3 +186,23 @@ router-outlet ~ * {
   padding: 0 40px;
   box-sizing: border-box;
 }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+router-outlet ~ * {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+  animation-timing-function: ease-out;
+  animation-duration: 0.2s;
+}
