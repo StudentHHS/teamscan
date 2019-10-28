@@ -35,6 +35,10 @@
     document.removeEventListener = function () {
       (window.EventTarget || Document).prototype.removeEventListener.apply(this, arguments);
     };
+
+    function handleOpenURL(url) {
+      window.dispatchEvent(new CustomEvent('url-intent-event', {'detail': url}));
+    }
 </script>
 </body>
 

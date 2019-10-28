@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser';
 @Injectable()
 export class UtilityService{
   pageTitle: string;
-  isHome: boolean;
+  hasPrevious: boolean;
   private suffix: string;
   constructor(
     private router: Router, private activatedRoute: ActivatedRoute,private titleService: Title
@@ -27,10 +27,10 @@ export class UtilityService{
           filter(event => event instanceof NavigationEnd),
           map(() => {
             const child = this.activatedRoute.firstChild;
-            if (child.snapshot.routeConfig['path']) {
-                this.isHome = false;
+            if (child.snapshot.routeConfig['path'] && child.snapshot.routeConfig['path'] !== "login") {
+                this.hasPrevious = true;
             } else {
-                this.isHome = true;
+                this.hasPrevious = false;
             }
             if (child.snapshot.data['title']) {
                 if (child.snapshot.data['title'] == "Team") {

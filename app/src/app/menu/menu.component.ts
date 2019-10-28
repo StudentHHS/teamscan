@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,5 +11,10 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 export class MenuComponent {
   /** Based on the screen size, switch from standard to one column per row */
-  constructor() {}
+  constructor(private authService: AuthService) {}
+
+  signOut(): void {
+    this.authService.signOut();
+    console.log("auth",this.authService.authenticated);
+  }
 }
