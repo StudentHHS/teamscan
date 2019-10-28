@@ -24,7 +24,7 @@ export class LoginComponent {
 
     async loginButton(): Promise<void> {
         if(this.platform.is('mobile') ) {
-            window.open('https://login.microsoftonline.com/common/oauth2/v2.0/authorize\
+            window.open('https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45/oauth2/v2.0/authorize\
             ?response_type=id_token+token\
             &scope=user.read%20openid%20profile\
             &client_id='+OAuthSettings.appId+'\

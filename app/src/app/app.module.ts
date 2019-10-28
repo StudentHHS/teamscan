@@ -42,7 +42,7 @@ import { OAuthSettings } from '../oauth';
      TeamsComponent, TeamComponent, InvullenComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
-    BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId}),
+    BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45",}),
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
     MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule
