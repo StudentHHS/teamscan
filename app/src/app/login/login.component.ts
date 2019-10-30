@@ -23,19 +23,19 @@ export class LoginComponent {
     }
 
     async loginButton(): Promise<void> {
-        if(this.platform.is('mobile') ) {
+        if(this.platform.is('cordova') ) {
             window.open('https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45/oauth2/v2.0/authorize\
-            ?response_type=id_token+token\
-            &scope=user.read%20openid%20profile\
-            &client_id='+OAuthSettings.appId+'\
-            &redirect_uri=teamscan%3A%2F%2Foauth2&state=566c4ca0-4a35-4ec9-a753-64a69b2c17b6\
-            &nonce=b3525a1f-1918-477c-a089-b8f2f968c79c\
-            &client_info=1\
-            &x-client-SKU=MSAL.JS\
-            &x-client-Ver=0.2.1\
-            &client-request-id=30e04d29-b665-4738-952a-ec1a280c3bdb\
-            &prompt=select_account\
-            &response_mode=fragment');
+?response_type=id_token+token\
+&scope=user.read%20openid%20profile\
+&client_id='+encodeURI(OAuthSettings.appId)+'\
+&redirect_uri=teamscan%3A%2F%2Foauth2&state=566c4ca0-4a35-4ec9-a753-64a69b2c17b6\
+&nonce=b3525a1f-1918-477c-a089-b8f2f968c79c\
+&client_info=1\
+&x-client-SKU=MSAL.JS\
+&x-client-Ver=0.2.1\
+&client-request-id=30e04d29-b665-4738-952a-ec1a280c3bdb\
+&prompt=select_account\
+&response_mode=fragment');
         } else {
             await this.authService.signIn();
         }

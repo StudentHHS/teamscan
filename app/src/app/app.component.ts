@@ -57,6 +57,7 @@ export class AppComponent {
   }
 
   receivedIntent($event) {
+    console.log("intent event",$event);
     let token = $event.detail.match('[#&]access_token=([^&]+)')[1];
     this.authService.init(token);
     this.authService.getMe()

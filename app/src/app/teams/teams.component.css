@@ -11,3 +11,14 @@
     right: 10px;
 }
   
+.grid {
+    display:grid;
+    grid-gap:1em;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media screen and (max-width: 700px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
