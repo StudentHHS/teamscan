@@ -17,8 +17,12 @@ export class InvullenComponent implements OnInit{
 
   ngOnInit() {      
     // Simple GET request with response type <any>
-    this.http.get<any>('https://teamscan.ga/api/?function=invullijst', {headers: new HttpHeaders({Authorization: 'Bearer hoi'}) } ).subscribe(data => {
-        console.log("Dit krijg je terug", data);
+    this.http.get(
+        'https://teamscan.ga/api/?function=invullijst',
+        { headers: new HttpHeaders({Authorization: 'Bearer hoi'}), responseType: 'json' }
+      ).subscribe(data => {
+        console.log("resultaat");
+        console.log(data);
     })
 }
 
