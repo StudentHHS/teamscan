@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -45,7 +46,7 @@ import { OAuthSettings } from '../oauth';
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45",}),
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
     MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
-    FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule
+    FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule, HttpClientModule
   ],
   providers: [
     StatusBar,
