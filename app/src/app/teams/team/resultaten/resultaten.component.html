@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Teamleden ({{aantalUitgenodig}} uitgenodigd, {{aantalRespondenten}} respondent(en))
+        </mat-card-title>
+        <mat-card-subtitle>
+            Teamscan geopend op: {{datumAangemaakt}}
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+            Teamscan open tot: {{datumVerlopen}}
+            <div style="font-style: italic">Aantal dagen geldig: {{dagenGeldig}}</div>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item>
+                <mat-icon mat-list-icon>people</mat-icon>
+                <h4 mat-line>{{naamRespondent}}</h4>
+                <p mat-line>Teamscan volledig ingevuld</p>
+            </mat-list-item>
+            <mat-divider inset="true"></mat-divider>
+            <mat-list-item *ngFor="let teamlid of inAfwachtingOp">
+                <mat-icon mat-list-icon>people</mat-icon>
+                <h4 mat-line>{{teamlid.naam}}</h4>
+                <p mat-line>In afwachting op invullen teamscan</p>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
