@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="objectKeys(dimensions).length > 0">
     <mat-card-content>
 <mat-vertical-stepper #stepper>
     
@@ -22,3 +22,10 @@
 </mat-vertical-stepper>
 </mat-card-content>
 </mat-card>
+<div *ngIf="objectKeys(dimensions).length == 0 && !requestFailed" style="text-align:center; margin-top:80px;">
+<mat-spinner style="margin:auto;"></mat-spinner>
+</div>
+<div *ngIf="requestFailed" style="text-align:center; margin-top:80px;">
+    Er kon geen verbinding worden gemaakt.<br><br>
+<button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>
+</div>

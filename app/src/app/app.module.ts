@@ -33,6 +33,7 @@ import { MatRadioModule} from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -47,7 +48,8 @@ import { OAuthSettings } from '../oauth';
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45",}),
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
     MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
-    FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule, HttpClientModule
+    FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
+    MatProgressSpinnerModule, HttpClientModule
   ],
   providers: [
     StatusBar,
