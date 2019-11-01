@@ -5,7 +5,7 @@ import { TodoComponent } from './todo/todo.component';
 import { TeamsComponent } from './teams/teams.component';
 import { TeamComponent } from './teams/team/team.component';
 import { InvullenComponent } from './teams/team/invullen/invullen.component';
-// import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
+import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'team', component: TeamsComponent, data: {title: 'Teams'}  },
   { path: 'team/:id', component: TeamComponent, data: {title: 'Team'}  },
   { path: 'team/:id/invullen', component: InvullenComponent, data: {title: 'Invullen'}  },
-  // { path: 'team/:id/resulaten', component: ResultatenComponent, data: {title: 'Resultaten'}  }
+  { path: 'team/:id/resultaten', component: ResultatenComponent, data: {title: 'Resultaten'}  }
 ];
 
 @NgModule({
