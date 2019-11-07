@@ -39,7 +39,7 @@ export class AppComponent {
       this.statusBar.overlaysWebView(true);
       //this.statusBar.backgroundColorByHexString("#71a437");
       this.splashScreen.hide();
-
+      
     });
     console.log("check if authenticated");
     this.storage.get('authenticated').then((val: string) => {
@@ -52,6 +52,12 @@ export class AppComponent {
       if (val == null) {} else {
         console.log('from storage user', val);
         this.authService.user=JSON.parse(val);
+      }
+    });
+    this.storage.get('token').then((val: string) => {
+      if (val == null) {} else {
+        console.log('from storage token', val);
+        this.authService.token=val;
       }
     });
   }

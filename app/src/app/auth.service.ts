@@ -5,6 +5,8 @@ import { Storage } from '@ionic/storage';
 import { OAuthSettings } from '../oauth';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { IdToken } from 'msal/lib-commonjs/IdToken';
+import { HttpClient } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +14,14 @@ import { IdToken } from 'msal/lib-commonjs/IdToken';
 export class AuthService {
   public authenticated: boolean;
   public user: any;
+  public token: string;
+  public MSALToken: string;
   private graphClient: Client;
   public redirectUri: string;
 
   constructor(
-    private msalService: MsalService, private storage: Storage) {
+    private msalService: MsalService, private storage: Storage, private http: HttpClient,
+    private toastController: ToastController) {
     this.authenticated = false;
     this.user = null;
   }
@@ -24,13 +29,12 @@ export class AuthService {
   // Prompt the user to sign in and
   // grant consent to the requested permission scopes
   async signIn(): Promise<void> {
-    let result = await this.msalService.loginPopup(OAuthSettings.scopes)
+    let result = await this.msalService.loginPopup(OAuthSettings.scopes, "app=true")
       .catch((reason) => {
         console.log('login failed', JSON.stringify(reason, null, 2));
       });
 
     if (result) {
-      this.authenticated = true;
       // Temporary placeholder
       this.init(null);
       this.getMe()
@@ -63,6 +67,7 @@ export class AuthService {
 
     init(token: string) {
         if(token) {
+            this.MSALToken=token;
             this.graphClient = Client.init({
                 authProvider: async (done) => {done(null, token)}
             });
@@ -76,6 +81,7 @@ export class AuthService {
                         });
                 
                     if (token) {
+                        this.MSALToken=token;
                         done(null, token);
                     } else {
                         done("Could not get an access token", null);
@@ -97,11 +103,40 @@ export class AuthService {
         }
     }
 
+    async showToast(text: string) {
+      const toast = await this.toastController.create({
+        message: text,
+        duration: 3000,
+      });
+      toast.present();
+    }
+
     setUserLoggedIn(user: any) {
         console.log("set user", user);
-        this.storage.set('authenticated', true);
         this.user = user;
-        this.authenticated = true;
-        this.storage.set('user', JSON.stringify(user) );
+        var context = this;
+        this.getUserFromDatabase(function(data) {
+          context.token=data.token;
+          console.log("token from this", context.token);
+          context.authenticated = true;
+          context.storage.set('authenticated', true);
+          context.storage.set('user', JSON.stringify(user) );
+          context.storage.set('token', data.token);
+        });
+    }
+
+    getUserFromDatabase(func: any) {
+      this.http.get(
+          'https://teamscan.ga/api/?function=userregistration&token='+this.MSALToken,
+          { headers: null, responseType: 'json' }
+        ).subscribe(data => {
+          console.log(data);
+          func(data)
+        },
+        error => {
+          this.showToast("Gebruikersgegevens konden niet worden opgehaald. Ben je nog verbonden?");
+          console.log("error at data request", error);
+        }
+      );
     }
 }

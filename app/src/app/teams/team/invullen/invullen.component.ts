@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Location } from '@angular/common';
 import { ToastController } from '@ionic/angular';
+import { AuthService } from 'src/app/auth.service';
 
 // import { BrowserModule } from '@angular/platform-browser';
 // import { $ } from 'protractor';
@@ -15,7 +16,7 @@ import { ToastController } from '@ionic/angular';
 
 export class InvullenComponent implements OnInit{
   constructor(private http: HttpClient, private location: Location,
-    private toastController: ToastController) {}
+    private toastController: ToastController, private authService: AuthService) {}
 
   result: Array<Object>;
   public dimensions: Object = Array();
@@ -30,7 +31,7 @@ export class InvullenComponent implements OnInit{
 
   getData() {
     this.http.get(
-        'https://teamscan.ga/api/?function=invullijst&token=dummytoken',
+        'https://teamscan.ga/api/?function=invullijst&token='+this.authService.token,
         { headers: null, responseType: 'json' }
       ).subscribe(data => {
         console.log("resultaat");
