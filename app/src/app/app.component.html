@@ -7,7 +7,8 @@
       <h1>{{us.pageTitle}}</h1>
     </mat-toolbar>
     <app-login *ngIf="!this.authService.authenticated"></app-login>
-    <div class="wrapper"  *ngIf="this.authService.authenticated" >
+    <app-register *ngIf="this.authService.firstUse"></app-register>
+    <div class="wrapper"  *ngIf="this.authService.authenticated && !this.authService.firstUse" >
       <router-outlet #o="outlet"></router-outlet>
     </div>
   </mat-sidenav-content>

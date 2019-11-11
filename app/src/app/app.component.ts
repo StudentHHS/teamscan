@@ -60,6 +60,14 @@ export class AppComponent {
         this.authService.token=val;
       }
     });
+    this.storage.get('firstUse').then((val: boolean) => {
+      console.log('from storage firstUse', val);
+      if (val == null) {
+        this.authService.firstUse=false;
+      } else {
+        this.authService.firstUse=val;
+      }
+    });
   }
 
   receivedIntent($event) {

@@ -1,0 +1,110 @@
+<div style="background:#9EA700; padding:0 40px; min-height: calc(100% - 144px);box-sizing:border-box;">
+    <mat-card>
+        <mat-card-content>
+            <mat-horizontal-stepper #stepper linear>
+                
+                <mat-step> 
+                    <ng-template matStepLabel></ng-template>
+                    <h4>Welkom bij de Teamscan-app</h4>
+                    <p>Deze app gaat je helpen jouw team verder te brengen. Ga snel van start.</p>
+                    <br>
+                    <button mat-flat-button color="primary" *ngIf="!isLast" style="float:right" matStepperNext>Volgende</button> 
+                </mat-step>
+
+                <mat-step completed="false"> 
+                    <ng-template matStepLabel></ng-template>
+                    <h4>We leren je graag beter kennen</h4>
+                    <p>Voordat we van start gaan zouden we graag eerst eens willen kennismaken. Zou je misschien antwoord willen geven op de volgende vragen? Hierdoor krijgen we meer inzicht in de teams van De Haagse Hogeschool.</p>
+                    <form [formGroup]="stateForm" id="registerForm"  (ngSubmit)="onSubmit(stateForm.value, stepper)">
+                        <mat-form-field>
+                            <input type="text" matInput placeholder="Opleiding of unit" formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
+                            <mat-autocomplete #autoGroup="matAutocomplete">
+                                <mat-optgroup *ngFor="let faculty of stateGroupOptions | async" [label]="faculty.naam">
+                                    <mat-option *ngFor="let opleiding of faculty.opleidingen" [value]="opleiding + ' — ' + faculty.naam">
+                                    {{opleiding}}
+                                    </mat-option>
+                                </mat-optgroup>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('validateFaculteit')">Kies een opleiding of dienst uit de lijst</mat-error>
+                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog geen opleiding of dienst gekozen</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-select placeholder="Geslacht" formControlName="geslacht" required>
+                                <mat-option value="m">Man</mat-option>
+                                <mat-option value="v">Vrouw</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="stateForm.get('geslacht').hasError('required')">Je hebt nog geen geslacht gekozen</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-select placeholder="OP/OBP" formControlName="opOfObp" required>
+                                <mat-option value="OP">OP</mat-option>
+                                <mat-option value="OBP">OBP</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="stateForm.get('opOfObp').hasError('required')">Je hebt deze optie nog niet gekozen</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-select placeholder="Contractsoort"  formControlName="contractsoort"> 
+                                <mat-option value="ot">Vast</mat-option>
+                                <mat-option value="bpNaarOt">Tijdelijk met uitzicht op vast</mat-option>
+                                <mat-option value="bp">Tijdelijk eindigt rechtswege</mat-option>
+                                <mat-option value="uitzend">Uitzendkracht</mat-option>
+                                <mat-option value="zzp">ZZP</mat-option>
+                                <mat-option value="payroll">Payroll</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-select placeholder="Waar werk je voornamelijk?"  formControlName="locatie">  
+                                <mat-option value="Den Haag">Hoofdvestiging Den Haag</mat-option>
+                                <mat-option value="Poseidon">Poseidon</mat-option>
+                                <mat-option value="Delft">Delft</mat-option>
+                                <mat-option value="Zuiderpark">Sportcampus Zuiderpark</mat-option>
+                                <mat-option value="Zoetermeer">Zoetermeer</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Geboortejaar" formControlName="geboortejaar">
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Aanstellingsomvang" formControlName="aanstellingsomvang">
+                            <mat-hint>Contracturen</mat-hint>
+                        </mat-form-field>
+                        <br>
+                        <br>
+                        <p>De volgende vragen geven inzicht in welk jaar je begonnen bent met de volgende onderwerpen. Mocht je het niet meer precies weten, maak dan een schatting of vul dit later in.</p>
+                        <mat-form-field>
+                            <input matInput placeholder="In welk jaar ben je begonnen op de HHS?"  formControlName="startjaarDienst">
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="In welk jaar ben je begonnen in het onderwijs?"  formControlName="startjaarOnderwijs">
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="In welk jaar ben je begonnen met je huidige functie?"  formControlName="startjaarFunctie">
+                        </mat-form-field>
+
+                        <br>
+                        <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
+                        <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="stateForm.invalid">Volgende</button> 
+                    </form>
+                </mat-step>
+
+                <mat-step stepControl=""> 
+                    <ng-template matStepLabel></ng-template>
+                    <h4>Wij zijn er klaar voor!</h4>
+                    <p>Zodra je bent toegevoegd aan een team kun je teamscans maken en inzien.</p>
+                    <br>
+                    <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
+                    <button mat-flat-button color="primary" style="float:right" (click)="start()">Aan de slag</button>  
+                </mat-step>
+            
+            </mat-horizontal-stepper>
+        </mat-card-content>
+    </mat-card>
+    </div>

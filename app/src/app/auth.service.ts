@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 
 import { OAuthSettings } from '../oauth';
 import { Client } from '@microsoft/microsoft-graph-client';
-import { IdToken } from 'msal/lib-commonjs/IdToken';
 import { HttpClient } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 
@@ -12,8 +11,9 @@ import { ToastController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class AuthService {
-  public authenticated: boolean;
-  public user: any;
+  public authenticated: boolean = false;
+  public firstUse: boolean = false;
+  public user: any = null;
   public token: string;
   public MSALToken: string;
   private graphClient: Client;
@@ -22,8 +22,6 @@ export class AuthService {
   constructor(
     private msalService: MsalService, private storage: Storage, private http: HttpClient,
     private toastController: ToastController) {
-    this.authenticated = false;
-    this.user = null;
   }
 
   // Prompt the user to sign in and
@@ -67,6 +65,7 @@ export class AuthService {
 
     init(token: string) {
         if(token) {
+            this.showToast("Inloggen...", 1000);
             this.MSALToken=token;
             this.graphClient = Client.init({
                 authProvider: async (done) => {done(null, token)}
@@ -103,10 +102,10 @@ export class AuthService {
         }
     }
 
-    async showToast(text: string) {
+    async showToast(text: string, duration: number) {
       const toast = await this.toastController.create({
         message: text,
-        duration: 3000,
+        duration: duration,
       });
       toast.present();
     }
@@ -119,6 +118,8 @@ export class AuthService {
           context.token=data.token;
           console.log("token from this", context.token);
           context.authenticated = true;
+          context.firstUse = (data.opleiding == null) ? true : false;
+          context.storage.set('firstUse', (data.opleiding == null) ? true : false);
           context.storage.set('authenticated', true);
           context.storage.set('user', JSON.stringify(user) );
           context.storage.set('token', data.token);
@@ -134,7 +135,7 @@ export class AuthService {
           func(data)
         },
         error => {
-          this.showToast("Gebruikersgegevens konden niet worden opgehaald. Ben je nog verbonden?");
+          this.showToast("Gebruikersgegevens konden niet worden opgehaald. Probeer het (later) opnieuw.", 3000);
           console.log("error at data request", error);
         }
       );

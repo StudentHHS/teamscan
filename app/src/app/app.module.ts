@@ -17,6 +17,7 @@ import { InvullenComponent } from './teams/team/invullen/invullen.component';
 import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
 import { UtilityService } from './utility.service';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './login/register.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +35,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -42,14 +46,15 @@ import { OAuthSettings } from '../oauth';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
-     TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent],
+     TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent,
+     RegisterComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
     MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
-    MatProgressSpinnerModule, HttpClientModule
+    MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule, HttpClientModule
   ],
   providers: [
     StatusBar,
