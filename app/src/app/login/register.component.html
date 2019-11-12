@@ -29,18 +29,21 @@
                             <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog geen opleiding of dienst gekozen</mat-error>
                         </mat-form-field>
                         <br>
+                        <p>
+                        Geslacht*: <mat-hint *ngIf="stateForm.get('geslacht').hasError('required')">Geslacht opgeven is verplicht</mat-hint>
+                        </p>
                         <mat-radio-group formControlName="geslacht" required>
-                            <mat-radio-button value="m" style="width: 140px">Man</mat-radio-button>
-                            <mat-radio-button value="v" style="margin: 0 40px 0 0">Vrouw</mat-radio-button>
+                            <mat-radio-button value="m" style="width: 140px; margin: 0 0 4px 0;">Man</mat-radio-button>
+                            <mat-radio-button value="v" style="margin: 0 40px 4px 0">Vrouw</mat-radio-button>
                         </mat-radio-group>
-                        <mat-hint *ngIf="stateForm.get('geslacht').hasError('required')">Geslacht opgeven is verplicht</mat-hint>
                         <br>
-                        <br>
+                        <p>
+                        Soort personeel*: <mat-hint *ngIf="stateForm.get('opOfObp').hasError('required')">Optie opgeven is verplicht</mat-hint>
+                        </p>
                         <mat-radio-group formControlName="opOfObp" required>
-                            <mat-radio-button value="OP" style="width: 140px">Onderwijzend</mat-radio-button>
-                            <mat-radio-button value="OBP" style="margin: 0 40px 0 0">Niet-onderwijzend personeel</mat-radio-button>
+                            <mat-radio-button value="OP" style="width: 140px; margin: 0 0 4px 0;">Onderwijzend</mat-radio-button>
+                            <mat-radio-button value="OBP" style="margin: 0 40px 4px 0">Niet-onderwijzend personeel</mat-radio-button>
                         </mat-radio-group>
-                        <mat-hint *ngIf="stateForm.get('opOfObp').hasError('required')">Je hebt deze optie nog niet gekozen</mat-hint>
                         <br>
                         <br>
                         <br>
@@ -74,6 +77,7 @@
                         <mat-form-field>
                             <input matInput placeholder="Aanstellingsomvang (fte's)" formControlName="aanstellingsomvang">
                             <mat-hint>In fte (bijvoorbeeld 0.6)</mat-hint>
+                            <mat-error *ngIf="stateForm.get('aanstellingsomvang').invalid">Geef je fte-aantal op met een waarde tussen 0.0 en 1.0</mat-error>
                         </mat-form-field>
                         <br>
                         <br>
@@ -82,14 +86,17 @@
                         <p>De volgende vragen geven inzicht in welk jaar je begonnen bent met de volgende onderwerpen. Mocht je het niet meer precies weten, maak dan een schatting of vul dit later in.</p>
                         <mat-form-field>
                             <input matInput placeholder="In welk jaar ben je begonnen op de HHS?"  formControlName="startjaarDienst">
+                            <mat-error *ngIf="stateForm.get('startjaarDienst').invalid">Geef een geldig jaartal op.</mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field>
                             <input matInput placeholder="In welk jaar ben je begonnen in het onderwijs?"  formControlName="startjaarOnderwijs">
+                            <mat-error *ngIf="stateForm.get('startjaarOnderwijs').invalid">Geef een geldig jaartal op.</mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field>
                             <input matInput placeholder="In welk jaar ben je begonnen met je huidige functie?"  formControlName="startjaarFunctie">
+                            <mat-error *ngIf="stateForm.get('startjaarFunctie').invalid">Geef een geldig jaartal op.</mat-error>
                         </mat-form-field>
 
                         <br>
