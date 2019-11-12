@@ -174,7 +174,7 @@ export class RegisterComponent  implements OnInit {
         contractsoort: '',
         locatie: '',
         geboortejaar: new FormControl('', [Validators.min(1900), Validators.max(2100), Validators.pattern("^[0-9]*$")]),
-        aanstellingsomvang: new FormControl('', [Validators.min(0), Validators.max(50), Validators.pattern("^[0-9]*$")]),
+        aanstellingsomvang: new FormControl('', [Validators.pattern("^(0(\.[0-9])?|1\.0|1)$")]),
         startjaarDienst:  new FormControl('', [Validators.min(1900), Validators.max(2100), Validators.pattern("^[0-9]*$")]),
         startjaarOnderwijs:  new FormControl('', [Validators.min(1900), Validators.max(2100), Validators.pattern("^[0-9]*$")]),
         startjaarFunctie:  new FormControl('', [Validators.min(1900), Validators.max(2100), Validators.pattern("^[0-9]*$")])

@@ -38,6 +38,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -54,7 +55,8 @@ import { OAuthSettings } from '../oauth';
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
     MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
-    MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule, HttpClientModule
+    MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
+    MatSlideToggleModule, HttpClientModule
   ],
   providers: [
     StatusBar,

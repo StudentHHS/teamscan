@@ -29,21 +29,22 @@
                             <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog geen opleiding of dienst gekozen</mat-error>
                         </mat-form-field>
                         <br>
-                        <mat-form-field>
-                            <mat-select placeholder="Geslacht" formControlName="geslacht" required>
-                                <mat-option value="m">Man</mat-option>
-                                <mat-option value="v">Vrouw</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="stateForm.get('geslacht').hasError('required')">Je hebt nog geen geslacht gekozen</mat-error>
-                        </mat-form-field>
+                        <mat-radio-group formControlName="geslacht" required>
+                            <mat-radio-button value="m" style="width: 140px">Man</mat-radio-button>
+                            <mat-radio-button value="v" style="margin: 0 40px 0 0">Vrouw</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-hint *ngIf="stateForm.get('geslacht').hasError('required')">Geslacht opgeven is verplicht</mat-hint>
                         <br>
-                        <mat-form-field>
-                            <mat-select placeholder="OP/OBP" formControlName="opOfObp" required>
-                                <mat-option value="OP">OP</mat-option>
-                                <mat-option value="OBP">OBP</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="stateForm.get('opOfObp').hasError('required')">Je hebt deze optie nog niet gekozen</mat-error>
-                        </mat-form-field>
+                        <br>
+                        <mat-radio-group formControlName="opOfObp" required>
+                            <mat-radio-button value="OP" style="width: 140px">Onderwijzend</mat-radio-button>
+                            <mat-radio-button value="OBP" style="margin: 0 40px 0 0">Niet-onderwijzend personeel</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-hint *ngIf="stateForm.get('opOfObp').hasError('required')">Je hebt deze optie nog niet gekozen</mat-hint>
+                        <br>
+                        <br>
+                        <br>
+                        <mat-divider></mat-divider>
                         <br>
                         <mat-form-field>
                             <mat-select placeholder="Contractsoort"  formControlName="contractsoort"> 
@@ -71,10 +72,12 @@
                         </mat-form-field>
                         <br>
                         <mat-form-field>
-                            <input matInput placeholder="Aanstellingsomvang" formControlName="aanstellingsomvang">
-                            <mat-hint>Contracturen</mat-hint>
+                            <input matInput placeholder="Aanstellingsomvang (fte's)" formControlName="aanstellingsomvang">
+                            <mat-hint>In fte (bijvoorbeeld 0.6)</mat-hint>
                         </mat-form-field>
                         <br>
+                        <br>
+                        <mat-divider></mat-divider>
                         <br>
                         <p>De volgende vragen geven inzicht in welk jaar je begonnen bent met de volgende onderwerpen. Mocht je het niet meer precies weten, maak dan een schatting of vul dit later in.</p>
                         <mat-form-field>
