@@ -49,14 +49,16 @@ import { OAuthSettings } from '../oauth';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
-     TeamsComponent, CreateTeamComponent, TeamComponent, InvullenComponent, ResultatenComponent],
+     TeamsComponent, CreateTeamComponent, TeamComponent, InvullenComponent, ResultatenComponent,
+     RegisterComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45",}),
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
     MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
-    MatProgressSpinnerModule, HttpClientModule, MatChipsModule,
+    MatProgressSpinnerModule, HttpClientModule, MatChipsModule, MatInputModule,
+    MatSelectModule, MatAutocompleteModule, MatSlideToggleModule,
   ],
   providers: [
     StatusBar,
