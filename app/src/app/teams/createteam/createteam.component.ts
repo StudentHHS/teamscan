@@ -2,6 +2,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-createteam',
@@ -11,7 +12,8 @@ import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 
 export class CreateTeamComponent implements OnInit {
   @ViewChild('chipList', { static: true }) chipList: MatChipList;
-  public myForm: FormGroup;
+  private createTeamForm: FormGroup;
+  private http: HttpClient;
 
   // email chips
   visible = true;
@@ -20,23 +22,17 @@ export class CreateTeamComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  // data
-  team = {
-    naam: ['', Validators.required],
-    beschrijving: ['', Validators.required],
-    emails: []
-  }
 
   constructor(private fb: FormBuilder) {
-    this.myForm = this.fb.group({
-      naam: this.team.naam,
-      beschrijving: this.team.beschrijving,
-      emails: this.fb.array(this.team.emails, this.validateArrayNotEmpty)
+    this.createTeamForm = this.fb.group({
+      naam: ['', Validators.required],
+      beschrijving: ['', Validators.required],
+      emails: this.fb.array([], this.validateArrayNotEmpty)
     });
   }
 
   ngOnInit() {
-    this.myForm.get('emails').statusChanges.subscribe(
+    this.createTeamForm.get('emails').statusChanges.subscribe(
       status => this.chipList.errorState = status === 'INVALID'
     );
   }
@@ -75,7 +71,7 @@ export class CreateTeamComponent implements OnInit {
         return null;
       }
       console.log(control);
-      console.log(this.myForm.value);
+      console.log(this.createTeamForm.value);
     }
 
     // Reset the input value
@@ -88,10 +84,16 @@ export class CreateTeamComponent implements OnInit {
   remove(form, index) {
     console.log(form);
     form.get('emails').removeAt(index);
-    console.log(this.myForm.value);
+    console.log(this.createTeamForm.value);
   }
 
-  onSubmit(){
-    console.log(this.myForm.value)
+  onSubmit(formData: any){
+    console.log(formData);
+    this.http.get(
+      'https://teamscan.ga/api/?function=createnewteam',
+      { headers: null, responseType: 'json', params: formData })
+      .subscribe(data => {
+        console.log("send",data)
+      });
   }
 }

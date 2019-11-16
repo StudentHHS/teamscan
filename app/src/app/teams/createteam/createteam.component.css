@@ -1,3 +1,7 @@
+mat-form-field {
+  width:100%;
+}
+
 form{
   display: flex;
   flex-direction: column;
@@ -22,10 +26,6 @@ input{
 
 input:focus{
   outline: none;
-}
-
-.beschrijving{
-  max-width: 600px;
 }
 
 button{
