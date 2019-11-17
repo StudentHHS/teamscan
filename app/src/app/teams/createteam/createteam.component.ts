@@ -3,6 +3,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-createteam',
@@ -22,12 +23,12 @@ export class CreateTeamComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.createTeamForm = this.fb.group({
       naam: ['', Validators.required],
       beschrijving: ['', Validators.required],
-      emails: this.fb.array([], this.validateArrayNotEmpty)
+      teamleider: [this.authService.user.id, Validators.required],
+      emails: this.fb.array([this.authService.user.userPrincipalName], this.validateArrayNotEmpty)
     });
   }
 
@@ -71,7 +72,6 @@ export class CreateTeamComponent implements OnInit {
         return null;
       }
       console.log(control);
-      console.log(this.createTeamForm.value);
     }
 
     // Reset the input value
@@ -89,11 +89,13 @@ export class CreateTeamComponent implements OnInit {
 
   onSubmit(formData: any){
     console.log(formData);
+    if(this.createTeamForm.valid){
     this.http.get(
       'https://teamscan.ga/api/?function=createnewteam',
       { headers: null, responseType: 'json', params: formData })
       .subscribe(data => {
         console.log("send",data)
       });
+    }
   }
 }
