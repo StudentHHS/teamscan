@@ -8,6 +8,7 @@ import { InvullenComponent } from './teams/team/invullen/invullen.component';
 import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
 import { ScorenComponent } from './teams/team/resultaten/scoren/scoren.component';
 import { LoginComponent } from './login/login.component';
+import { AanmakenComponent} from './teams/team/aanmaken/aanmaken.component';
 
 const routes: Routes = [
   { path: '', component: MenuComponent, data: {title: 'Teamscan'} },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'team/:id', component: TeamComponent, data: {title: 'Team'}  },
   { path: 'team/:id/invullen', component: InvullenComponent, data: {title: 'Invullen'}  },
   { path: 'team/:id/resultaten', component: ResultatenComponent, data: {title: 'Resultaten'}  },
+  { path: 'team/:id/aanmaken', component: AanmakenComponent, data: {title: 'Aanmaken'} },
   { path: 'team/:id/resultaten/scoren', component: ScorenComponent, data: {title: 'Scoren'}  }
 ];
 

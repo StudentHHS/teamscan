@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Teamscan aanmaken</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <mat-label>Naam</mat-label>
+        <input matInput placeholder="Teamscan naam"  name="teamscannaam" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Startdatum</mat-label>
+        <input matInput [matDatepicker]="Startdatum"  placeholder="Start datum" required>
+        <mat-datepicker-toggle  matSuffix [for]="Startdatum"></mat-datepicker-toggle>
+        <mat-datepicker #Startdatum></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Einddatum</mat-label>
+        <input matInput [matDatepicker]="Einddatum"  placeholder="Eind datum" required>
+        <mat-datepicker-toggle  matSuffix [for]="Einddatum"></mat-datepicker-toggle>
+        <mat-datepicker #Einddatum></mat-datepicker>
+      </mat-form-field>
+
+      <button (click)="createTeamscan()" mat-raised-button type="submit">aanmaken</button>
+      
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <!-- buttons -->
+  </mat-card-actions>
+</mat-card>
