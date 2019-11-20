@@ -3,16 +3,28 @@
         <mat-card-title>
             {{ team }}
         </mat-card-title>
-        <mat-card-subtitle>
-            De teamscan is nog {{resterendeDagen}} dagen geldig!
-        </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <button style="float: right;" mat-stroked-button routerLink="scoren">Open vraag scoren</button>
         <br>
         <br>
         <br>
+        <div class="row">
+            <div style="width: 50%; float: left; text-align: left; vertical-align: middle;">
+                <i class="material-icons" style="vertical-align:middle;">room</i>Startdatum:
+                {{datumAangemaakt|date: 'dd/M/yyyy'}}
+            </div>
+            <div style="width: 50%; float: left; text-align: right;">Einddatum: {{datumVerlopen|date: 'dd/M/yyyy'}}
+                <i class="material-icons" style="vertical-align:middle;">room</i>
+            </div>
+        </div>
+        <br><br>
         <mat-progress-bar mode="determinate" color="#9ea700" value="{{dagenGeldigProgressieBar}}"></mat-progress-bar>
+        <br>
+        <div style="text-align:center;">
+            <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De
+                teamscan is nog {{resterendeDagen}} dagen geldig!</div>
+        </div>
         <mat-list>
             <mat-list-item>
                 <!-- <div>
