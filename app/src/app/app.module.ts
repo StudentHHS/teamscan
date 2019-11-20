@@ -55,7 +55,7 @@ import { OAuthSettings } from '../oauth';
 @NgModule({
   declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
      TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent,
-     RegisterComponent, AanmakenComponent, ScorenComponent, CreateTeamComponent],
+     RegisterComponent, AanmakenComponent, ScorenComponent],
   entryComponents: [],
   imports: [BrowserModule, ChartsModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),
