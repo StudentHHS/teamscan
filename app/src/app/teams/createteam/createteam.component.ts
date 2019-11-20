@@ -14,7 +14,6 @@ import { AuthService } from '../../auth.service';
 export class CreateTeamComponent implements OnInit {
   @ViewChild('chipList', { static: true }) chipList: MatChipList;
   private createTeamForm: FormGroup;
-  private http: HttpClient;
 
   // email chips
   visible = true;
@@ -23,11 +22,11 @@ export class CreateTeamComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private http: HttpClient) {
     this.createTeamForm = this.fb.group({
       naam: ['', Validators.required],
       beschrijving: ['', Validators.required],
-      teamleider: [this.authService.user.id, Validators.required],
+      teamleider: ['', Validators.required],
       emails: this.fb.array([this.authService.user.userPrincipalName], this.validateArrayNotEmpty)
     });
   }
@@ -91,7 +90,7 @@ export class CreateTeamComponent implements OnInit {
     console.log(formData);
     if(this.createTeamForm.valid){
     this.http.get(
-      'https://teamscan.ga/api/?function=createnewteam',
+      'https://teamscan.ga/api/?function=createnewteam&token='+this.authService.token,
       { headers: null, responseType: 'json', params: formData })
       .subscribe(data => {
         console.log("send",data)

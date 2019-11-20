@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, data: {title: 'Login'} },
   { path: 'todo', component: TodoComponent, data: {title: 'To Do'}  },
   { path: 'team', component: TeamsComponent, data: {title: 'Teams'}  },
-  { path: 'create-team', component: CreateTeamComponent, data: {title: 'Nieuw Team'}  },
+  { path: 'team/create-team', component: CreateTeamComponent, data: {title: 'Nieuw Team'}  },
   { path: 'team/:id', component: TeamComponent, data: {title: 'Team'}  },
   { path: 'team/:id/invullen', component: InvullenComponent, data: {title: 'Invullen'}  },
   { path: 'team/:id/resultaten', component: ResultatenComponent, data: {title: 'Resultaten'}  }

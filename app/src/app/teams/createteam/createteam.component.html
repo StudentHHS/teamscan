@@ -6,30 +6,29 @@
   </mat-card-header>
   <mat-card-content>
     <form [formGroup]="createTeamForm" (ngSubmit)="onSubmit(createTeamForm.value)">
-      <label>
-        Team naam:
-      </label>
-      <input type="text" placeholder="Haagse Hogeschool" formControlName="naam">
-      <label>
-        Beschrijving:
-      </label>
-      <input type="text" placeholder="Van hier tot daar" formControlName="beschrijving">
-      <input type="email" formControlName="teamleider" hidden >
-      <label>
-        Voeg leden toe aan dit team:
-      </label>
-      <mat-chip-list #chipList formArrayName="emails" formControlName="emails">
-        <input placeholder="123456@hhs.nl (minimaal 2)" [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, createTeamForm)">
-        <mat-chip *ngFor="let email of createTeamForm.get('emails').controls; let i=index;"
-        [selectable]="selectable"
-        [removable]="removable"
-        (removed)="remove(createTeamForm, i)">
+      <mat-form-field>
+      <input matInput type="text" placeholder="Teamnaam:" formControlName="naam">
+      </mat-form-field>
+      <mat-form-field>
+      <input matInput type="text" placeholder="Beschrijving:" formControlName="beschrijving">
+      </mat-form-field>
+      <mat-form-field>
+      <input matInput type="text" placeholder="Teamleider: (123456@hhs.nl)" formControlName="teamleider">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-chip-list #chipList formArrayName="emails" formControlName="emails">
+          <input placeholder="Voeg leden toe aan dit team: (minimaal 2)" [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, createTeamForm)">
+          <mat-chip *ngFor="let email of createTeamForm.get('emails').controls; let i=index;"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(createTeamForm, i)">
             {{email.value}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
       <button type="submit" [disabled]="createTeamForm.invalid">
         Maak nieuw team
       </button>
