@@ -2,11 +2,20 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ToastController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { trigger, transition, animate, style } from '@angular/animations'
 
 @Component({
   selector: 'app-teams',
   templateUrl: './teams.component.html',
-  styleUrls: ['./../menu/menu.component.css','./teams.component.css']
+  styleUrls: ['./../menu/menu.component.css','./teams.component.css'],
+  animations: [
+    trigger('slide', [
+      transition(':enter', [
+        style({transform: 'translateY(20px)',opacity:0}),
+        animate('200ms ease-out', style({transform: 'translateY(0%)', opacity:1}))
+      ])
+    ])
+  ]
 })
 
 export class TeamsComponent {
