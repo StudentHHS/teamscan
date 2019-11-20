@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { HttpClient } from '@angular/common/http';
@@ -11,9 +11,8 @@ import { AuthService } from '../../auth.service';
   styleUrls: ['./../../menu/menu.component.css','./../teams.component.css', './createteam.component.css']
 })
 
-export class CreateTeamComponent implements OnInit {
+export class CreateTeamComponent {
   @ViewChild('chipList', { static: true }) chipList: MatChipList;
-  private createTeamForm: FormGroup;
 
   // email chips
   visible = true;
@@ -21,33 +20,27 @@ export class CreateTeamComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  public invalidEmailInput:Boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private http: HttpClient) {
-    this.createTeamForm = this.fb.group({
-      naam: ['', Validators.required],
-      beschrijving: ['', Validators.required],
-      teamleider: ['', Validators.required],
-      emails: this.fb.array([this.authService.user.userPrincipalName], this.validateArrayNotEmpty)
-    });
-  }
+  constructor(private fb: FormBuilder, private authService: AuthService, private http: HttpClient) {}
 
-  ngOnInit() {
-    this.createTeamForm.get('emails').statusChanges.subscribe(
-      status => this.chipList.errorState = status === 'INVALID'
-    );
-  }
+  ngOnInit() {}
 
-  initEmail(email: string): FormControl {
-    return this.fb.control(email);
+  createTeamForm: FormGroup = this.fb.group({
+    naam: ['', Validators.required],
+    beschrijving: ['', Validators.required],
+    teamleider: ['', Validators.required],
+    teamleden: new FormArray([], [this.validateArrayNotEmpty])
+  });
+
+  get getteamleden() {
+    return this.createTeamForm.get('teamleden') as FormArray;
   }
 
   //Check of er minimaal 2 emails zijn ingevuld.
   validateArrayNotEmpty(c: FormControl) {
-    if (c.value && c.value.length <= 1) {
-      return {
-        validateArrayNotEmpty: { valid: false }
-      };
-    }
+    if (c.value && c.value.length <= 1)
+      return {validateArrayNotEmpty: { valid: false } };
     return null;
   }
 
@@ -57,20 +50,20 @@ export class CreateTeamComponent implements OnInit {
     return re.test(String(email).toLowerCase());
   }
 
-  add(event: MatChipInputEvent, form: FormGroup): void {
+  add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
     // Add email
     if ((value || '').trim()) {
-      const control = <FormArray>form.get('emails');
       if(this.validateEmail(value)) {
-        control.push(this.initEmail(value.trim()));
+        this.invalidEmailInput=false;
+        this.getteamleden.push(new FormControl(value));
       }
       else {
+        this.invalidEmailInput=true;
         return null;
       }
-      console.log(control);
+      console.log(value);
     }
 
     // Reset the input value
@@ -80,9 +73,8 @@ export class CreateTeamComponent implements OnInit {
   }
 
   //Remove email
-  remove(form, index) {
-    console.log(form);
-    form.get('emails').removeAt(index);
+  remove( index) {
+    this.getteamleden.removeAt(index);
     console.log(this.createTeamForm.value);
   }
 

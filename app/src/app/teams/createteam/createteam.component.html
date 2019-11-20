@@ -7,26 +7,29 @@
   <mat-card-content>
     <form [formGroup]="createTeamForm" (ngSubmit)="onSubmit(createTeamForm.value)">
       <mat-form-field>
-      <input matInput type="text" placeholder="Teamnaam:" formControlName="naam">
+      <input matInput type="text" placeholder="Teamnaam" formControlName="naam" required>
       </mat-form-field>
       <mat-form-field>
-      <input matInput type="text" placeholder="Beschrijving:" formControlName="beschrijving">
+      <input matInput type="text" placeholder="Beschrijving" formControlName="beschrijving" required>
       </mat-form-field>
       <mat-form-field>
-      <input matInput type="text" placeholder="Teamleider: (123456@hhs.nl)" formControlName="teamleider">
+      <input matInput type="text" placeholder="E-mail teamleider" formControlName="teamleider" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-chip-list #chipList formArrayName="emails" formControlName="emails">
-          <input placeholder="Voeg leden toe aan dit team: (minimaal 2)" [matChipInputFor]="chipList"
+        <mat-chip-list #chipList>
+          <input placeholder="Voeg leden toe (abc@hhs.nl) *" [matChipInputFor]="chipList"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, createTeamForm)">
-          <mat-chip *ngFor="let email of createTeamForm.get('emails').controls; let i=index;"
+          <mat-error *ngIf="invalidEmailInput">Voer een geldig emailadres in</mat-error>
+          <mat-error *ngIf="createTeamForm.get('teamleden').hasError('validateArrayNotEmpty') && !invalidEmailInput">Minstens 2</mat-error>
+          <mat-chip  formArrayName="teamleden" *ngFor="let email of createTeamForm.get('teamleden').controls; let i=index;"
           [selectable]="selectable"
           [removable]="removable"
           (removed)="remove(createTeamForm, i)">
             {{email.value}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
+          
         </mat-chip-list>
       </mat-form-field>
       <button type="submit" [disabled]="createTeamForm.invalid">
