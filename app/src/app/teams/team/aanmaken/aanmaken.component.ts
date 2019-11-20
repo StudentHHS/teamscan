@@ -18,13 +18,26 @@ export class AanmakenComponent implements OnInit {
     private location: Location,
     private toastController: ToastController, 
     private authService: AuthService) {
-      
+
     }
 
   ngOnInit() {}
 
-  createTeamscan(){
-    this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?");
+  createTeamscan(formData: any){
+    // console.log(formData);
+    //     this.http.get(
+    //       'https://teamscan.ga/api/?function=saveuserinfo&token='+this.authService.token,
+    //       { headers: null, responseType: 'json', params: formData }
+    //     ).subscribe(data => {
+    //       console.log("returned",data);
+    //       stepper.selected.completed = true;
+    //       stepper.next();
+    //     },
+    //     error => {
+    //       this.showToast("We konden de gegevens niet opslaan. Ben je nog verbonden?", 3000);
+    //       console.log("error at data request", error);
+    //     }
+    //   );
   }
 
   async showToast(text: string) {

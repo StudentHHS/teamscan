@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
+import { ChartsModule } from 'ng2-charts';
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -16,6 +19,7 @@ import { TeamComponent } from './teams/team/team.component';
 import { InvullenComponent } from './teams/team/invullen/invullen.component';
 import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
 import { AanmakenComponent } from './teams/team/aanmaken/aanmaken.component'
+import { ScorenComponent } from './teams/team/resultaten/scoren/scoren.component';
 import { UtilityService } from './utility.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
@@ -46,20 +50,19 @@ import {MatNativeDateModule} from '@angular/material';
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
 
-
-
 @NgModule({
   declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
      TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent,
-     RegisterComponent, AanmakenComponent],
+     RegisterComponent, AanmakenComponent, ScorenComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
+  imports: [BrowserModule, ChartsModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
     MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
-    MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule
+    MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
+    HttpClientModule, RoundProgressModule, MatProgressBarModule
   ],
   providers: [
     StatusBar,

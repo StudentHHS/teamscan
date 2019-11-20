@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-content>
+        <mat-vertical-stepper #stepper>
+
+            <mat-step stepControl="firstFormGroup">
+                <ng-template matStepLabel>Klik de opmerking aan die in uw ogen, tot relatie met het team, het beste past.</ng-template>
+                <mat-radio-group>
+                    <mat-list>
+                        <div>
+                            <mat-list-item *ngFor="let vraag of besteOpenVragen">
+                                <mat-radio-button mat-list-base style="width:100%;">
+                                    <p>{{vraag.antwoord}}</p>
+                                </mat-radio-button>
+                            </mat-list-item>
+                            <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
+                        </div>
+                    </mat-list>
+                </mat-radio-group>
+                <br>
+                <button mat-flat-button color="primary" style="float:right"
+                    (click)="save()">Bewaren</button>
+            </mat-step>
+
+        </mat-vertical-stepper>
+    </mat-card-content>
+</mat-card>
