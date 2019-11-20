@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { TodoComponent } from './todo/todo.component';
 import { TeamsComponent } from './teams/teams.component';
+import { CreateTeamComponent } from './teams/createteam/createteam.component';
 import { TeamComponent } from './teams/team/team.component';
 import { InvullenComponent } from './teams/team/invullen/invullen.component';
 import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
@@ -46,6 +47,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
+import { MatChipsModule} from '@angular/material/chips';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -62,7 +64,7 @@ import { OAuthSettings } from '../oauth';
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
-    HttpClientModule, RoundProgressModule, MatProgressBarModule
+    HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule
   ],
   providers: [
     StatusBar,
