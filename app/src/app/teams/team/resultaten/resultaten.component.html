@@ -1,28 +1,73 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title>
-            Teamleden ({{aantalUitgenodigd}} uitgenodigd, {{aantalRespondenten}} respondent(en))
+            {{ team }}
         </mat-card-title>
-        <mat-card-subtitle>
-            Teamscan geopend op: {{datumAangemaakt}}
-        </mat-card-subtitle>
-        <mat-card-subtitle>
-            Teamscan open tot: {{datumVerlopen}}
-            <div style="font-style: italic">Aantal dagen geldig: {{dagenGeldig}}</div>
-        </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+        <button style="float: right;" mat-stroked-button routerLink="scoren">Open vraag scoren</button>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div style="width: 50%; float: left; text-align: left; vertical-align: middle;">
+                <i class="material-icons" style="vertical-align:middle;">room</i>Startdatum:
+                {{datumAangemaakt|date: 'dd/M/yyyy'}}
+            </div>
+            <div style="width: 50%; float: left; text-align: right;">Einddatum: {{datumVerlopen|date: 'dd/M/yyyy'}}
+                <i class="material-icons" style="vertical-align:middle;">room</i>
+            </div>
+        </div>
+        <br><br>
+        <mat-progress-bar mode="determinate" color="#9ea700" value="{{dagenGeldigProgressieBar}}"></mat-progress-bar>
+        <br>
+        <div style="text-align:center;">
+            <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De
+                teamscan is nog {{resterendeDagen}} dagen geldig!</div>
+        </div>
         <mat-list>
             <mat-list-item>
+                <!-- <div>
+                    <div style="display: block;">
+                        <canvas baseChart width="250" height="400" [datasets]="barChartData" [labels]="barChartLabels"
+                            [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend"
+                            [chartType]="barChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                        </canvas>
+                    </div>
+                </div> -->
+            </mat-list-item>
+            <br>
+            <h2>
+                Deelnemers/teamleden teamscan ({{ team }})
+            </h2>
+            <mat-list-item style="color: #9ea700">
                 <mat-icon mat-list-icon>people</mat-icon>
                 <h4 mat-line>{{naamRespondent}}</h4>
                 <p mat-line>Teamscan volledig ingevuld</p>
             </mat-list-item>
-            <mat-divider inset="true"></mat-divider>
-            <mat-list-item *ngFor="let teamlid of inAfwachtingOp">
+            <!-- <mat-divider inset="true"></mat-divider> -->
+            <mat-list-item style="color: rgba(77, 83, 96, 0.849)" *ngFor="let teamlid of inAfwachtingOp">
                 <mat-icon mat-list-icon>people</mat-icon>
                 <h4 mat-line>{{teamlid.naam}}</h4>
                 <p mat-line>In afwachting op invullen teamscan</p>
+            </mat-list-item>
+            <mat-divider inset="true"></mat-divider>
+            <br>
+            <h2>
+                De beste opmerkingen (uit de teamscan)
+            </h2>
+            <mat-list-item>
+                <mat-icon mat-list-icon>looks_one</mat-icon>
+                <h4 mat-line>{{antwoord1}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>looks_two</mat-icon>
+                <h4 mat-line>{{antwoord2}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>looks_3</mat-icon>
+                <h4 mat-line>{{antwoord3}}</h4>
             </mat-list-item>
         </mat-list>
     </mat-card-content>
