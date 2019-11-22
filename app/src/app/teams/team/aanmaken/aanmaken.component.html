@@ -4,28 +4,30 @@
   </mat-card-header>
 
   <mat-card-content>
-    <form>
+    <form [formGroup]="createTeamScanForm" (ngSubmit)="onSubmit(createTeamScanForm.value)">
       <mat-form-field>
         <mat-label>Naam</mat-label>
-        <input matInput placeholder="Teamscan naam"  name="teamscannaam" required>
+        <input matInput type="text" placeholder="Teamscan naam"  name="teamscannaam" formControlName="naam" required>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Startdatum</mat-label>
-        <input matInput [matDatepicker]="Startdatum"  placeholder="Start datum" required>
+        <input matInput [matDatepicker]="Startdatum"  placeholder="Start datum" formControlName="beginDatum" required>
         <mat-datepicker-toggle  matSuffix [for]="Startdatum"></mat-datepicker-toggle>
         <mat-datepicker #Startdatum></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Einddatum</mat-label>
-        <input matInput [matDatepicker]="Einddatum"  placeholder="Eind datum" required>
+        <input matInput [matDatepicker]="Einddatum"  placeholder="Eind datum" formControlName="eindDatum" required>
         <mat-datepicker-toggle  matSuffix [for]="Einddatum"></mat-datepicker-toggle>
         <mat-datepicker #Einddatum></mat-datepicker>
       </mat-form-field>
 
-      <button (click)="createTeamscan()" mat-raised-button type="submit">aanmaken</button>
-      
+      <button type="submit" [disabled]="createTeamScanForm.invalid" mat-raised-button>
+        Maak aan
+      </button>
+
     </form>
   </mat-card-content>
 

@@ -1,0 +1,28 @@
+form{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0 16px;
+}
+
+button{
+  background-color: #a9b633;
+  color: #ffffff;
+  height: 30px;
+  max-width: 200px;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+button:hover{
+  background-color: #8d962b;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+button:disabled{
+  background-color: #9e9e9e;
+  color: #ffffff;
+}
