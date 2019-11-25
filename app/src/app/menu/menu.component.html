@@ -17,9 +17,8 @@
       Teams
     </button>
     <mat-list>
-      <mat-list-item>Team HBO-ICT</mat-list-item>
-      <mat-list-item>Team Facilitair</mat-list-item>
-      <mat-list-item>...</mat-list-item>
+      <mat-list-item *ngFor="let team of teams | slice:0:2;">{{team.naam}}</mat-list-item>
+      <mat-list-item>Bekijk meer...</mat-list-item>
     </mat-list>
   </mat-card-content>
 </mat-card>
