@@ -14,7 +14,7 @@ export class AuthService {
   public authenticated: boolean = false;
   public firstUse: boolean = false;
   public user: any = null;
-  public token: string;
+  public token: string = null;
   public MSALToken: string;
   private graphClient: Client;
   public redirectUri: string;

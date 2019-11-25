@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { TodoComponent } from './todo/todo.component';
 import { TeamsComponent } from './teams/teams.component';
+import { CreateTeamComponent } from './teams/createteam/createteam.component';
 import { TeamComponent } from './teams/team/team.component';
 import { InvullenComponent } from './teams/team/invullen/invullen.component';
 import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
@@ -46,6 +47,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
+import { MatChipsModule} from '@angular/material/chips';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -53,7 +55,7 @@ import { OAuthSettings } from '../oauth';
 @NgModule({
   declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
      TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent,
-     RegisterComponent, AanmakenComponent, ScorenComponent],
+     RegisterComponent, AanmakenComponent, ScorenComponent, CreateTeamComponent],
   entryComponents: [],
   imports: [BrowserModule, ChartsModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),
@@ -62,7 +64,7 @@ import { OAuthSettings } from '../oauth';
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
-    HttpClientModule, RoundProgressModule, MatProgressBarModule
+    HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule
   ],
   providers: [
     StatusBar,
