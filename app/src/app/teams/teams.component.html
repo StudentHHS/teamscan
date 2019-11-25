@@ -1,4 +1,4 @@
-<mat-card  *ngIf="teams.length > 0" [@slide]>
+<mat-card>
     <mat-card-header>
         <mat-card-title>
             Kies een team
@@ -11,18 +11,20 @@
     </mat-card-content>
     <mat-divider [inset]="true"></mat-divider>
     <mat-card-content>
-        <mat-list>
+        <mat-list *ngIf="teams != null">
             <ng-container *ngFor="let team of teams; last as isLast; first as isFirst">
                 <mat-list-item [routerLink]="team.id"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{team.naam}}</h4><p mat-line> {{team.beschrijving}} </p></mat-list-item>
                 <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
             </ng-container>
-    </mat-list>
+            <mat-list-item *ngIf="teams.length == 0">
+                    <p>Je bent nog geen lid van een team.</p>
+            </mat-list-item>
+        </mat-list>
+        <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="teams == null && !requestFailed"></mat-spinner>
+        <div *ngIf="requestFailed" style="text-align:center; margin-top:20px;">
+            Er kon geen verbinding worden gemaakt.<br><br>
+            <button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>
+        </div>
     </mat-card-content>
 </mat-card>
-<div *ngIf="teams.length == 0 && !requestFailed" style="text-align:center; margin-top:80px;">
-    <mat-spinner style="margin:auto;"></mat-spinner>
-</div>
-<div *ngIf="requestFailed" style="text-align:center; margin-top:80px;">
-    Er kon geen verbinding worden gemaakt.<br><br>
-    <button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>
-</div>
+

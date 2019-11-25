@@ -22,7 +22,7 @@ export class TeamsComponent {
   constructor(private http: HttpClient,
     private toastController: ToastController, private authService: AuthService) {}
 
-    public teams: Object = Array();
+    public teams: Object = null;
     requestFailed: Boolean=false;
 
     ngOnInit() {
@@ -30,22 +30,30 @@ export class TeamsComponent {
     }
 
     getData() {
-    this.http.get(
-        'https://teamscan.ga/api/?function=getteams&token='+this.authService.token,
-        { headers: null, responseType: 'json' }
-      ).subscribe(data => {
-        console.log("resultaat");
-        console.log(data);
-        this.requestFailed = false;
-        this.teams = data;
-      },
-      error => {
-        this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
-        this.requestFailed = true;
-        console.log("error at data request", error);
+      if(this.authService.token) {
+        this.http.get(
+            'https://teamscan.ga/api/?function=getteams&token='+this.authService.token,
+            { headers: null, responseType: 'json' }
+          ).subscribe(data => {
+            console.log("resultaat");
+            console.log(data);
+            this.requestFailed = false;
+            this.teams = data;
+          },
+          error => {
+            if(error.status=="404") {
+              this.teams = [];
+            } else {
+              this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
+              this.requestFailed = true;
+            }
+            console.log("error at data request", error);
+          }
+        );
+      } else {
+        setTimeout(this.getData.bind(this),100);
       }
-    );
-  }
+    }
 
   reload() {
     this.getData();

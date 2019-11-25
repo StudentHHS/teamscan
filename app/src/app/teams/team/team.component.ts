@@ -13,7 +13,7 @@ import { ToastController } from '@ionic/angular';
 
 export class TeamComponent {
   public id: string;
-  requestFailed;
+  requestFailed: Boolean=false;
   public teamdata : Object = Array();
 
   constructor(
@@ -25,26 +25,37 @@ export class TeamComponent {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.us.changeTitle(this.id);
+    
     this.getData();
   }
 
   getData() {
-    this.http.get(
-        'https://teamscan.ga/api/?function=getteam&token='+this.authService.token,
-        { headers: null, responseType: 'json', params: {teamid: this.id} }
-      ).subscribe(data => {
-        console.log("resultaat");
-        console.log(data);
-        this.requestFailed = false;
-        this.teamdata = data;
-      },
-      error => {
-        this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
-        this.requestFailed = true;
-        console.log("error at data request", error);
-      }
-    );
+    if(this.authService.token) {
+      this.http.get(
+          'https://teamscan.ga/api/?function=getteam&token='+this.authService.token,
+          { headers: null, responseType: 'json', params: {teamid: this.id} }
+        ).subscribe(data => {
+          console.log("resultaat");
+          console.log(data);
+          this.requestFailed = false;
+          this.teamdata = data;
+          if(this.teamdata[0])
+            this.us.changeTitle(this.teamdata[0].naam);
+        },
+        error => {
+          this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
+          this.requestFailed = true;
+          console.log("error at data request", error);
+        }
+      );
+    } else {
+      setTimeout(this.getData.bind(this),100);
+    }
+  }
+
+  reload() {
+    this.getData();
+    this.requestFailed = false;
   }
     
   async showToast(text: string, duration: number) {

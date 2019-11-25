@@ -35,12 +35,19 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <mat-list>
+        <mat-list *ngIf="teamdata">
             <ng-container *ngFor="let lid of teamdata; last as isLast; first as isFirst">
+                <mat-list-item *ngIf="isFirst"><mat-icon mat-list-icon>supervised_user_circle</mat-icon> <h4 mat-line><b>Teamleider:</b> {{lid.leider_naam}}</h4><p mat-line> {{lid.leider_mail}} </p></mat-list-item>
+                <mat-divider *ngIf="isFirst"></mat-divider>
                 <mat-list-item *ngIf="lid.givenName"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.givenName}} {{lid.surname}}</h4><p mat-line> {{lid.email}} </p></mat-list-item>
-                <mat-list-item *ngIf="!lid.givenName"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.email}}</h4><p mat-line> Nog niet geregistreerd. </p></mat-list-item>
+                <mat-list-item *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.email}}</h4><p mat-line> Nog niet geregistreerd. </p></mat-list-item>
                 <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
             </ng-container>
         </mat-list>
+        <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="teamdata.length == 0 && !requestFailed"></mat-spinner>
+        <div *ngIf="requestFailed" style="text-align:center; margin-top:20px;">
+            Er kon geen verbinding worden gemaakt.<br><br>
+            <button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>
+        </div>
     </mat-card-content>
 </mat-card>
