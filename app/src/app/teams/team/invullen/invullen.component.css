@@ -1,0 +1,13 @@
+mat-radio-button{
+  width: 100%;
+}
+
+p{
+  font-size: 16px;
+  padding-left: 40px;
+}
+
+mat-form-field{
+  width: 100%;
+  padding-left: 40px;
+}
