@@ -47,7 +47,7 @@ export class InvullenComponent implements OnInit{
         this.requestFailed = false;
         this.dimensions = data;
         for(let title of this.objectKeys(data)){
-        this.antwoordForm.addControl(data[title][0].dimensie_id, new FormControl(''));
+        this.antwoordForm.addControl(data[title][0].dimensie_id, new FormControl('',[Validators.required]));
         }
       },
       error => {
