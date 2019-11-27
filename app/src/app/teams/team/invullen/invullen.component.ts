@@ -31,7 +31,8 @@ export class InvullenComponent implements OnInit{
   }
 
   antwoordForm: FormGroup = this.fb.group({
-    feedback: ['']
+    feedback: [''],
+    user_id: [this.authService.user.id]
   });
 
   getData() {
