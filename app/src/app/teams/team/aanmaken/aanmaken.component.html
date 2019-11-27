@@ -4,32 +4,35 @@
   </mat-card-header>
 
   <mat-card-content>
-    <form>
+    <form [formGroup]="createTeamScan" (ngSubmit)="createTeamscan(createTeamScan.value)">
       <mat-form-field>
         <mat-label>Naam</mat-label>
-        <input matInput placeholder="Teamscan naam"  name="teamscannaam" required>
+        <input matInput type="text" placeholder="Teamscan naam"  name="teamscannaam" formControlName="teamscannaam" required>
       </mat-form-field>
-
+      
       <mat-form-field>
         <mat-label>Startdatum</mat-label>
-        <input matInput [matDatepicker]="Startdatum"  placeholder="Start datum" required>
-        <mat-datepicker-toggle  matSuffix [for]="Startdatum"></mat-datepicker-toggle>
-        <mat-datepicker #Startdatum></mat-datepicker>
+        <input matInput [matDatepicker]="Startdatum"  placeholder="Startdatum" name="teamscanstartdatum" formControlName="teamscanstartdatum" required disabled>
+        <mat-datepicker-toggle  matSuffix [for]="Startdatum"></mat-datepicker-toggle> 
+        <mat-datepicker #Startdatum disabled="false" touchUi></mat-datepicker>
       </mat-form-field>
-
+      
       <mat-form-field>
         <mat-label>Einddatum</mat-label>
-        <input matInput [matDatepicker]="Einddatum"  placeholder="Eind datum" required>
+        <input matInput [matDatepicker]="Einddatum"  placeholder="Einddatum" name="teamscaneinddatum" formControlName="teamscaneinddatum" required disabled>
         <mat-datepicker-toggle  matSuffix [for]="Einddatum"></mat-datepicker-toggle>
-        <mat-datepicker #Einddatum></mat-datepicker>
+        <mat-datepicker #Einddatum disabled="false" touchUi></mat-datepicker>
       </mat-form-field>
-
-      <button (click)="createTeamscan()" mat-raised-button type="submit">aanmaken</button>
+      
+      <mat-form-field>
+        <mat-label>Einddatum open vraag</mat-label>
+        <input matInput [matDatepicker]="EinddatumOpenvraag"  placeholder="Einddatum openvraag" name="teamscanopenvraageinddatum" formControlName="teamscanopenvraageinddatum" required disabled>
+        <mat-datepicker-toggle  matSuffix [for]="EinddatumOpenvraag"></mat-datepicker-toggle>
+        <mat-datepicker #EinddatumOpenvraag disabled="false" touchUi></mat-datepicker>
+      </mat-form-field>
+      
+      <button mat-raised-button type="submit">aanmaken</button>
       
     </form>
   </mat-card-content>
-
-  <mat-card-actions>
-    <!-- buttons -->
-  </mat-card-actions>
 </mat-card>
