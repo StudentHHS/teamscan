@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormArray, FormGroup, Validators } from '@ang
 import { Location } from '@angular/common';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 // import { BrowserModule } from '@angular/platform-browser';
 // import { $ } from 'protractor';
@@ -17,7 +18,8 @@ import { AuthService } from 'src/app/auth.service';
 
 export class InvullenComponent implements OnInit{
   constructor(private http: HttpClient, private location: Location,
-    private toastController: ToastController, private authService: AuthService, private fb: FormBuilder) {}
+    private toastController: ToastController, private authService: AuthService,
+    private fb: FormBuilder, private route: ActivatedRoute) {}
 
   result: Array<Object>;
   public dimensions: Object = Array();
@@ -32,12 +34,12 @@ export class InvullenComponent implements OnInit{
 
   antwoordForm: FormGroup = this.fb.group({
     feedback: [''],
-    user_id: [this.authService.user.id]
+    teamscan: this.route.snapshot.paramMap.get('scan')
   });
 
   getData() {
     this.http.get(
-        'https://teamscan.ga/api/?function=invullijst&token='+this.authService.token,
+        AuthService.apiUrl+'?function=invullijst&token='+this.authService.token,
         { headers: null, responseType: 'json' }
       ).subscribe(data => {
         console.log("resultaat");
@@ -45,11 +47,11 @@ export class InvullenComponent implements OnInit{
         this.requestFailed = false;
         this.dimensions = data;
         for(let title of this.objectKeys(data)){
-        this.antwoordForm.addControl(data[title][0].dimensie_id, new FormControl('', [Validators.required]));
+        this.antwoordForm.addControl(data[title][0].dimensie_id, new FormControl(''));
         }
       },
       error => {
-        this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?");
+        this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?",3000);
         this.requestFailed = true;
         console.log("error at data request", error);
       }
@@ -61,24 +63,31 @@ export class InvullenComponent implements OnInit{
     this.requestFailed = false;
   }
 
-  async showToast(text: string) {
+  async showToast(text: string, duration: number) {
     const toast = await this.toastController.create({
       message: text,
-      duration: 3000,
+      duration: duration,
     });
     toast.present();
   }
 
   save(formData: any) {
     console.log(formData);
-    this.http.get(
-      'https://teamscan.ga/api/?function=saveawnsers&token='+this.authService.token,
-      { headers: null, responseType: 'json', params: formData })
+    let data: FormData = new FormData();        
+    for ( let key in formData) {
+      data.append(key, formData[key]);
+    }
+    this.http.post(
+      AuthService.apiUrl, data,
+      { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "invullijst"} })
       .subscribe(data => {
         console.log("send",data)
+        this.showToast('De vragenlijst is opgeslagen!', 2000);
+        this.location.back();
+      }, error => {
+        this.showToast('We ondervonden een probleem bij het verzenden.', 3000);
       });
-    this.showToast('De vragenlijst is opgeslagen!');
-    this.location.back();
+
   }
 
 }

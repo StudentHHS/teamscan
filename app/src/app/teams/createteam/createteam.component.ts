@@ -45,7 +45,7 @@ export class CreateTeamComponent {
       (resolve, reject) => {
       if(this.validateEmail(c.value)) {
         this.http.get(
-          'https://teamscan.ga/api/?function=getuseridbymail&token='+this.authService.token,
+            AuthService.apiUrl+'?function=getuseridbymail&token='+this.authService.token,
           { headers: null, responseType: 'json', params: {mail: c.value} }
         ).subscribe((data) => {
           resolve(null);
@@ -122,7 +122,7 @@ export class CreateTeamComponent {
     formData.teamledenstring = formData.teamleden.toString();
     if(this.createTeamForm.valid){
     this.http.get(
-      'https://teamscan.ga/api/?function=createnewteam&token='+this.authService.token,
+        AuthService.apiUrl+'?function=createnewteam&token='+this.authService.token,
       { headers: null, responseType: 'json', params: formData })
       .subscribe(data => {
         console.log("send",data)

@@ -18,6 +18,7 @@ export class AuthService {
   public MSALToken: string;
   private graphClient: Client;
   public redirectUri: string;
+  public static apiUrl: string = "https://hhs-teamscan.azurewebsites.net/api/";
 
   constructor(
     private msalService: MsalService, private storage: Storage, private http: HttpClient,
@@ -128,7 +129,7 @@ export class AuthService {
 
     getUserFromDatabase(func: any) {
       this.http.get(
-          'https://teamscan.ga/api/?function=userregistration&token='+this.MSALToken,
+          AuthService.apiUrl+'?function=userregistration&token='+this.MSALToken,
           { headers: null, responseType: 'json' }
         ).subscribe(data => {
           console.log(data);

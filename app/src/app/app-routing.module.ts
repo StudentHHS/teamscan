@@ -18,10 +18,10 @@ const routes: Routes = [
   { path: 'team', component: TeamsComponent, data: {title: 'Teams'}  },
   { path: 'team/create-team', component: CreateTeamComponent, data: {title: 'Nieuw Team'}  },
   { path: 'team/:id', component: TeamComponent, data: {title: 'Team'}  },
-  { path: 'team/:id/invullen', component: InvullenComponent, data: {title: 'Invullen'}  },
-  { path: 'team/:id/resultaten', component: ResultatenComponent, data: {title: 'Resultaten'}  },
+  { path: 'team/:id/:scan/invullen', component: InvullenComponent, data: {title: 'Invullen'}  },
+  { path: 'team/:id/:scan/resultaten', component: ResultatenComponent, data: {title: 'Resultaten'}  },
   { path: 'team/:id/aanmaken', component: AanmakenComponent, data: {title: 'Aanmaken'} },
-  { path: 'team/:id/resultaten/scoren', component: ScorenComponent, data: {title: 'Scoren'}  }
+  { path: 'team/:id/:scan/resultaten/scoren', component: ScorenComponent, data: {title: 'Scoren'}  }
 ];
 
 @NgModule({

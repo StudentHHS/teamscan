@@ -32,7 +32,7 @@ export class TeamsComponent {
     getData() {
       if(this.authService.token) {
         this.http.get(
-            'https://teamscan.ga/api/?function=getteams&token='+this.authService.token,
+            AuthService.apiUrl+'?function=getteams&token='+this.authService.token,
             { headers: null, responseType: 'json' }
           ).subscribe(data => {
             console.log("resultaat");
