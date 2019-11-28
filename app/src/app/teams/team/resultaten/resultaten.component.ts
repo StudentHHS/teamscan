@@ -15,7 +15,7 @@ import { ToastController } from '@ionic/angular';
 export class ResultatenComponent {
     public id: string;
     requestFailed: Boolean = false;
-    public teamdata: Object = null;
+    public teamdata: any = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -40,7 +40,7 @@ export class ResultatenComponent {
                 this.requestFailed = false;
                 this.teamdata = data;
                 if (this.teamdata[0])
-                    this.us.changeTitle("Resultaten: " + this.teamdata[0].naam);
+                    this.us.changeTitle("Resultaten: " + this.teamdata.team.naam);
             },
                 error => {
                     this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);

@@ -36,12 +36,29 @@
     </mat-card-header>
     <mat-card-content>
         <mat-list *ngIf="teamdata">
-            <ng-container *ngFor="let lid of teamdata; last as isLast; first as isFirst">
-                <mat-list-item *ngIf="isFirst"><mat-icon mat-list-icon>supervised_user_circle</mat-icon> <h4 mat-line><b>Teamleider:</b> {{lid.leider_naam}}</h4><p mat-line> {{lid.leider_mail}} </p></mat-list-item>
+            <ng-container *ngFor="let lid of teamdata.leden; last as isLast; first as isFirst">
+                <mat-list-item *ngIf="isFirst"><p mat-line style="margin-bottom:20px"> Aangemaakt door: {{lid.leider_mail}} </p></mat-list-item>
                 <mat-divider *ngIf="isFirst"></mat-divider>
-                <mat-list-item *ngIf="lid.givenName"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.givenName}} {{lid.surname}}</h4><p mat-line> {{lid.email}} </p></mat-list-item>
-                <mat-list-item *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.email}}</h4><p mat-line> Nog niet geregistreerd. </p></mat-list-item>
+                <mat-list-item *ngIf="lid.givenName">
+                    <mat-icon mat-list-icon *ngIf="!lid.beheerder">people</mat-icon>
+                    <mat-icon mat-list-icon *ngIf="lid.beheerder">supervised_user_circle</mat-icon>
+                    <h4 mat-line>{{lid.givenName}} {{lid.surname}}</h4>
+                    <p mat-line> {{lid.userPrincipalName}}<span *ngIf="lid.beheerder"> (beheerder)</span></p>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opties voor teamlid" *ngIf="teamdata.team.beheerder">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-list-item *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.userPrincipalName}}</h4><p mat-line> Nog niet geregistreerd. </p></mat-list-item>
                 <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
+
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                      <mat-icon mat-list-icon *ngIf="lid.beheerder">people</mat-icon>
+                      <mat-icon mat-list-icon *ngIf="!lid.beheerder">supervised_user_circle</mat-icon>
+                      <span *ngIf="!lid.beheerder" (click)="updateBeheerder(1,lid.userPrincipalName,lid.mail)">Teambeheerder maken</span>
+                      <span *ngIf="lid.beheerder" (click)="updateBeheerder(0,lid.userPrincipalName,lid.mail)">Verwijderen als beheerder</span>
+                    </button>
+                  </mat-menu>
             </ng-container>
         </mat-list>
         <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="teamdata.length == 0 && !requestFailed"></mat-spinner>

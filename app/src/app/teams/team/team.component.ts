@@ -14,7 +14,7 @@ import { ToastController } from '@ionic/angular';
 export class TeamComponent {
   public id: string;
   requestFailed: Boolean=false;
-  public teamdata : Object = Array();
+  public teamdata : any = Array();
 
   constructor(
     private route: ActivatedRoute,
@@ -32,15 +32,15 @@ export class TeamComponent {
   getData() {
     if(this.authService.token) {
       this.http.get(
-          AuthService.apiUrl+'?function=getteam&token='+this.authService.token,
-          { headers: null, responseType: 'json', params: {teamid: this.id} }
+          AuthService.apiUrl,
+          { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {teamid: this.id, function: "getteam"} }
         ).subscribe(data => {
           console.log("resultaat");
           console.log(data);
           this.requestFailed = false;
           this.teamdata = data;
-          if(this.teamdata[0])
-            this.us.changeTitle(this.teamdata[0].naam);
+          if(this.teamdata.team)
+            this.us.changeTitle(this.teamdata.team.naam);
         },
         error => {
           this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
@@ -56,6 +56,29 @@ export class TeamComponent {
   reload() {
     this.getData();
     this.requestFailed = false;
+  }
+
+  updateBeheerder(beheerder, userPrincipalName, mail) {
+    console.log(beheerder, userPrincipalName, mail);
+    let data: FormData = new FormData();
+    data.append('beheerder', beheerder);
+    data.append('userPrincipalName', userPrincipalName);
+    data.append('mail', mail);
+    data.append('teamid', this.id);
+    this.http.post(
+        AuthService.apiUrl, data,
+        { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "teambeheerder"} }
+      ).subscribe(data => {
+        console.log("resultaat");
+        console.log(data);
+        this.teamdata = data;
+      },
+      error => {
+        this.showToast("Het is niet gelukt een aanpassing te maken.", 3000);
+        this.requestFailed = true;
+        console.log("error at data request", error);
+      }
+    );
   }
     
   async showToast(text: string, duration: number) {
