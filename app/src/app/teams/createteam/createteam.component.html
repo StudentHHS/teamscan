@@ -10,20 +10,33 @@
       <input matInput type="text" placeholder="Teamnaam" formControlName="naam" required>
       </mat-form-field>
       <mat-form-field>
-      <input matInput type="text" placeholder="Beschrijving" formControlName="beschrijving" required>
+      <input matInput type="text" placeholder="Omschrijf het team kort" formControlName="beschrijving" required>
       </mat-form-field>
-      <mat-form-field>
-      <input matInput type="text" placeholder="E-mail teamleider" formControlName="teamleider" required>
-      <mat-error *ngIf="isValidUser">Geen bekende gebruiker</mat-error>
-      <mat-hint *ngIf="!createTeamForm.get('teamleider').hasError('isValidUser') && !createTeamForm.get('teamleider').hasError('required')" style="color:#9ea700">Gebruiker bestaat</mat-hint>
+      <mat-label>Is er sprake van een samenwerkingsverband?</mat-label><br>
+      <mat-radio-group formControlName="samenwerking" required>
+          <mat-radio-button value="1" style="margin-bottom:10px">Team overkoepelt meerdere opleidingen of diensten</mat-radio-button><br>
+          <mat-radio-button value="0">Team valt onder 1 opleiding of dienst</mat-radio-button>
+      </mat-radio-group>
+      <br>
+      <mat-form-field *ngIf="createTeamForm.get('samenwerking').value == 0">
+          <input type="text" matInput placeholder="Opleiding of unit" formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
+          <mat-autocomplete #autoGroup="matAutocomplete">
+              <mat-optgroup *ngFor="let faculty of stateGroupOptions | async" [label]="faculty.naam">
+                  <mat-option *ngFor="let opleiding of faculty.opleidingen" [value]="opleiding + ' — ' + faculty.naam">
+                  {{opleiding}}
+                  </mat-option>
+              </mat-optgroup>
+          </mat-autocomplete>
+          <mat-error *ngIf="createTeamForm.get('opleidingEnFaculteit').hasError('validateFaculteit')">Kies een opleiding of dienst uit de lijst</mat-error>
+          <mat-error *ngIf="createTeamForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog geen opleiding of dienst gekozen</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-chip-list #chipList>
-          <input placeholder="Voeg leden toe *" [matChipInputFor]="chipList"
+          <input placeholder="Voeg andere leden toe *" [matChipInputFor]="chipList"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, createTeamForm)">
           <mat-error *ngIf="invalidEmailInput">Voer een geldig emailadres in</mat-error>
-          <mat-error *ngIf="createTeamForm.get('teamleden').hasError('validateArrayNotEmpty') && !invalidEmailInput">Minstens 2</mat-error>
+          <mat-error *ngIf="createTeamForm.get('teamleden').hasError('validateArrayNotEmpty') && !invalidEmailInput">Nog {{2 - (createTeamForm.get('teamleden').value.length)}}</mat-error>
           <mat-chip  formArrayName="teamleden" *ngFor="let email of createTeamForm.get('teamleden').controls; let i=index;"
           [selectable]="selectable"
           [removable]="removable"
@@ -31,9 +44,9 @@
             {{email.value}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          
+          <mat-chip>Ikzelf</mat-chip>
         </mat-chip-list>
-        <mat-hint>E-mailadressen gescheiden door komma's</mat-hint>
+        <mat-hint>E-mailadressen gescheiden door komma's, minimaal 2 andere leden</mat-hint>
       </mat-form-field>
       <button type="submit" [disabled]="createTeamForm.invalid">
         Maak nieuw team
