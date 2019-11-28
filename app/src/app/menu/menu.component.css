@@ -1,0 +1,7 @@
+
+  .card-button {
+    display:grid; grid-template-columns: 1fr 0fr;
+  }
+  .card-button .right-icon {
+    height:100%;display: flex;align-items: center;
+  }

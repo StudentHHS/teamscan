@@ -48,6 +48,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import { MatChipsModule} from '@angular/material/chips';
+import {MatRippleModule} from '@angular/material/core';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -64,7 +65,7 @@ import { OAuthSettings } from '../oauth';
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
-    HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule
+    HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule, MatRippleModule
   ],
   providers: [
     StatusBar,

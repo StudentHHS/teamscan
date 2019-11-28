@@ -1,10 +1,10 @@
 <mat-card class=""  style="width:100%">
     <mat-card-content class="">
-        Geselecteerde teamscan: {{teamdata.team?.teamscan ? teamdata.team?.teamscan_naam : "maak eerst een teamscan aan"}}
-        <button mat-stroked-button [matMenuTriggerFor]="changeteamscan" (click)="openteamscanmenu()" style="float:right;margin-top: -5px;line-height: 25px;">Wijzig teamscan</button>
+        Teamscan: {{teamdata.team?.teamscan ? teamdata.team?.teamscan_naam : "niet aangemaakt"}}
+        <button mat-stroked-button [matMenuTriggerFor]="changeteamscan" (click)="openteamscanmenu()" style="float:right;margin-top: -5px;line-height: 25px;">Wijzig</button>
     
         <mat-menu #changeteamscan="matMenu">
-            <mat-spinner style="margin:10px auto;" diameter="30" *ngIf="!teamscans"></mat-spinner>
+            <div style="min-width:250px;"><mat-spinner style="margin:10px auto;" diameter="30" *ngIf="!teamscans"></mat-spinner></div>
             <button mat-menu-item *ngFor="let scan of teamscans" [routerLink]="'/team/'+id+'/'+scan.id">
                 <mat-icon mat-list-icon>assessment</mat-icon>
                 <span>{{scan.naam}} ({{scan.id}})</span>

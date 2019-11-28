@@ -1,16 +1,17 @@
-<mat-card routerLink="/todo">
+<mat-card routerLink="/todo" class="card-button" matRipple>
   <mat-card-content class="dashboard-card-content">
     <button mat-button style="width:100%;text-align:left;font-size:20px;">
       <mat-icon>list</mat-icon>
       To do
     </button>
     <mat-list>
-        <mat-list-item>Je hebt geen taken meer te doen!</mat-list-item>
+        <mat-list-item>Deze functie is nog niet beschikbaar.</mat-list-item>
     </mat-list>
   </mat-card-content>
+  <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
 </mat-card>
 <br>
-<mat-card routerLink="/team" >
+<mat-card routerLink="/team" class="card-button" matRipple >
   <mat-card-content class="dashboard-card-content">
     <button mat-button style="width:100%;text-align:left;font-size:20px;">
       <mat-icon>people</mat-icon>
@@ -21,6 +22,7 @@
       <mat-list-item>Bekijk meer...</mat-list-item>
     </mat-list>
   </mat-card-content>
+  <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
 </mat-card>
 <br>
 <mat-card (click)="signOut()">
