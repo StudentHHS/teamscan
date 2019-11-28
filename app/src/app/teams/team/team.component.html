@@ -3,28 +3,31 @@
         <mat-card-title>
         Invullen
         </mat-card-title>
-    <mat-card-content class="">
-        <div>Er staan vragen voor je klaar.</div><br>
-        <button mat-stroked-button routerLink="1/invullen">Beantwoord de vragen</button>
-    </mat-card-content>
+            <mat-card-content *ngIf="!teamdata.team.ingevuld">
+                <div>Er staan vragen voor je klaar. Teamscan id: {{teamdata.team.teamscan}}</div><br>
+                <button mat-stroked-button routerLink="1/invullen">Beantwoord de vragen</button>
+            </mat-card-content>
+            <mat-card-content *ngIf="teamdata.team.ingevuld">
+                <div>Je hoeft hier niks te doen.</div>
+            </mat-card-content>
     </mat-card>
     <mat-card class=""  style="width:100%">
         <mat-card-title>
         Resultaten
         </mat-card-title>
-    <mat-card-content class="">
-        <div>Er zijn nog geen resultaten.</div><br>
-        <button mat-stroked-button routerLink="1/resultaten">Laat resultaten zien</button>
-    </mat-card-content>
+        <mat-card-content class="">
+            <div>Er zijn nog geen resultaten.</div><br>
+            <button mat-stroked-button routerLink="1/resultaten">Laat resultaten zien</button>
+        </mat-card-content>
     </mat-card>
     <mat-card class=""  style="width:100%">
         <mat-card-title>
         Teamscan aanmaken
         </mat-card-title>
-    <mat-card-content class="">
-        <div>Maak en nieuwe teamscan aan voor dit team</div><br>
-        <button mat-stroked-button routerLink="aanmaken">Aanmaken</button>
-    </mat-card-content>
+        <mat-card-content class="">
+            <div>Maak en nieuwe teamscan aan voor dit team</div><br>
+            <button mat-stroked-button routerLink="aanmaken">Aanmaken</button>
+        </mat-card-content>
     </mat-card>
 </div>
 <br>

@@ -14,6 +14,7 @@ import { ToastController } from '@ionic/angular';
 
 export class ResultatenComponent {
     public id: string;
+    public teamscan: string;
     requestFailed: Boolean = false;
     public teamdata: any = null;
 
@@ -26,6 +27,7 @@ export class ResultatenComponent {
 
     ngOnInit() {
         this.id = this.route.snapshot.paramMap.get('id');
+        this.teamscan = this.route.snapshot.paramMap.get('scan');
         this.getData();
     }
 
@@ -33,7 +35,7 @@ export class ResultatenComponent {
         if (this.authService.token) {
             this.http.get(
                 AuthService.apiUrl+'?function=getteam&token=' + this.authService.token,
-                { headers: null, responseType: 'json', params: { teamid: this.id } }
+                { headers: null, responseType: 'json', params: { teamid: this.id, teamscan: this.teamscan } }
             ).subscribe(data => {
                 console.log("resultaat");
                 console.log(data);
