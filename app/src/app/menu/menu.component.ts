@@ -21,8 +21,8 @@ export class MenuComponent {
   getData() {
     if(this.authService.token) {
       this.http.get(
-         AuthService.apiUrl+'?function=getteams&token='+this.authService.token,
-          { headers: null, responseType: 'json' }
+         AuthService.apiUrl,
+          { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "menu"}}
         ).subscribe(data => {
           console.log("resultaat", data);
           this.teams = data;
@@ -37,6 +37,10 @@ export class MenuComponent {
         }
       );
     }
+  }
+
+  openDashboard() {
+    window.location.href = 'https://hhs-teamscan.azurewebsites.net/dashboard';
   }
 
   signOut(): void {

@@ -10,10 +10,12 @@ import { ResultatenComponent } from './teams/team/resultaten/resultaten.componen
 import { ScorenComponent } from './teams/team/resultaten/scoren/scoren.component';
 import { LoginComponent } from './login/login.component';
 import { AanmakenComponent} from './teams/team/aanmaken/aanmaken.component';
+import { SettingsComponent} from './settings/settings.component';
 
 const routes: Routes = [
   { path: '', component: MenuComponent, data: {title: 'Teamscan'} },
   { path: 'login', component: LoginComponent, data: {title: 'Login'} },
+  { path: 'instellingen', component: SettingsComponent, data: {title: 'Instellingen'} },
   { path: 'todo', component: TodoComponent, data: {title: 'To Do'}  },
   { path: 'team', component: TeamsComponent, data: {title: 'Teams'}  },
   { path: 'team/create-team', component: CreateTeamComponent, data: {title: 'Nieuw Team'}  },

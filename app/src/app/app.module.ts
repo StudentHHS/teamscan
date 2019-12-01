@@ -24,6 +24,7 @@ import { ScorenComponent } from './teams/team/resultaten/scoren/scoren.component
 import { UtilityService } from './utility.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
+import { SettingsComponent } from './settings/settings.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,7 +57,8 @@ import { OAuthSettings } from '../oauth';
 @NgModule({
   declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
      TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent,
-     RegisterComponent, AanmakenComponent, ScorenComponent, CreateTeamComponent],
+     RegisterComponent, AanmakenComponent, ScorenComponent, CreateTeamComponent,
+     SettingsComponent],
   entryComponents: [],
   imports: [BrowserModule, ChartsModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),

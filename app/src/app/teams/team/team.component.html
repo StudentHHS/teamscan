@@ -13,7 +13,7 @@
     </mat-card-content>
 </mat-card>
 <br>
-<div class="grid" *ngIf="teamdata.team?.teamscan" [@slide] style="margin-bottom:23px">
+<div class="grid" *ngIf="teamdata.team?.teamscan" [@slide] style="margin-bottom:19px">
     <mat-card class="" style="width:100%">
         <mat-card-title>
         Invullen
@@ -36,7 +36,7 @@
         </mat-card-content>
     </mat-card>
 </div>
-<mat-card class=""  style="width:100%" *ngIf="teamdata.team?.beheerder" [@slide] style="margin-bottom:23px">
+<mat-card class=""  style="width:100%" *ngIf="teamdata.team?.beheerder" [@slide] style="margin-bottom:19px">
     <h6>Beheerdersmenu</h6>
     <mat-card-content class="">
         <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'">Teamscan aanmaken</button>

@@ -1,0 +1,8 @@
+<mat-card (click)="signOut()">
+  <mat-card-content class="dashboard-card-content">
+    <button mat-button  style="width:100%;text-align:left" *ngIf="this.authService?.user !== null">
+      <mat-icon>vpn_key</mat-icon>
+      Log uit (ingelogd als {{this.authService.user?.givenName}})
+    </button>
+  </mat-card-content>
+</mat-card>

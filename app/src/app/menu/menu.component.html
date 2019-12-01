@@ -5,7 +5,7 @@
       To do
     </button>
     <mat-list>
-        <mat-list-item>Deze functie is nog niet beschikbaar.</mat-list-item>
+        <mat-list-item>Deze functie is nog niet beschikbaar, {{this.authService.user?.givenName}}.</mat-list-item>
     </mat-list>
   </mat-card-content>
   <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
@@ -25,11 +25,23 @@
   <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
 </mat-card>
 <br>
-<mat-card (click)="signOut()">
+<mat-card class="card-button" *ngIf="this.authService.dbUser?.rol >= 3" matRipple style="margin-bottom:19px" (click)="openDashboard()">
   <mat-card-content class="dashboard-card-content">
-    <button mat-button  style="width:100%;text-align:left" *ngIf="this.authService.user !== null">
-      <mat-icon>vpn_key</mat-icon>
-      Log uit (ingelogd als {{this.authService.user.givenName}})
+    <button mat-button style="width:100%;text-align:left;">
+      <mat-icon>dashboard</mat-icon>
+      Dashboard
+    </button>
+    <mat-list>
+      <mat-list-item>Bekijk de overkoepelende resultaten.</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
+</mat-card>
+<mat-card routerLink="instellingen">
+  <mat-card-content class="dashboard-card-content">
+    <button mat-button  style="width:100%;text-align:left" *ngIf="this.authService?.user !== null">
+      <mat-icon>settings</mat-icon>
+      Instellingen
     </button>
   </mat-card-content>
 </mat-card>
