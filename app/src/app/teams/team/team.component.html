@@ -1,7 +1,8 @@
 <mat-card class=""  style="width:100%">
     <mat-card-content class="">
-        Teamscan: {{teamdata.team?.teamscan ? teamdata.team?.teamscan_naam : "niet aangemaakt"}}
-        <button mat-stroked-button [matMenuTriggerFor]="changeteamscan" (click)="openteamscanmenu()" style="float:right;margin-top: -5px;line-height: 25px;">Wijzig</button>
+        <b>Teamscan:</b> {{teamdata.teamscan ? teamdata.teamscan?.naam : "niet aangemaakt"}}
+        <button mat-stroked-button *ngIf="teamdata.teamscan" [matMenuTriggerFor]="changeteamscan" (click)="openteamscanmenu()" style="float:right;margin-top: -5px;line-height: 25px;">Wijzig</button>
+        <button mat-stroked-button *ngIf="!teamdata.teamscan && teamdata.team?.beheerder" [routerLink]="'/team/'+id+'/aanmaken'" style="float:right;margin-top: -5px;line-height: 25px;">Aanmaken</button>
     
         <mat-menu #changeteamscan="matMenu">
             <div style="min-width:250px;"><mat-spinner style="margin:10px auto;" diameter="30" *ngIf="!teamscans"></mat-spinner></div>
@@ -13,18 +14,26 @@
     </mat-card-content>
 </mat-card>
 <br>
-<div class="grid" *ngIf="teamdata.team?.teamscan" [@slide] style="margin-bottom:19px">
-    <mat-card class="" style="width:100%">
+<div class="grid" *ngIf="teamdata.team?.teamscan" [@grow] style="margin-bottom:19px">
+    <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status == 'invullen'">
         <mat-card-title>
         Invullen
         </mat-card-title>
-            <mat-card-content *ngIf="!teamdata.team?.ingevuld && teamdata.team">
-                <div>Er staan vragen voor je klaar.</div><br>
-                <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'">Beantwoord de vragen</button>
-            </mat-card-content>
-            <mat-card-content *ngIf="teamdata.team?.ingevuld && teamdata.team">
-                <div>Je bent klaar met invullen.</div>
-            </mat-card-content>
+        <mat-card-content *ngIf="!teamdata.team?.ingevuld && teamdata.team">
+            <div>Er staan vragen voor je klaar.</div><br>
+            <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'">Beantwoord de vragen</button>
+        </mat-card-content>
+        <mat-card-content *ngIf="teamdata.team?.ingevuld && teamdata.team">
+            <div>Je bent klaar met invullen.</div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status == 'scoren'">
+        <mat-card-title>
+        Scoren verbeterpunten
+        </mat-card-title>
+        <mat-card-content>
+            <div>Geef je mening over de verbeterpunten die teamleden aandragen.</div><br>
+        </mat-card-content>
     </mat-card>
     <mat-card class=""  style="width:100%">
         <mat-card-title>
@@ -36,7 +45,7 @@
         </mat-card-content>
     </mat-card>
 </div>
-<mat-card class=""  style="width:100%" *ngIf="teamdata.team?.beheerder" [@slide] style="margin-bottom:19px">
+<mat-card class=""  style="width:100%" *ngIf="teamdata.team?.beheerder" [@grow] style="margin-bottom:19px">
     <h6>Beheerdersmenu</h6>
     <mat-card-content class="">
         <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'">Teamscan aanmaken</button>

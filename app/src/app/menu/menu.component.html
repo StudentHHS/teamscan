@@ -25,7 +25,7 @@
   <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
 </mat-card>
 <br>
-<mat-card class="card-button" *ngIf="this.authService.dbUser?.rol >= 3" matRipple style="margin-bottom:19px" (click)="openDashboard()">
+<mat-card class="card-button" *ngIf="this.authService.dbUser?.rol >= 3" matRipple style="margin-bottom:19px" (click)="openDashboard()" [@grow]>
   <mat-card-content class="dashboard-card-content">
     <button mat-button style="width:100%;text-align:left;">
       <mat-icon>dashboard</mat-icon>

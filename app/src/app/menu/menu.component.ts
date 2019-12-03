@@ -1,13 +1,23 @@
 import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
+import { trigger, transition, animate, style, group } from '@angular/animations'
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
+  animations: [
+    trigger('grow', [
+      transition(':enter', [
+        style({height: '0', opacity: 0}),
+                group([
+                    animate("200ms cubic-bezier(0,.97,.53,1)", style({height: '*'})),
+                    animate('400ms ease-out', style({'opacity': '1'}))
+                ])
+      ])
+    ])
+  ]
 })
 
 export class MenuComponent {
