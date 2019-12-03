@@ -49,6 +49,7 @@ export class AanmakenComponent implements OnInit {
           { headers: null, responseType: 'json', params: formData }
         ).subscribe(data => {
           console.log("returned",data);
+          this.showToast("Teamscan is aangemaakt");
           this.location.back();
         },
         error => {

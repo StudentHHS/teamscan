@@ -1,22 +1,41 @@
 <div class="grid">
+    <ng-container *ngIf="teamscandata.status === 'invullen'">
     <mat-card class="" style="width:100%">
         <mat-card-title>
-        Invullen
+        Er staan vragen voor je klaar
         </mat-card-title>
     <mat-card-content class="">
-        <div>Er staan vragen voor je klaar.</div><br>
+        <div>Startdatum: {{teamscandata.start}} - Einddatum: {{teamscandata.eind}}</div><br>
         <button mat-stroked-button routerLink="invullen">Beantwoord de vragen</button>
+        <button mat-stroked-button (click)="closeTeamscan(teamscandata.id)" >Teamscan sluiten</button>
     </mat-card-content>
     </mat-card>
-    <mat-card class=""  style="width:100%">
-        <mat-card-title>
-        Resultaten
-        </mat-card-title>
-    <mat-card-content class="">
-        <div>Er zijn nog geen resultaten.</div><br>
-        <button mat-stroked-button routerLink="resultaten">Laat resultaten zien</button>
-    </mat-card-content>
-    </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="teamscandata.status === 'scoren'">
+            <mat-card class="" style="width:100%">
+                <mat-card-title>
+                Openvragen scoren
+                </mat-card-title>
+            <mat-card-content class="">
+                <div>U kunt de antwoorden op de openvragen scoren</div><br>
+                <button mat-stroked-button routerLink="invullen">Scoor de openvragen</button>
+            </mat-card-content>
+            </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="teamscandata.status === 'gesloten'">
+        <mat-card class=""  style="width:100%">
+            <mat-card-title>
+            Resultaten
+            </mat-card-title>
+        <mat-card-content class="">
+            <div>Er zijn nog geen resultaten.</div><br>
+            <button mat-stroked-button routerLink="resultaten">Laat resultaten zien</button>
+        </mat-card-content>
+        </mat-card>
+    </ng-container>
+
     <mat-card class=""  style="width:100%">
         <mat-card-title>
         Teamscan aanmaken
@@ -26,6 +45,7 @@
         <button mat-stroked-button routerLink="aanmaken">Aanmaken</button>
     </mat-card-content>
     </mat-card>
+
 </div>
 <br>
 <mat-card>

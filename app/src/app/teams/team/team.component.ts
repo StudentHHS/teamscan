@@ -15,6 +15,7 @@ export class TeamComponent {
   public id: string;
   requestFailed: Boolean=false;
   public teamdata : Object = Array();
+  public teamscandata : Object = Array();
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class TeamComponent {
     this.id = this.route.snapshot.paramMap.get('id');
     
     this.getData();
+    this.getTeamscan();
   }
 
   getData() {
@@ -53,8 +55,46 @@ export class TeamComponent {
     }
   }
 
+  getTeamscan() {
+    if(this.authService.token) {
+      this.http.get(
+          'https://teamscan.ga/api/?function=getteamscan&token='+this.authService.token,
+          { headers: null, responseType: 'json', params: {teamid: this.id} }
+        ).subscribe(data => {
+          this.teamscandata = data;
+        },
+        error => {
+          this.showToast("Er is een probleem met het ophalen van de data, probeer het nog een keer aub.", 3000);
+          console.log("error at data request", error);
+        }
+      );
+    } else {
+      setTimeout(this.getTeamscan.bind(this),100);
+    }
+  }
+
+  closeTeamscan(teamscanId : any) {
+    console.log(teamscanId);
+    if(this.authService.token) {
+      this.http.get(
+          'https://teamscan.ga/api/?function=closeteamscan&token='+this.authService.token,
+          { headers: null, responseType: 'json', params: {teamscanid: teamscanId} }
+        ).subscribe(data => {
+          console.log(data);
+        },
+        error => {
+          this.showToast("Er is een probleem ontstaan, probeer het nog een keer.", 3000);
+          console.log("error at data request", error);
+        }
+      );
+    } else {
+      setTimeout(this.closeTeamscan.bind(this),100);
+    }
+  }
+
   reload() {
     this.getData();
+    this.getTeamscan();
     this.requestFailed = false;
   }
     
