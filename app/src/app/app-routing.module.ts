@@ -7,7 +7,7 @@ import { CreateTeamComponent } from './teams/createteam/createteam.component';
 import { TeamComponent } from './teams/team/team.component';
 import { InvullenComponent } from './teams/team/invullen/invullen.component';
 import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
-import { ScorenComponent } from './teams/team/resultaten/scoren/scoren.component';
+import { ScorenComponent } from './teams/team/scoren/scoren.component';
 import { LoginComponent } from './login/login.component';
 import { AanmakenComponent} from './teams/team/aanmaken/aanmaken.component';
 import { SettingsComponent} from './settings/settings.component';
@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'team/:id/:scan', component: TeamComponent, data: {title: 'Team'}  },
   { path: 'team/:id/:scan/invullen', component: InvullenComponent, data: {title: 'Invullen'}  },
   { path: 'team/:id/:scan/resultaten', component: ResultatenComponent, data: {title: 'Resultaten'}  },
-  { path: 'team/:id/:scan/resultaten/scoren', component: ScorenComponent, data: {title: 'Scoren'}  }
+  { path: 'team/:id/:scan/scoren', component: ScorenComponent, data: {title: 'Scoren'}  }
 ];
 
 @NgModule({

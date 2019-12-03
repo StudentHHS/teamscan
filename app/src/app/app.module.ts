@@ -20,7 +20,7 @@ import { TeamComponent } from './teams/team/team.component';
 import { InvullenComponent } from './teams/team/invullen/invullen.component';
 import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
 import { AanmakenComponent } from './teams/team/aanmaken/aanmaken.component'
-import { ScorenComponent } from './teams/team/resultaten/scoren/scoren.component';
+import { ScorenComponent } from './teams/team/scoren/scoren.component';
 import { UtilityService } from './utility.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
@@ -38,6 +38,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule} from '@angular/material/radio';
+import { MatSliderModule} from '@angular/material/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -63,7 +64,7 @@ import { OAuthSettings } from '../oauth';
   imports: [BrowserModule, ChartsModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
-    MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
+    MatGridListModule, MatMenuModule, MatIconModule, MatListModule, MatSliderModule,
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,

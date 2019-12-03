@@ -14,10 +14,10 @@ import { trigger, transition, animate, style, group } from '@angular/animations'
     trigger('grow', [
       transition(':enter', [
         style({height: '0', opacity: 0}),
-                group([
-                    animate("200ms cubic-bezier(0,.97,.53,1)", style({height: '*'})),
-                    animate('400ms ease-out', style({'opacity': '1'}))
-                ])
+            group([
+                animate("200ms cubic-bezier(0,.97,.53,1)", style({height: '*'})),
+                animate('400ms ease-out', style({'opacity': '1'}))
+            ])
       ])
     ])
   ]
