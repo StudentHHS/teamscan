@@ -14,10 +14,12 @@ export class AuthService {
   public authenticated: boolean = false;
   public firstUse: boolean = false;
   public user: any = null;
+  public dbUser: any = null;
   public token: string = null;
   public MSALToken: string;
   private graphClient: Client;
   public redirectUri: string;
+  public static apiUrl: string = "https://hhs-teamscan.azurewebsites.net/api/";
 
   constructor(
     private msalService: MsalService, private storage: Storage, private http: HttpClient,
@@ -64,30 +66,30 @@ export class AuthService {
   }
 
     init(token: string) {
-        if(token) {
-            this.showToast("Inloggen...", 1000);
-            this.MSALToken=token;
-            this.graphClient = Client.init({
-                authProvider: async (done) => {done(null, token)}
-            });
-        } else {
-            this.graphClient = Client.init({
-                authProvider: async (done) => {
-                // Get the token from the auth service
-                    let token = await this.getAccessToken()
-                        .catch((reason) => {
-                        done(reason, null);
-                        });
-                
-                    if (token) {
-                        this.MSALToken=token;
-                        done(null, token);
-                    } else {
-                        done("Could not get an access token", null);
-                    }
-                }
-            });
-        }
+      this.showToast("Inloggen...", 1000);
+      if(token) {
+          this.MSALToken=token;
+          this.graphClient = Client.init({
+              authProvider: async (done) => {done(null, token)}
+          });
+      } else {
+          this.graphClient = Client.init({
+              authProvider: async (done) => {
+              // Get the token from the auth service
+                  let token = await this.getAccessToken()
+                      .catch((reason) => {
+                      done(reason, null);
+                      });
+              
+                  if (token) {
+                      this.MSALToken=token;
+                      done(null, token);
+                  } else {
+                      done("Could not get an access token", null);
+                  }
+              }
+          });
+      }
     }
 
     async getMe(): Promise<Event[]> {
@@ -116,6 +118,7 @@ export class AuthService {
         var context = this;
         this.getUserFromDatabase(function(data) {
           context.token=data.token;
+          context.dbUser=data;
           console.log("token from this", context.token);
           context.authenticated = true;
           context.firstUse = (data.opleiding == null) ? true : false;
@@ -128,11 +131,26 @@ export class AuthService {
 
     getUserFromDatabase(func: any) {
       this.http.get(
-          'https://teamscan.ga/api/?function=userregistration&token='+this.MSALToken,
+          AuthService.apiUrl+'?function=userregistration&token='+this.MSALToken,
           { headers: null, responseType: 'json' }
         ).subscribe(data => {
-          console.log(data);
+          console.log("getUserFromDatabase():",data);
           func(data)
+        },
+        error => {
+          this.showToast("Gebruikersgegevens konden niet worden opgehaald. Probeer het (later) opnieuw.", 3000);
+          console.log("error at data request", error);
+        }
+      );
+    }
+
+    setUserdataFromDatabase() {
+      this.http.get(
+          AuthService.apiUrl,
+          {  headers: {Authorization: "Bearer " + this.token}, responseType: 'json', params: {function: "user"} }
+        ).subscribe(data => {
+          console.log("setUserDataFromDatabase():",data);
+          this.dbUser = data;
         },
         error => {
           this.showToast("Gebruikersgegevens konden niet worden opgehaald. Probeer het (later) opnieuw.", 3000);

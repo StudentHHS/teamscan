@@ -1,16 +1,17 @@
-<mat-card routerLink="/todo">
+<mat-card routerLink="/todo" class="card-button" matRipple>
   <mat-card-content class="dashboard-card-content">
     <button mat-button style="width:100%;text-align:left;font-size:20px;">
       <mat-icon>list</mat-icon>
       To do
     </button>
     <mat-list>
-        <mat-list-item>Je hebt geen taken meer te doen!</mat-list-item>
+        <mat-list-item>Deze functie is nog niet beschikbaar, {{this.authService.user?.givenName}}.</mat-list-item>
     </mat-list>
   </mat-card-content>
+  <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
 </mat-card>
 <br>
-<mat-card routerLink="/team" >
+<mat-card routerLink="/team" class="card-button" matRipple >
   <mat-card-content class="dashboard-card-content">
     <button mat-button style="width:100%;text-align:left;font-size:20px;">
       <mat-icon>people</mat-icon>
@@ -21,13 +22,26 @@
       <mat-list-item>Bekijk meer...</mat-list-item>
     </mat-list>
   </mat-card-content>
+  <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
 </mat-card>
 <br>
-<mat-card (click)="signOut()">
+<mat-card class="card-button" *ngIf="this.authService.dbUser?.rol >= 3" matRipple style="margin-bottom:19px" (click)="openDashboard()" [@grow]>
   <mat-card-content class="dashboard-card-content">
-    <button mat-button  style="width:100%;text-align:left" *ngIf="this.authService.user !== null">
-      <mat-icon>vpn_key</mat-icon>
-      Log uit (ingelogd als {{this.authService.user.givenName}})
+    <button mat-button style="width:100%;text-align:left;">
+      <mat-icon>dashboard</mat-icon>
+      Dashboard
+    </button>
+    <mat-list>
+      <mat-list-item>Bekijk de overkoepelende resultaten.</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
+</mat-card>
+<mat-card routerLink="instellingen">
+  <mat-card-content class="dashboard-card-content">
+    <button mat-button  style="width:100%;text-align:left" *ngIf="this.authService?.user !== null">
+      <mat-icon>settings</mat-icon>
+      Instellingen
     </button>
   </mat-card-content>
 </mat-card>

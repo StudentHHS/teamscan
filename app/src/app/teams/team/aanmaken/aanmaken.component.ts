@@ -45,7 +45,7 @@ export class AanmakenComponent implements OnInit {
       formData.teamscanopenvraageinddatum = moment(formData.teamscanopenvraageinddatum).format("YYYY/MM/DD");
       formData.teamId = (this.route.snapshot.paramMap.get("id"));
         this.http.get(
-          'https://teamscan.ga/api/?function=addnewteamscan&token='+this.authService.token,
+          AuthService.apiUrl+'?function=addnewteamscan&token='+this.authService.token,
           { headers: null, responseType: 'json', params: formData }
         ).subscribe(data => {
           console.log("returned",data);

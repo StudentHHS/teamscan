@@ -6,14 +6,21 @@
     </mat-card-header>
     <mat-card-content>
         <mat-list>
-            <mat-list-item routerLink="create-team"><mat-icon mat-list-icon>+</mat-icon><h4 mat-line>Maak een nieuw team</h4></mat-list-item>
+            <mat-list-item routerLink="create-team" matRipple><mat-icon mat-list-icon>add</mat-icon><h4 mat-line>Maak een nieuw team</h4></mat-list-item>
         </mat-list>
     </mat-card-content>
     <mat-divider [inset]="true"></mat-divider>
     <mat-card-content>
-        <mat-list *ngIf="teams != null">
+        <mat-list *ngIf="teams != null" style="padding-top:0;" [@grow]>
             <ng-container *ngFor="let team of teams; last as isLast; first as isFirst">
-                <mat-list-item [routerLink]="team.id"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{team.naam}}</h4><p mat-line> {{team.beschrijving}} </p></mat-list-item>
+                <div class="card-button" matRipple >
+                <mat-list-item [routerLink]="team.id">
+                    <mat-icon mat-list-icon>people</mat-icon>
+                    <h4 mat-line>{{team.naam}}</h4>
+                    <p mat-line> {{team.beschrijving}} </p>
+                </mat-list-item>
+                <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
+                </div>
                 <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
             </ng-container>
             <mat-list-item *ngIf="teams.length == 0">

@@ -1,0 +1,35 @@
+<mat-card>
+    <mat-card-title>
+        Verbeterpunten scoren
+    </mat-card-title>
+    <mat-card-content>
+        <p>Geef je mening over de volgende verberpunten. Welke vind jij belangrijk?</p>
+        <mat-divider inset></mat-divider>
+        <ng-container *ngIf="scoringdata.length">
+            <mat-list style="padding:0">
+                <div *ngFor="let resultaat of scoringdata">
+                    <mat-list-item style="margin:0 -16px;width: calc(100% + 32px);">
+                        <div style="width:100%">
+                            <p>"{{resultaat.antwoord}}"</p>
+                            <div style="display:flex">
+                                <p style="font-size:12px;padding: 5px 0;">Onbelangrijk</p>
+                                <mat-slider max="10" min="0" step thumbLabel style="width:100%; margin:0 10px"></mat-slider>
+                                <p style="font-size:12px;padding: 5px 0;">Belangrijk</p>
+                            </div>
+                        </div>              
+                    </mat-list-item>
+                    <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>  
+                </div>
+            </mat-list>
+            <br>
+            <div style="text-align:right">
+                <button mat-flat-button color="primary" disabled (click)="save()">Bewaren</button>
+            </div>
+        </ng-container>
+        <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="scoringdata.length == 0 && !requestFailed"></mat-spinner>
+        <div *ngIf="requestFailed" style="text-align:center; margin-top:20px;">
+            Er kon geen verbinding worden gemaakt.<br><br>
+            <button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -14,8 +14,9 @@ import { ToastController } from '@ionic/angular';
 
 export class ResultatenComponent {
     public id: string;
+    public teamscan: string;
     requestFailed: Boolean = false;
-    public teamdata: Object = null;
+    public teamdata: any = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -26,21 +27,22 @@ export class ResultatenComponent {
 
     ngOnInit() {
         this.id = this.route.snapshot.paramMap.get('id');
+        this.teamscan = this.route.snapshot.paramMap.get('scan');
         this.getData();
     }
 
     getData() {
         if (this.authService.token) {
             this.http.get(
-                'https://teamscan.ga/api/?function=getteam&token=' + this.authService.token,
-                { headers: null, responseType: 'json', params: { teamid: this.id } }
+                AuthService.apiUrl+'?function=getteam&token=' + this.authService.token,
+                { headers: null, responseType: 'json', params: { teamid: this.id, teamscan: this.teamscan } }
             ).subscribe(data => {
                 console.log("resultaat");
                 console.log(data);
                 this.requestFailed = false;
                 this.teamdata = data;
                 if (this.teamdata[0])
-                    this.us.changeTitle("Resultaten: " + this.teamdata[0].naam);
+                    this.us.changeTitle("Resultaten: " + this.teamdata.team.naam);
             },
                 error => {
                     this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);

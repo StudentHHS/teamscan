@@ -20,10 +20,11 @@ import { TeamComponent } from './teams/team/team.component';
 import { InvullenComponent } from './teams/team/invullen/invullen.component';
 import { ResultatenComponent } from './teams/team/resultaten/resultaten.component';
 import { AanmakenComponent } from './teams/team/aanmaken/aanmaken.component'
-import { ScorenComponent } from './teams/team/resultaten/scoren/scoren.component';
+import { ScorenComponent } from './teams/team/scoren/scoren.component';
 import { UtilityService } from './utility.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
+import { SettingsComponent } from './settings/settings.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,6 +38,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatRadioModule} from '@angular/material/radio';
+import { MatSliderModule} from '@angular/material/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -48,6 +50,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import { MatChipsModule} from '@angular/material/chips';
+import {MatRippleModule} from '@angular/material/core';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -55,16 +58,17 @@ import { OAuthSettings } from '../oauth';
 @NgModule({
   declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
      TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent,
-     RegisterComponent, AanmakenComponent, ScorenComponent, CreateTeamComponent],
+     RegisterComponent, AanmakenComponent, ScorenComponent, CreateTeamComponent,
+     SettingsComponent],
   entryComponents: [],
   imports: [BrowserModule, ChartsModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),
     MatButtonModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
-    MatGridListModule, MatMenuModule, MatIconModule, MatListModule,
+    MatGridListModule, MatMenuModule, MatIconModule, MatListModule, MatSliderModule,
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
-    HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule
+    HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule, MatRippleModule
   ],
   providers: [
     StatusBar,

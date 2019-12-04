@@ -121,7 +121,7 @@ export class RegisterComponent  implements OnInit {
     onSubmit(formData: any, stepper: MatStepper) {
         console.log(formData);
         this.http.get(
-          'https://teamscan.ga/api/?function=saveuserinfo&token='+this.authService.token,
+            AuthService.apiUrl+'?function=saveuserinfo&token='+this.authService.token,
           { headers: null, responseType: 'json', params: formData }
         ).subscribe(data => {
           console.log("returned",data);

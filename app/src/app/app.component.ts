@@ -57,7 +57,8 @@ export class AppComponent {
     this.storage.get('token').then((val: string) => {
       if (val == null) {} else {
         console.log('from storage token', val);
-        this.authService.token=val;
+        this.authService.token=val;        
+        this.authService.setUserdataFromDatabase();
       }
     });
     this.storage.get('firstUse').then((val: boolean) => {
