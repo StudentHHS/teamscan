@@ -1,4 +1,4 @@
-<div class=""  style="color: white;position:fixed;top: 45px;right: 50px;">
+<div class=""  style="color: white;position:fixed;top: 40px;right: 25px;">
         <button mat-stroked-button *ngIf="teamdata.teamscan" [matMenuTriggerFor]="changeteamscan" (click)="openteamscanmenu()" style="margin-top: -5px;line-height: 25px;border-color:white">
             {{teamdata.teamscan?.naam}}
             <mat-icon>keyboard_arrow_down</mat-icon>
@@ -48,11 +48,9 @@
 </div>
 <mat-card class=""  style="width:100%" *ngIf="teamdata.team?.beheerder" [@grow] style="margin-bottom:19px">
     <h6>Beheerdersmenu</h6>
-    <mat-card-content class=""*ngIf="teamdata.teamscan?.status === 'gesloten'">
-        <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'">Teamscan aanmaken</button>
-    </mat-card-content>
-    <mat-card-content class="" *ngIf="teamdata.teamscan?.status === 'invullen' || teamdata.teamscan?.status === 'scoren'">
-        <button mat-stroked-button (click)="closeTeamscan(teamdata.teamscan?.id)" >Teamscan sluiten</button>
+    <mat-card-content class="">
+        <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px">Teamscan aanmaken</button>
+        <button mat-stroked-button (click)="closeTeamscan(teamdata.teamscan?.id)"  *ngIf="teamdata.teamscan?.status === 'invullen' || teamdata.teamscan?.status === 'scoren'">Teamscan sluiten</button>
     </mat-card-content>
 </mat-card>
 <mat-card>

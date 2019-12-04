@@ -46,7 +46,6 @@ export class TeamComponent {
       this.teamscan = this.route.snapshot.paramMap.get('scan');
     }
     this.getData();
-    this.getTeamscan();
   }
 
   getData() {
@@ -96,10 +95,28 @@ export class TeamComponent {
     }
   }
 
+  teamscanChangeState(teamscanId : any, state: string) {
+    console.log(teamscanId);
+      let data: FormData = new FormData();  
+      data.append("teamscanid", teamscanId);
+      data.append("status", state);
+      var params: any = {teamscanid: teamscanId, function: "closeteamscan"};
+      this.http.post(
+        AuthService.apiUrl, data,
+          { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: params }
+        ).subscribe(data => {
+          console.log(data);
+        },
+        error => {
+          this.showToast("Er is een probleem ontstaan, probeer het nog een keer.", 3000);
+          console.log("error at data request", error);
+        }
+      );
+  }
+  
   closeTeamscan(teamscanId : any) {
     if(confirm("Weet u zeker dat u de teamscan wilt sluiten?")){
       console.log(teamscanId);
-      if(this.authService.token) {
         var params: any = {teamscanid: teamscanId, function: "closeteamscan"};
         this.http.get(
           AuthService.apiUrl,
@@ -112,15 +129,11 @@ export class TeamComponent {
             console.log("error at data request", error);
           }
         );
-      } else {
-        setTimeout(this.closeTeamscan.bind(this),100);
-      }
     }
   }
 
   reload() {
     this.getData();
-    this.getTeamscan();
     this.requestFailed = false;
   }
 
