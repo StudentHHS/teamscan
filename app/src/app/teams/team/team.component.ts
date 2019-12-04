@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { UtilityService } from 'src/app/utility.service';
 import { AuthService } from 'src/app/auth.service';
 import { ToastController } from '@ionic/angular';
-// import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { trigger, transition, animate, style, group } from '@angular/animations'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-team',
@@ -21,7 +21,8 @@ import { trigger, transition, animate, style, group } from '@angular/animations'
             ])
       ])
     ])
-  ]
+  ],
+  
 })
 
 export class TeamComponent {
@@ -30,6 +31,7 @@ export class TeamComponent {
   requestFailed: Boolean=false;
   public teamdata : any = Array();
   public teamscans: any = null;
+  moment: any = moment;
 
   constructor(
     private route: ActivatedRoute,
@@ -77,11 +79,12 @@ export class TeamComponent {
 
   getTeamscan() {
     if(this.authService.token) {
+      var params: any = {teamid: this.id, function: "getteamscans"};
       this.http.get(
-          'https://teamscan.ga/api/?function=getteamscan&token='+this.authService.token,
-          { headers: null, responseType: 'json', params: {teamid: this.id} }
+        AuthService.apiUrl,
+          { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: params }
         ).subscribe(data => {
-          this.teamscandata = data;
+          this.teamscans = data;
         },
         error => {
           this.showToast("Er is een probleem met het ophalen van de data, probeer het nog een keer aub.", 3000);
@@ -94,33 +97,25 @@ export class TeamComponent {
   }
 
   closeTeamscan(teamscanId : any) {
-    // const dialogRef = this.dialog.open(dialog, {
-    //   width: '250px',
-    //   data: {name: this.name, animal: this.animal}
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.animal = result;
-    // });
-    if(confirm("test")){
-    console.log(teamscanId);
-    if(this.authService.token) {
-      this.http.get(
-          'https://teamscan.ga/api/?function=closeteamscan&token='+this.authService.token,
-          { headers: null, responseType: 'json', params: {teamscanid: teamscanId} }
-        ).subscribe(data => {
-          console.log(data);
-        },
-        error => {
-          this.showToast("Er is een probleem ontstaan, probeer het nog een keer.", 3000);
-          console.log("error at data request", error);
-        }
-      );
-    } else {
-      setTimeout(this.closeTeamscan.bind(this),100);
+    if(confirm("Weet u zeker dat u de teamscan wilt sluiten?")){
+      console.log(teamscanId);
+      if(this.authService.token) {
+        var params: any = {teamscanid: teamscanId, function: "closeteamscan"};
+        this.http.get(
+          AuthService.apiUrl,
+            { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: params }
+          ).subscribe(data => {
+            console.log(data);
+          },
+          error => {
+            this.showToast("Er is een probleem ontstaan, probeer het nog een keer.", 3000);
+            console.log("error at data request", error);
+          }
+        );
+      } else {
+        setTimeout(this.closeTeamscan.bind(this),100);
+      }
     }
-  }
   }
 
   reload() {
