@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { UtilityService } from 'src/app/utility.service';
 import { AuthService } from 'src/app/auth.service';
 import { ToastController } from '@ionic/angular';
+// import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-team',
@@ -74,6 +75,16 @@ export class TeamComponent {
   }
 
   closeTeamscan(teamscanId : any) {
+    // const dialogRef = this.dialog.open(dialog, {
+    //   width: '250px',
+    //   data: {name: this.name, animal: this.animal}
+    // });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   this.animal = result;
+    // });
+    if(confirm("test")){
     console.log(teamscanId);
     if(this.authService.token) {
       this.http.get(
@@ -90,6 +101,7 @@ export class TeamComponent {
     } else {
       setTimeout(this.closeTeamscan.bind(this),100);
     }
+  }
   }
 
   reload() {

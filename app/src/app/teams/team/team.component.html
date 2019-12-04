@@ -1,15 +1,17 @@
 <div class="grid">
     <ng-container *ngIf="teamscandata.status === 'invullen'">
-    <mat-card class="" style="width:100%">
-        <mat-card-title>
-        Er staan vragen voor je klaar
-        </mat-card-title>
-    <mat-card-content class="">
-        <div>Startdatum: {{teamscandata.start}} - Einddatum: {{teamscandata.eind}}</div><br>
-        <button mat-stroked-button routerLink="invullen">Beantwoord de vragen</button>
-        <button mat-stroked-button (click)="closeTeamscan(teamscandata.id)" >Teamscan sluiten</button>
-    </mat-card-content>
-    </mat-card>
+        <mat-card class="" style="width:100%">
+            <mat-card-title>
+            Er staan vragen voor je klaar
+            </mat-card-title>
+        <mat-card-content class="">
+            <div>Van: {{teamscandata.start}} - Tot en met: {{teamscandata.eind}}</div><br>
+            <button mat-stroked-button routerLink="invullen">Beantwoord de vragen</button>
+            <br>
+            <br>
+            <button mat-stroked-button (click)="closeTeamscan(teamscandata.id)" >Teamscan sluiten</button>
+        </mat-card-content>
+        </mat-card>
     </ng-container>
 
     <ng-container *ngIf="teamscandata.status === 'scoren'">
@@ -36,15 +38,17 @@
         </mat-card>
     </ng-container>
 
-    <mat-card class=""  style="width:100%">
-        <mat-card-title>
-        Teamscan aanmaken
-        </mat-card-title>
-    <mat-card-content class="">
-        <div>Maak en nieuwe teamscan aan voor dit team</div><br>
-        <button mat-stroked-button routerLink="aanmaken">Aanmaken</button>
-    </mat-card-content>
-    </mat-card>
+    <ng-container *ngIf="teamscandata.status === 'gesloten'">
+        <mat-card class=""  style="width:100%">
+            <mat-card-title>
+            Teamscan aanmaken
+            </mat-card-title>
+        <mat-card-content class="">
+            <div>Maak een nieuwe teamscan aan voor dit team</div><br>
+            <button mat-stroked-button routerLink="aanmaken">Aanmaken</button>
+        </mat-card-content>
+        </mat-card>
+    </ng-container>
 
 </div>
 <br>
