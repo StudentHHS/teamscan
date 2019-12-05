@@ -81,7 +81,7 @@ export class CreateTeamComponent {
         },
         error => {
           if(error.status == 404) {
-            resolve({isValidUser: { valid: false } }); 
+            resolve({isValidUser: { valid: false } });
           } else {
             this.showToast("Verifiëren is eventjes niet gelukt", 1000);
             console.log("error at data request", error);
@@ -221,8 +221,8 @@ validateFaculteit(c: FormControl) {
     if(!c.value) return null;
     var opleiding = value[0];
     var faculteit = value[1];
-  
-    function zoekFaculteit(e) { 
+
+    function zoekFaculteit(e) {
         return e.naam === faculteit;
     }
 

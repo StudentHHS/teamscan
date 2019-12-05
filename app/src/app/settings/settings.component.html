@@ -1,8 +1,94 @@
-<mat-card (click)="signOut()">
-  <mat-card-content class="dashboard-card-content">
-    <button mat-button  style="width:100%;text-align:left" *ngIf="this.authService?.user !== null">
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="stateForm" id="updateForm" (ngSubmit)="onSubmit(stateForm.value)">
+            <mat-form-field>
+                <input type="text" matInput placeholder="Opleiding of unit" formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
+                <mat-autocomplete #autoGroup="matAutocomplete">
+                    <mat-optgroup *ngFor="let faculty of stateGroupOptions | async" [label]="faculty.naam">
+                        <mat-option *ngFor="let opleiding of faculty.opleidingen" [value]="opleiding + ' — ' + faculty.naam">
+                            {{opleiding}}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-autocomplete>
+                <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('validateFaculteit')">Kies een opleiding of dienst uit de lijst</mat-error>
+                <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog geen opleiding of dienst gekozen</mat-error>
+            </mat-form-field>
+            <br>
+            <p>
+                Geslacht*:
+                <mat-hint *ngIf="stateForm.get('geslacht').hasError('required')">Geslacht opgeven is verplicht</mat-hint>
+            </p>
+            <mat-radio-group formControlName="geslacht" required>
+                <mat-radio-button value="m" style="width: 140px; margin: 0 0 4px 0;">Man</mat-radio-button>
+                <mat-radio-button value="v" style="margin: 0 40px 4px 0">Vrouw</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <p>
+                Soort personeel*:
+                <mat-hint *ngIf="stateForm.get('opOfObp').hasError('required')">Optie opgeven is verplicht</mat-hint>
+            </p>
+            <mat-radio-group formControlName="opOfObp" required>
+                <mat-radio-button value="OP" style="width: 140px; margin: 0 0 4px 0;">Onderwijzend</mat-radio-button>
+                <mat-radio-button value="OBP" style="margin: 0 40px 4px 0">Niet-onderwijzend personeel</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <mat-form-field>
+                <mat-select placeholder="Contractsoort" formControlName="contractsoort">
+                    <mat-option value="ot">Vast</mat-option>
+                    <mat-option value="bpNaarOt">Tijdelijk met uitzicht op vast</mat-option>
+                    <mat-option value="bp">Tijdelijk eindigt rechtswege</mat-option>
+                    <mat-option value="uitzend">Uitzendkracht</mat-option>
+                    <mat-option value="zzp">ZZP</mat-option>
+                    <mat-option value="payroll">Payroll</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-select placeholder="Waar werk je voornamelijk?" formControlName="locatie">
+                    <mat-option value="Den Haag">Hoofdvestiging Den Haag</mat-option>
+                    <mat-option value="Poseidon">Poseidon</mat-option>
+                    <mat-option value="Delft">Delft</mat-option>
+                    <mat-option value="Zuiderpark">Sportcampus Zuiderpark</mat-option>
+                    <mat-option value="Zoetermeer">Zoetermeer</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="Geboortejaar" formControlName="geboortejaar">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="Aanstellingsomvang (fte's)" formControlName="aanstellingsomvang">
+                <mat-hint>In fte (bijvoorbeeld 0.6)</mat-hint>
+                <mat-error *ngIf="stateForm.get('aanstellingsomvang').invalid">Geef je fte-aantal op met een waarde tussen 0.0 en 1.0</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="In welk jaar ben je begonnen op de HHS?" formControlName="startjaarDienst">
+                <mat-error *ngIf="stateForm.get('startjaarDienst').invalid">Geef een geldig jaartal op.</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="In welk jaar ben je begonnen in het onderwijs?" formControlName="startjaarOnderwijs">
+                <mat-error *ngIf="stateForm.get('startjaarOnderwijs').invalid">Geef een geldig jaartal op.</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="In welk jaar ben je begonnen met je huidige functie?" formControlName="startjaarFunctie">
+                <mat-error *ngIf="stateForm.get('startjaarFunctie').invalid">Geef een geldig jaartal op.</mat-error>
+            </mat-form-field>
+
+            <br>
+            <button mat-flat-button color="primary" style="float:left" type="submit" [disabled]="stateForm.invalid">Opslaan</button>
+            <br>
+            <br>
+        </form>
+    </mat-card-content>
+    <mat-divider [inset]="true"></mat-divider>
+    <mat-card-content class="dashboard-card-content" (click)="signOut()">
+        <button mat-button style="width:100%;text-align:left" *ngIf="this.authService?.user !== null">
       <mat-icon>vpn_key</mat-icon>
       Log uit (ingelogd als {{this.authService.user?.givenName}})
     </button>
-  </mat-card-content>
+    </mat-card-content>
 </mat-card>

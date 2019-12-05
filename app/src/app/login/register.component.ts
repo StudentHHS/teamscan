@@ -15,18 +15,18 @@ export interface OpleidingenGroup {
 
 export const _filter = (opt: string[], value: string): string[] => {
     const filterValue = value.toLowerCase();
-  
+
     return opt.filter(item => item.toLowerCase().indexOf(filterValue) >= 0);
 };
-  
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent  implements OnInit {
-    
+export class RegisterComponent implements OnInit {
+
     constructor(
         private authService: AuthService,
         private _formBuilder: FormBuilder,
@@ -99,7 +99,7 @@ export class RegisterComponent  implements OnInit {
             map(value => this._filterGroup(value))
           );
     }
-    
+
     private _filterGroup(value: string): OpleidingenGroup[] {
         if (value) {
             return this.stateGroups
@@ -141,14 +141,14 @@ export class RegisterComponent  implements OnInit {
       this.storage.set('firstUse', false);
     }
 
-    
+
     validateFaculteit(c: FormControl) {
         var value = c.value.split(" — ");
         if(!c.value) return null;
         var opleiding = value[0];
         var faculteit = value[1];
-      
-        function zoekFaculteit(e) { 
+
+        function zoekFaculteit(e) {
             return e.naam === faculteit;
         }
 
