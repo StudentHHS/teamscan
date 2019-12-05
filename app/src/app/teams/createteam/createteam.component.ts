@@ -1,4 +1,4 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
@@ -54,6 +54,18 @@ export class CreateTeamComponent {
         startWith(''),
         map(value => this._filterGroup(value))
       );
+      var chiplistinput = document.getElementById('chiplistinput');
+      chiplistinput.addEventListener("keydown", function(e) {
+        //console.log("hey",e);
+      });
+      var context = this;
+      chiplistinput.addEventListener("textInput", function(e) {
+        if ([",",";"," "].some(function(v) { return (<any>e).data.indexOf(v) >= 0; })) {
+          e.preventDefault();
+          console.log("send", e);
+          context.add(e.srcElement);
+      }
+      });
   }
 
   createTeamForm: FormGroup = this.fb.group({
@@ -110,7 +122,7 @@ export class CreateTeamComponent {
     return re.test(String(email).toLowerCase());
   }
 
-  add(event: MatChipInputEvent): void {
+  add(event): void {
     const input = event.input;
     const value = event.value;
     // Add email
@@ -127,15 +139,20 @@ export class CreateTeamComponent {
     }
 
     // Reset the input value
-    if (input) {
-      input.value = '';
-    }
+
+      event.value = '';
+    
   }
 
   //Remove email
   remove( index) {
     this.getteamleden.removeAt(index);
     console.log(this.createTeamForm.value);
+  }
+
+  onChipKeypress(keycode) {
+    console.log(keycode, SPACE);
+    alert(keycode);
   }
 
   async showToast(text: string, duration: number) {
