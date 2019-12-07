@@ -176,6 +176,24 @@ export class TeamComponent {
       );
     }
   }
+
+  verwijderLid(userPrincipalName, mail) {
+    var context=this;
+    let data: FormData = new FormData();
+    data.append('userPrincipalName', userPrincipalName);
+    data.append('mail', mail);
+    data.append('teamid', this.id);
+    this.http.post(
+      AuthService.apiUrl, data,
+      { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "verwijderlid"} })
+      .subscribe(data => {
+        console.log("send",data)
+        this.showToast('De vragenlijst is opgeslagen!', 2000);
+        context.reload();
+      }, error => {
+        this.showToast('We ondervonden een probleem bij het verzenden.', 3000);
+      });
+  }
     
   async showToast(text: string, duration: number) {
     const toast = await this.toastController.create({

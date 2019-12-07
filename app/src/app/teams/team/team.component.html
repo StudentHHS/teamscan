@@ -73,15 +73,23 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.userPrincipalName}}</h4><p mat-line> Nog niet geregistreerd. </p></mat-list-item>
+                <mat-list-item *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.userPrincipalName}}</h4><p mat-line> Nog niet geregistreerd. </p>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opties voor teamlid">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </mat-list-item>
                 <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
 
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
+                    <button mat-menu-item *ngIf="lid.givenName">
                       <mat-icon mat-list-icon *ngIf="lid.beheerder">people</mat-icon>
                       <mat-icon mat-list-icon *ngIf="!lid.beheerder">supervised_user_circle</mat-icon>
                       <span *ngIf="!lid.beheerder" (click)="updateBeheerder(1,lid.userPrincipalName,lid.mail)">Teambeheerder maken</span>
                       <span *ngIf="lid.beheerder" (click)="updateBeheerder(0,lid.userPrincipalName,lid.mail)">Verwijderen als beheerder</span>
+                    </button>
+                    <button mat-menu-item>
+                      <mat-icon mat-list-icon>delete</mat-icon>
+                      <span (click)="verwijderLid(lid.userPrincipalName,lid.mail)">Verwijder lid</span>
                     </button>
                   </mat-menu>
             </ng-container>
