@@ -1,7 +1,7 @@
 <mat-card>
     <mat-card-content>
         <form [formGroup]="stateForm" id="updateForm" (ngSubmit)="onSubmit(stateForm.value)">
-            <mat-form-field>
+            <mat-form-field class="inputfield">
                 <input type="text" matInput placeholder="Opleiding of unit" formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
                 <mat-autocomplete #autoGroup="matAutocomplete">
                     <mat-optgroup *ngFor="let faculty of stateGroupOptions | async" [label]="faculty.naam">
@@ -29,10 +29,10 @@
             </p>
             <mat-radio-group formControlName="opOfObp" required>
                 <mat-radio-button value="OP" style="width: 140px; margin: 0 0 4px 0;">Onderwijzend</mat-radio-button>
-                <mat-radio-button value="OBP" style="margin: 0 40px 4px 0">Niet-onderwijzend personeel</mat-radio-button>
+                <mat-radio-button value="OBP" style="margin: 0 -5px 4px 0">Niet-onderwijzend personeel</mat-radio-button>
             </mat-radio-group>
             <br>
-            <mat-form-field>
+            <mat-form-field class="inputfield">
                 <mat-select placeholder="Contractsoort" formControlName="contractsoort">
                     <mat-option value="ot">Vast</mat-option>
                     <mat-option value="bpNaarOt">Tijdelijk met uitzicht op vast</mat-option>
@@ -43,7 +43,7 @@
                 </mat-select>
             </mat-form-field>
             <br>
-            <mat-form-field>
+            <mat-form-field class="inputfield">
                 <mat-select placeholder="Waar werk je voornamelijk?" formControlName="locatie">
                     <mat-option value="Den Haag">Hoofdvestiging Den Haag</mat-option>
                     <mat-option value="Poseidon">Poseidon</mat-option>
@@ -53,27 +53,27 @@
                 </mat-select>
             </mat-form-field>
             <br>
-            <mat-form-field>
+            <mat-form-field class="inputfield">
                 <input matInput placeholder="Geboortejaar" formControlName="geboortejaar">
             </mat-form-field>
             <br>
-            <mat-form-field>
+            <mat-form-field class="inputfield">
                 <input matInput placeholder="Aanstellingsomvang (fte's)" formControlName="aanstellingsomvang">
                 <mat-hint>In fte (bijvoorbeeld 0.6)</mat-hint>
                 <mat-error *ngIf="stateForm.get('aanstellingsomvang').invalid">Geef je fte-aantal op met een waarde tussen 0.0 en 1.0</mat-error>
             </mat-form-field>
             <br>
-            <mat-form-field>
+            <mat-form-field class="inputfield">
                 <input matInput placeholder="In welk jaar ben je begonnen op de HHS?" formControlName="startjaarDienst">
                 <mat-error *ngIf="stateForm.get('startjaarDienst').invalid">Geef een geldig jaartal op.</mat-error>
             </mat-form-field>
             <br>
-            <mat-form-field>
+            <mat-form-field class="inputfield">
                 <input matInput placeholder="In welk jaar ben je begonnen in het onderwijs?" formControlName="startjaarOnderwijs">
                 <mat-error *ngIf="stateForm.get('startjaarOnderwijs').invalid">Geef een geldig jaartal op.</mat-error>
             </mat-form-field>
             <br>
-            <mat-form-field>
+            <mat-form-field class="inputfield">
                 <input matInput placeholder="In welk jaar ben je begonnen met je huidige functie?" formControlName="startjaarFunctie">
                 <mat-error *ngIf="stateForm.get('startjaarFunctie').invalid">Geef een geldig jaartal op.</mat-error>
             </mat-form-field>

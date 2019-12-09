@@ -19,10 +19,10 @@ export const _filter = (opt: string[], value: string): string[] => {
 
 @Component({
   selector: 'app-settings',
-  templateUrl: './settings.component.html'
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css'],
 })
 export class SettingsComponent implements OnInit {
-
 
   constructor(private authService: AuthService,
     private _formBuilder: FormBuilder,
@@ -30,8 +30,8 @@ export class SettingsComponent implements OnInit {
     private toastController: ToastController) {
     }
 
-    public user: Object = null;
-    requestFailed: Boolean=false;
+    private user: any = null;
+    requestFailed: Boolean = false;
 
   stateGroups: OpleidingenGroup[] = [{
     naam: 'Faculteit Business, Finance & Marketing',
@@ -86,7 +86,7 @@ export class SettingsComponent implements OnInit {
             startWith(''),
             map(value => this._filterGroup(value))
           );
-        this.getData();
+          this.getData();
     }
 
     private _filterGroup(value: string): OpleidingenGroup[] {
@@ -95,7 +95,6 @@ export class SettingsComponent implements OnInit {
             .map(group => ({naam: group.naam, opleidingen: _filter(group.opleidingen, value)}))
             .filter(group => group.opleidingen.length > 0);
         }
-
         return this.stateGroups;
     }
 
@@ -138,12 +137,23 @@ getData() {
       AuthService.apiUrl,
        { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "user"}}
      ).subscribe(data => {
-       console.log("resultaat", data);
        this.user = data;
-       console.log("User: " + this.user);
+      this.stateForm.setValue({
+        opleidingEnFaculteit: this.user.opleiding + " - " + this.user.faculteit,
+        geslacht: this.user.geslacht,
+        opOfObp: this.user.opOfObp,
+        contractsoort: this.user.contractsoort,
+        locatie: this.user.locatie,
+        geboortejaar: this.user.geboortejaar,
+        aanstellingsomvang: this.user.aanstellingsomvang,
+        startjaarDienst: this.user.startjaarDienst,
+        startjaarOnderwijs: this.user.startjaarOnderwijs,
+        startjaarFunctie: this.user.startjaarFunctie
+      });
+      console.log(this.stateForm.value);
      },
      error => {
-       if(error.status=="404") { //no teams
+       if(error.status=="404") {
          this.user = [];
        } else {
          //failed
@@ -172,17 +182,16 @@ stateForm: FormGroup = this._formBuilder.group({
 onSubmit(formData: any) {
   console.log(formData);
   this.http.get(
-      AuthService.apiUrl+'?function=updateuserinfo&token='+this.authService.token,
+    AuthService.apiUrl+'?function=updateuserinfo&token='+this.authService.token,
     { headers: null, responseType: 'json', params: formData }
-  ).subscribe(data => {
+  )
+  .subscribe(data => {
     console.log("returned",data);
   },
   error => {
     this.showToast("We konden de gegevens niet opslaan. Ben je nog verbonden?", 3000);
     console.log("error at data request", error);
-  }
-);
-
+  });
 }
 
   signOut(): void {
