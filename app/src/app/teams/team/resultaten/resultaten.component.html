@@ -16,9 +16,12 @@
         <br><br>
         <mat-progress-bar mode="determinate" color="#9ea700" value="{{dagenGeldigProgressieBar}}"></mat-progress-bar>
         <br>
-        <div style="text-align:center;">
+        <div *ngIf="resterendeDagen > 0" style="text-align:center;">
             <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De
                 teamscan is nog {{resterendeDagen}} dagen geldig!</div>
+        </div>
+        <div *ngIf="0 > resterendeDagen" style="text-align:center;">
+            <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De termijn voor het invullen van de teamscan is ten einde.</div>
         </div>
         <mat-list>
             <mat-list-item>

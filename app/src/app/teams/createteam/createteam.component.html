@@ -32,8 +32,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-chip-list #chipList>
-          <input placeholder="Voeg andere leden toe *" [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          <input id="chiplistinput" placeholder="Voeg andere leden toe *" [matChipInputFor]="chipList"
           [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, createTeamForm)">
           <mat-error *ngIf="invalidEmailInput">Voer een geldig emailadres in</mat-error>
           <mat-error *ngIf="createTeamForm.get('teamleden').hasError('validateArrayNotEmpty') && !invalidEmailInput">Nog {{2 - (createTeamForm.get('teamleden').value.length)}}</mat-error>

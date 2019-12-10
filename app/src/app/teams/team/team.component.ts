@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UtilityService } from 'src/app/utility.service';
 import { AuthService } from 'src/app/auth.service';
 import { ToastController } from '@ionic/angular';
 import { trigger, transition, animate, style, group } from '@angular/animations'
+import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { MatMenuTrigger } from '@angular/material'
 import * as moment from 'moment';
 
 @Component({
@@ -38,7 +40,8 @@ export class TeamComponent {
     private us: UtilityService,
     private http: HttpClient,
     private authService: AuthService,
-    private toastController: ToastController) {}
+    private toastController: ToastController,
+    private fb: FormBuilder) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -46,7 +49,6 @@ export class TeamComponent {
       this.teamscan = this.route.snapshot.paramMap.get('scan');
     }
     this.getData();
-    this.getTeamscan();
   }
 
   getData() {
@@ -96,10 +98,28 @@ export class TeamComponent {
     }
   }
 
+  teamscanChangeState(teamscanId : any, state: string) {
+    console.log(teamscanId);
+      let data: FormData = new FormData();  
+      data.append("teamscanid", teamscanId);
+      data.append("status", state);
+      var params: any = {teamscanid: teamscanId, function: "closeteamscan"};
+      this.http.post(
+        AuthService.apiUrl, data,
+          { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: params }
+        ).subscribe(data => {
+          console.log(data);
+        },
+        error => {
+          this.showToast("Er is een probleem ontstaan, probeer het nog een keer.", 3000);
+          console.log("error at data request", error);
+        }
+      );
+  }
+  
   closeTeamscan(teamscanId : any) {
     if(confirm("Weet u zeker dat u de teamscan wilt sluiten?")){
       console.log(teamscanId);
-      if(this.authService.token) {
         var params: any = {teamscanid: teamscanId, function: "closeteamscan"};
         this.http.get(
           AuthService.apiUrl,
@@ -112,15 +132,11 @@ export class TeamComponent {
             console.log("error at data request", error);
           }
         );
-      } else {
-        setTimeout(this.closeTeamscan.bind(this),100);
-      }
     }
   }
 
   reload() {
     this.getData();
-    this.getTeamscan();
     this.requestFailed = false;
   }
 
@@ -163,7 +179,62 @@ export class TeamComponent {
       );
     }
   }
+
+  verwijderLid(userPrincipalName, mail) {
+    var context=this;
+    let data: FormData = new FormData();
+    data.append('userPrincipalName', userPrincipalName);
+    data.append('mail', mail);
+    data.append('teamid', this.id);
+    this.http.post(
+      AuthService.apiUrl, data,
+      { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "verwijderlid"} })
+      .subscribe(data => {
+        console.log("send",data)
+        this.showToast('Gebruker is verwijderd!', 2000);
+        context.reload();
+      }, error => {
+        this.showToast('We ondervonden een probleem bij het verzenden.', 3000);
+      });
+  }
     
+  addmemberform: FormGroup = this.fb.group({
+    email: ['', [Validators.required, this.validateEmail]]
+  });
+
+  onSubmitMember(formData, menuTrigger) {
+    console.log(formData);
+    let data: FormData = new FormData();        
+    for ( let key in formData) {
+      data.append(key, formData[key]);
+    }
+    data.append("teamid", this.id);
+    if(this.addmemberform.valid){
+      this.http.post(
+        AuthService.apiUrl, data,
+        { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "nieuwlid"} })
+        .subscribe(data => {
+          console.log("send",data)
+          this.showToast('De wijziging is opgeslagen!', 2000);
+          menuTrigger.closeMenu();
+          this.reload();
+        }, error => {
+          this.showToast('We ondervonden een probleem bij het verzenden.', 3000);
+        });
+    }
+  }
+
+  //Check of het echt een email is.
+  validateEmail(c: FormControl) {
+    var email = c.value;
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(re.test(String(email).toLowerCase())) {
+      return null;
+    } else {
+      return {validateArrayNotEmpty: { valid: false } };
+    }
+  }
+
   async showToast(text: string, duration: number) {
     const toast = await this.toastController.create({
       message: text,

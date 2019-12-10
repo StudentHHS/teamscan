@@ -1,4 +1,4 @@
-<div class=""  style="color: white;position:fixed;top: 45px;right: 50px;">
+<div class=""  style="color: white;position:fixed;top: 40px;right: 25px;">
         <button mat-stroked-button *ngIf="teamdata.teamscan" [matMenuTriggerFor]="changeteamscan" (click)="openteamscanmenu()" style="margin-top: -5px;line-height: 25px;border-color:white">
             {{teamdata.teamscan?.naam}}
             <mat-icon>keyboard_arrow_down</mat-icon>
@@ -48,11 +48,24 @@
 </div>
 <mat-card class=""  style="width:100%" *ngIf="teamdata.team?.beheerder" [@grow] style="margin-bottom:19px">
     <h6>Beheerdersmenu</h6>
-    <mat-card-content class=""*ngIf="teamdata.teamscan?.status === 'gesloten'">
-        <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'">Teamscan aanmaken</button>
-    </mat-card-content>
-    <mat-card-content class="" *ngIf="teamdata.teamscan?.status === 'invullen' || teamdata.teamscan?.status === 'scoren'">
-        <button mat-stroked-button (click)="closeTeamscan(teamdata.teamscan?.id)" >Teamscan sluiten</button>
+    <mat-card-content class="">
+        <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px">Teamscan aanmaken</button>
+        <button mat-stroked-button (click)="closeTeamscan(teamdata.teamscan?.id)"  style="margin-right:4px" *ngIf="teamdata.teamscan?.status === 'invullen' || teamdata.teamscan?.status === 'scoren'">Teamscan sluiten</button>
+        <button mat-stroked-button [matMenuTriggerFor]="addmember" #addMemberMenuTrigger="matMenuTrigger">
+            <mat-icon>add</mat-icon>
+            Nieuw lid
+        </button>
+
+        <mat-menu #addmember="matMenu">
+            <form (click)="$event.stopPropagation();" style="margin:5px 20px"  [formGroup]="addmemberform" (ngSubmit)="onSubmitMember(addmemberform.value, addMemberMenuTrigger)">
+                <mat-form-field>
+                    <input matInput placeholder="E-mailadres" formControlName="email">
+                </mat-form-field>
+                <button mat-stroked-button type="submit">
+                    <span>Toevoegen</span>
+                </button>
+            </form>
+        </mat-menu>
     </mat-card-content>
 </mat-card>
 <mat-card>
@@ -75,15 +88,25 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.userPrincipalName}}</h4><p mat-line> Nog niet geregistreerd. </p></mat-list-item>
+                <mat-list-item *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.userPrincipalName}}</h4><p mat-line> Nog niet geregistreerd. </p>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opties voor teamlid">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </mat-list-item>
                 <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
 
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
-                      <mat-icon mat-list-icon *ngIf="lid.beheerder">people</mat-icon>
-                      <mat-icon mat-list-icon *ngIf="!lid.beheerder">supervised_user_circle</mat-icon>
-                      <span *ngIf="!lid.beheerder" (click)="updateBeheerder(1,lid.userPrincipalName,lid.mail)">Teambeheerder maken</span>
-                      <span *ngIf="lid.beheerder" (click)="updateBeheerder(0,lid.userPrincipalName,lid.mail)">Verwijderen als beheerder</span>
+                    <button mat-menu-item *ngIf="lid.givenName && lid.beheerder" (click)="updateBeheerder(0,lid.userPrincipalName,lid.mail)">
+                      <mat-icon mat-list-icon>people</mat-icon>
+                      <span>Verwijderen als beheerder</span>
+                    </button>
+                    <button mat-menu-item *ngIf="lid.givenName && !lid.beheerder" (click)="updateBeheerder(1,lid.userPrincipalName,lid.mail)">
+                      <mat-icon mat-list-icon>supervised_user_circle</mat-icon>
+                      <span>Teambeheerder maken</span>
+                    </button>
+                    <button mat-menu-item (click)="verwijderLid(lid.userPrincipalName,lid.mail)">
+                      <mat-icon mat-list-icon>delete</mat-icon>
+                      <span>Verwijder lid</span>
                     </button>
                   </mat-menu>
             </ng-container>
