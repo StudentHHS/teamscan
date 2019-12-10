@@ -139,7 +139,7 @@ getData() {
      ).subscribe(data => {
        this.user = data;
       this.stateForm.setValue({
-        opleidingEnFaculteit: this.user.opleiding + " - " + this.user.faculteit,
+        opleidingEnFaculteit: this.user.opleiding + " — " + this.user.faculteit,
         geslacht: this.user.geslacht,
         opOfObp: this.user.opOfObp,
         contractsoort: this.user.contractsoort,
@@ -182,7 +182,7 @@ stateForm: FormGroup = this._formBuilder.group({
 onSubmit(formData: any) {
   console.log(formData);
   this.http.get(
-    AuthService.apiUrl+'?function=updateuserinfo&token='+this.authService.token,
+    AuthService.apiUrl+'?function=saveuserinfo&token='+this.authService.token,
     { headers: null, responseType: 'json', params: formData }
   )
   .subscribe(data => {
