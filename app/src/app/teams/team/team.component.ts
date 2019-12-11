@@ -103,12 +103,13 @@ export class TeamComponent {
       let data: FormData = new FormData();  
       data.append("teamscanid", teamscanId);
       data.append("status", state);
-      var params: any = {teamscanid: teamscanId, function: "closeteamscan"};
+      var params: any = {teamscanid: teamscanId, function: "updateteamscanstatus"};
       this.http.post(
         AuthService.apiUrl, data,
           { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: params }
         ).subscribe(data => {
           console.log(data);
+          this.reload();
         },
         error => {
           this.showToast("Er is een probleem ontstaan, probeer het nog een keer.", 3000);
@@ -137,6 +138,7 @@ export class TeamComponent {
 
   reload() {
     this.getData();
+    this.teamdata=Array();
     this.requestFailed = false;
   }
 

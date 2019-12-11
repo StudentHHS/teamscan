@@ -12,7 +12,7 @@
             </button>
         </mat-menu>
 </div>
-<div class="grid" *ngIf="teamdata.team?.teamscan" [@grow] style="margin-bottom:19px;">
+<div *ngIf="teamdata.team?.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'invullen'">
         <mat-card-title>
         Invullen
@@ -50,7 +50,7 @@
     <h6>Beheerdersmenu</h6>
     <mat-card-content class="">
         <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px">Teamscan aanmaken</button>
-        <button mat-stroked-button (click)="closeTeamscan(teamdata.teamscan?.id)"  style="margin-right:4px" *ngIf="teamdata.teamscan?.status === 'invullen' || teamdata.teamscan?.status === 'scoren'">Teamscan sluiten</button>
+        <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="choosestatus">Status: {{teamdata.teamscan?.status}} <mat-icon>keyboard_arrow_down</mat-icon></button>
         <button mat-stroked-button [matMenuTriggerFor]="addmember" #addMemberMenuTrigger="matMenuTrigger">
             <mat-icon>add</mat-icon>
             Nieuw lid
@@ -65,6 +65,11 @@
                     <span>Toevoegen</span>
                 </button>
             </form>
+        </mat-menu>
+        <mat-menu #choosestatus="matMenu">
+            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
+            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
+            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Sluiten</button>
         </mat-menu>
     </mat-card-content>
 </mat-card>
