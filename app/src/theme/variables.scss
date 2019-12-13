@@ -189,7 +189,7 @@ router-outlet ~ * {
 }
 @media screen and (max-width: 700px) {
   router-outlet ~ * {
-    padding: 0 20px 40px;
+    padding: 0 20px 80px;
   }
 }
 @keyframes fadeInUp {
