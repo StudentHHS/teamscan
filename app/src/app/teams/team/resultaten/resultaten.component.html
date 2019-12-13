@@ -1,70 +1,49 @@
 <mat-card>
+    <mat-card-title>
+        Resultaten teamscan
+    </mat-card-title>
     <mat-card-content>
-        <button style="float: right;" mat-stroked-button routerLink="scoren">Open vraag scoren</button>
-        <br>
-        <br>
-        <br>
-        <div class="row">
-            <div style="width: 50%; float: left; text-align: left; vertical-align: middle;">
-                <i class="material-icons" style="vertical-align:middle;">room</i>Start:
-                {{datumAangemaakt|date: 'dd/M/yyyy'}}
-            </div>
-            <div style="width: 50%; float: left; text-align: right;">Eind: {{datumVerlopen|date: 'dd/M/yyyy'}}
-                <i class="material-icons" style="vertical-align:middle;">room</i>
-            </div>
-        </div>
-        <br><br>
-        <mat-progress-bar mode="determinate" color="#9ea700" value="{{dagenGeldigProgressieBar}}"></mat-progress-bar>
-        <br>
-        <div *ngIf="resterendeDagen > 0" style="text-align:center;">
-            <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De
-                teamscan is nog {{resterendeDagen}} dagen geldig!</div>
-        </div>
-        <div *ngIf="0 > resterendeDagen" style="text-align:center;">
-            <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De termijn voor het invullen van de teamscan is ten einde.</div>
-        </div>
-        <mat-list>
-            <mat-list-item>
-                <!-- <div>
-                    <div style="display: block;">
-                        <canvas baseChart width="250" height="400" [datasets]="barChartData" [labels]="barChartLabels"
-                            [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend"
-                            [chartType]="barChartType" (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)">
-                        </canvas>
-                    </div>
-                </div> -->
-            </mat-list-item>
-            <br>
-            <h2 *ngIf="teamdata">
-                Deelnemers/teamleden teamscan ({{ teamdata.team.naam }})
-            </h2>
-            <mat-list *ngIf="teamdata">
-                <ng-container *ngFor="let lid of teamdata.leden; last as isLast; first as isFirst">
-                    <mat-list-item *ngIf="lid.givenName && !lid.ingevuld">
-                        <mat-icon mat-list-icon *ngIf="!lid.beheerder">people</mat-icon>
-                        <mat-icon mat-list-icon *ngIf="lid.beheerder">supervised_user_circle</mat-icon>
-                        <h4 mat-line>{{lid.givenName}} {{lid.surname}}</h4><p mat-line> In afwachting </p>
+        <p>
+            De resultaten van de teamscan zijn ingedeeld in 4 fases van teamvorming.
+        </p>
+        <ol>
+            <li>Iedere medewerker gaat zijn weg</li>
+            <li>Accent op organisatorische taken in het team</li>
+            <li>Doelgericht werken binnen het team</li>
+            <li>Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
+        </ol>
+
+            <mat-list *ngIf="resultdata" [@grow]>
+                <ng-container>
+                    <mat-list-item *ngFor="let dimensie of objectKeys(resultdata); last as isLast; first as isFirst">
+                        <div class="phaseContainer">
+                            <p>Dimensie {{dimensie}}: {{resultdata[dimensie][1].dimensie_naam}}</p>
+                            <div class="phaseBarChart">
+                                <div [style.width.%]="(resultdata[dimensie][1].aantal / resultdata[dimensie][1].totaal) * 100">1</div>
+                                <div [style.width.%]="(resultdata[dimensie][2].aantal / resultdata[dimensie][1].totaal) * 100">2</div>
+                                <div [style.width.%]="(resultdata[dimensie][3].aantal / resultdata[dimensie][1].totaal) * 100">3</div>
+                                <div [style.width.%]="(resultdata[dimensie][4].aantal / resultdata[dimensie][1].totaal) * 100">4</div>
+                            </div>
+                            <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
+                        </div>
                     </mat-list-item>
-                    <mat-list-item *ngIf="lid.givenName && lid.ingevuld" style="color: #9ea700">
-                        <mat-icon mat-list-icon *ngIf="!lid.beheerder">people</mat-icon>
-                        <mat-icon mat-list-icon *ngIf="lid.beheerder">supervised_user_circle</mat-icon>
-                        <h4 mat-line>{{lid.givenName}} {{lid.surname}}</h4><p mat-line> Ingevuld </p>
-                    </mat-list-item>
-                    <mat-list-item style="color: rgba(77, 83, 96, 0.849)" *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.userPrincipalName}}</h4><p mat-line> Nog niet geregistreerd, tevens in afwachting van invullen </p></mat-list-item>
-                    <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
+                    
                 </ng-container>
             </mat-list>
-            <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="!teamdata && !requestFailed"></mat-spinner>
+            <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="!resultdata && !requestFailed"></mat-spinner>
             <div *ngIf="requestFailed" style="text-align:center; margin-top:20px;">
                 Er kon geen verbinding worden gemaakt.<br><br>
                 <button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>
             </div>
-
-            <br>
-            <h2>
-                De beste opmerkingen (uit de teamscan)
-            </h2>
+    </mat-card-content>
+</mat-card>
+<br>
+<mat-card>
+    <mat-card-title>
+        De populairste verbeterpunten
+    </mat-card-title>
+    <mat-card-content>
+            <mat-list>
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_one</mat-icon>
                 <h4 mat-line>{{antwoord1}}</h4>

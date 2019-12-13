@@ -1,0 +1,28 @@
+.phaseContainer {
+    width:100%
+}
+
+.phaseContainer p {
+    margin-bottom:8px;
+}
+
+.phaseBarChart {
+    text-align:center;font-size:12px;line-height:1.3;height:auto; margin-bottom:16px;color:white;
+    border-radius:2px;
+    overflow:hidden;
+}
+
+.phaseBarChart div {
+    height:100%; display:inline-block;background:#1686bb;
+    box-shadow: inset -6px 0px 6px -4px rgba(0, 0, 0, 0.45);
+}
+
+.phaseBarChart div:nth-child(2) {
+    background:#7d5a9c;
+}
+.phaseBarChart div:nth-child(3) {
+    background:#b79b4d;
+}
+.phaseBarChart div:nth-child(4) {
+    background:#24b5a1;
+}

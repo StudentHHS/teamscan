@@ -5,18 +5,31 @@ import { HttpClient } from '@angular/common/http';
 import { UtilityService } from 'src/app/utility.service';
 import { AuthService } from 'src/app/auth.service';
 import { ToastController } from '@ionic/angular';
+import { trigger, transition, animate, style, group } from '@angular/animations'
 
 @Component({
     selector: 'app-resultaten',
     templateUrl: './resultaten.component.html',
-    styleUrls: ['./../../teams.component.css']
+    styleUrls: ['./resultaten.component.css'],
+    animations: [
+        trigger('grow', [
+          transition(':enter', [
+            style({height: '0', opacity: 0}),
+                group([
+                    animate("200ms cubic-bezier(0,.97,.53,1)", style({height: '*'})),
+                    animate('400ms ease-out', style({'opacity': '1'}))
+                ])
+          ])
+        ])
+      ]
 })
 
 export class ResultatenComponent {
     public id: string;
     public teamscan: string;
     requestFailed: Boolean = false;
-    public teamdata: any = null;
+    public resultdata: any = null;
+    public objectKeys = Object.keys;
 
     constructor(
         private route: ActivatedRoute,
@@ -34,15 +47,13 @@ export class ResultatenComponent {
     getData() {
         if (this.authService.token) {
             this.http.get(
-                AuthService.apiUrl+'?function=getteam&token=' + this.authService.token,
-                { headers: null, responseType: 'json', params: { teamid: this.id, teamscan: this.teamscan } }
+                AuthService.apiUrl,
+                { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: { teamid: this.id, teamscanid: this.teamscan, function: "getresults" } }
             ).subscribe(data => {
                 console.log("resultaat");
                 console.log(data);
                 this.requestFailed = false;
-                this.teamdata = data;
-                if (this.teamdata[0])
-                    this.us.changeTitle("Resultaten: " + this.teamdata.team.naam);
+                this.resultdata = data;
             },
                 error => {
                     this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
