@@ -40,17 +40,18 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule} from '@angular/material/radio';
 import { MatSliderModule} from '@angular/material/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material';
+import { MatTooltipModule} from '@angular/material/tooltip';
+import { MatStepperModule} from '@angular/material/stepper';
+import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatInputModule} from '@angular/material/input';
+import { MatSelectModule} from '@angular/material/select';
+import { MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material';
 import { MatChipsModule} from '@angular/material/chips';
-import {MatRippleModule} from '@angular/material/core';
+import { MatRippleModule, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatExpansionModule} from '@angular/material/expansion'
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -68,13 +69,15 @@ import { OAuthSettings } from '../oauth';
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
-    HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule, MatRippleModule
+    HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule, MatRippleModule,
+    MatExpansionModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     UtilityService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: MAT_DATE_LOCALE, useValue: 'nl-NL'}
   ],
   bootstrap: [AppComponent]
 })

@@ -8,6 +8,7 @@ import { trigger, transition, animate, style, group } from '@angular/animations'
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatMenuTrigger } from '@angular/material'
 import * as moment from 'moment';
+import { throwIfEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-team',
@@ -34,6 +35,10 @@ export class TeamComponent {
   public teamdata : any = Array();
   public teamscans: any = null;
   moment: any = moment;
+  public daysUntillStatusEnd= null;
+  public progressBarValue=0;
+  public startDate=null;
+  public endDate=null;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +72,19 @@ export class TeamComponent {
           this.teamdata = data;
           if(this.teamdata.team)
             this.us.changeTitle(this.teamdata.team.naam);
+          if(this.teamdata.teamscan) {
+            if(this.teamdata.teamscan.status=="invullen") {
+              this.startDate = new Date(this.teamdata.teamscan.start);
+              this.endDate = new Date(this.teamdata.teamscan.eind);
+            }
+            if(this.teamdata.teamscan.status=="scoren" || this.teamdata.teamscan.status=="gesloten" ) {
+              this.startDate = new Date(this.teamdata.teamscan.eind);
+              this.endDate = new Date(this.teamdata.teamscan.eindOpenVraag);
+            }
+            var diff = this.endDate.getTime() - new Date().getTime();
+            this.daysUntillStatusEnd = Math.ceil(diff / (1000 * 3600 * 24)); 
+            this.progressBarValue=((new Date().getTime() - this.startDate.getTime()) / ( this.endDate.getTime() - this.startDate.getTime()))*100;
+          }
         },
         error => {
           this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);

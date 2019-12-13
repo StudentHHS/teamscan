@@ -6,32 +6,35 @@
   <mat-card-content>
     <form [formGroup]="createTeamScan" (ngSubmit)="createTeamscan(createTeamScan.value)">
       <mat-form-field>
-        <mat-label>Naam</mat-label>
+        <mat-label>Titel teamscan</mat-label>
         <input matInput type="text" placeholder="Teamscan naam"  name="teamscannaam" formControlName="teamscannaam" required>
       </mat-form-field>
       
       <mat-form-field>
         <mat-label>Startdatum</mat-label>
-        <input matInput [matDatepicker]="Startdatum"  placeholder="Startdatum" name="teamscanstartdatum" formControlName="teamscanstartdatum" required disabled>
+        <input matInput [matDatepicker]="Startdatum"  placeholder="01/01/1970" name="teamscanstartdatum" formControlName="teamscanstartdatum" required disabled>
         <mat-datepicker-toggle  matSuffix [for]="Startdatum"></mat-datepicker-toggle> 
         <mat-datepicker #Startdatum disabled="false" touchUi></mat-datepicker>
+        <mat-error *ngIf="createTeamScan.get('teamscanstartdatum').invalid">Vul een geldige datum in</mat-error>
       </mat-form-field>
       
       <mat-form-field>
-        <mat-label>Einddatum</mat-label>
-        <input matInput [matDatepicker]="Einddatum"  placeholder="Einddatum" name="teamscaneinddatum" formControlName="teamscaneinddatum" required disabled>
+        <mat-label>Einddatum invullen teamscan</mat-label>
+        <input matInput [matDatepicker]="Einddatum"  placeholder="01/01/1970" name="teamscaneinddatum" formControlName="teamscaneinddatum" required disabled>
         <mat-datepicker-toggle  matSuffix [for]="Einddatum"></mat-datepicker-toggle>
         <mat-datepicker #Einddatum disabled="false" touchUi></mat-datepicker>
+        <mat-error *ngIf="createTeamScan.get('teamscaneinddatum').invalid">Vul een geldige datum in</mat-error>
       </mat-form-field>
       
       <mat-form-field>
-        <mat-label>Einddatum open vraag</mat-label>
-        <input matInput [matDatepicker]="EinddatumOpenvraag"  placeholder="Einddatum openvraag" name="teamscanopenvraageinddatum" formControlName="teamscanopenvraageinddatum" required disabled>
+        <mat-label>Einddatum scoren verbeterpunten</mat-label>
+        <input matInput [matDatepicker]="EinddatumOpenvraag"  placeholder="01/01/1970" name="teamscanopenvraageinddatum" formControlName="teamscanopenvraageinddatum" required disabled>
         <mat-datepicker-toggle  matSuffix [for]="EinddatumOpenvraag"></mat-datepicker-toggle>
         <mat-datepicker #EinddatumOpenvraag disabled="false" touchUi></mat-datepicker>
+        <mat-error *ngIf="createTeamScan.get('teamscanopenvraageinddatum').invalid">Vul een geldige datum in</mat-error>
       </mat-form-field>
       
-      <button mat-raised-button type="submit">aanmaken</button>
+      <button mat-flat-button type="submit" [disabled]="createTeamScan.invalid" style="width:auto" color="primary">Aanmaken</button>
       
     </form>
   </mat-card-content>
