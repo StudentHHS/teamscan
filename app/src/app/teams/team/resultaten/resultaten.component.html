@@ -15,14 +15,14 @@
 
             <mat-list *ngIf="resultdata" [@grow]>
                 <ng-container>
-                    <mat-list-item *ngFor="let dimensie of objectKeys(resultdata); last as isLast; first as isFirst">
+                    <mat-list-item *ngFor="let dimensie of objectKeys(resultdata.lijst); last as isLast; first as isFirst">
                         <div class="phaseContainer">
-                            <p>Dimensie {{dimensie}}: {{resultdata[dimensie][1].dimensie_naam}}</p>
+                            <p>Dimensie {{dimensie}}: {{resultdata.lijst[dimensie][1].dimensie_naam}}</p>
                             <div class="phaseBarChart">
-                                <div [style.width.%]="(resultdata[dimensie][1].aantal / resultdata[dimensie][1].totaal) * 100">1</div>
-                                <div [style.width.%]="(resultdata[dimensie][2].aantal / resultdata[dimensie][1].totaal) * 100">2</div>
-                                <div [style.width.%]="(resultdata[dimensie][3].aantal / resultdata[dimensie][1].totaal) * 100">3</div>
-                                <div [style.width.%]="(resultdata[dimensie][4].aantal / resultdata[dimensie][1].totaal) * 100">4</div>
+                                <div [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">1</div>
+                                <div [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">2</div>
+                                <div [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">3</div>
+                                <div [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">4</div>
                             </div>
                             <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
                         </div>
@@ -46,15 +46,15 @@
             <mat-list>
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_one</mat-icon>
-                <h4 mat-line>{{antwoord1}}</h4>
+                <h4 mat-line>{{resultdata?.scoren[0]?.antwoord}}</h4>
             </mat-list-item>
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_two</mat-icon>
-                <h4 mat-line>{{antwoord2}}</h4>
+                <h4 mat-line>{{resultdata?.scoren[1]?.antwoord}}</h4>
             </mat-list-item>
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_3</mat-icon>
-                <h4 mat-line>{{antwoord3}}</h4>
+                <h4 mat-line>{{resultdata?.scoren[2]?.antwoord}}</h4>
             </mat-list-item>
         </mat-list>
     </mat-card-content>
