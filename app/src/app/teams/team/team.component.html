@@ -81,7 +81,7 @@
     </mat-card>
 </div>
 <mat-card *ngIf="teamdata.team?.teamscan" [@grow] style="margin-bottom:19px;">
-    <mat-card-content *ngIf="teamdata.team?.teamscan.status !== 'gesloten'">
+    <mat-card-content *ngIf="teamdata.team?.teamscan?.status !== 'gesloten'">
         <div class="row">
             <div style="width: 50%; float: left; text-align: left; vertical-align: middle;">
                 <i class="material-icons" style="vertical-align:middle;">room</i>Start:
@@ -106,7 +106,7 @@
             <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De termijn voor het invullen van de teamscan is ten einde.</div>
         </div>
     </mat-card-content>
-    <mat-card-content *ngIf="teamdata.team?.teamscan.status == 'gesloten'">
+    <mat-card-content *ngIf="teamdata.team?.teamscan?.status == 'gesloten'">
         <div style="text-align:center;">
             <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De teamscan is gesloten.</div>
         </div>
@@ -135,7 +135,7 @@
                 <mat-list-item *ngIf="isFirst"><p mat-line style="margin-bottom:20px"> Aangemaakt door: {{lid.leider_mail}} </p></mat-list-item>
                 <mat-divider *ngIf="isFirst"></mat-divider>
                 <mat-list-item *ngIf="lid.givenName">
-                    <mat-icon mat-list-icon [style.color]="(teamdata.teamscan.status=='invullen' && lid.ingevuld) || (teamdata.teamscan.status!='ingevuld' && lid.gescoord) ? '#9ea700' : NULL">{{lid.beheerder ? "supervised_user_circle" : "people"}}</mat-icon>
+                    <mat-icon mat-list-icon [style.color]="(teamdata.teamscan?.status=='invullen' && lid.ingevuld) || (teamdata.teamscan?.status!='ingevuld' && lid.gescoord) ? '#9ea700' : NULL">{{lid.beheerder ? "supervised_user_circle" : "people"}}</mat-icon>
                     <h4 mat-line>{{lid.givenName}} {{lid.surname}}</h4>
                     <p mat-line>{{lid.ingevuld ? "ingevuld - " : ""}}{{lid.gescoord ? "gescoord - " : ""}}{{lid.userPrincipalName}}<span *ngIf="lid.beheerder"> (beheerder)</span></p>
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opties voor teamlid" *ngIf="teamdata.team.beheerder">
