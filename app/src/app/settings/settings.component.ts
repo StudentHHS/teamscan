@@ -35,60 +35,37 @@ export class SettingsComponent implements OnInit {
     private user: any = null;
     requestFailed: Boolean = false;
 
-    stateGroups: OpleidingenGroup[] = [{
-      naam: 'Faculteit Business, Finance & Marketing',
-      opleidingen: ['Boekhouden', 'IFMC - English Stream', 'Finance & Control - Associate Degree', 'Finance & control', 'Commerciële Economie', 'Internationale Zaken', 'Ondernemerschap & Retail Management', 'Kenniskring / Lectoraat', 'Faculteitsbureau'
-      ]
-    }, {
-      naam: 'Faculteit Bestuur, Recht & Veiligheid',
-      opleidingen: ['Bestuurskunde/Overheidsmanagement', 'IPM/Bestuurskunde/Overheidsmanagement - English Stream', 'Law (I&EL)/HBO-Rechten - English Stream', 'SSMS/Integrale Veiligheidskunde - English Stream', 'HBO-Rechten', 'Integrale Veiligheidskunde', 'Kenniskring / Lectoraat', 'Faculteitsbureau'
-          ]
-    }, {
-      naam: 'Faculteit Gezondheid, Voeding & Sport',
-      opleidingen: ['Mens en Techniek | Bewegingstechnologie', 'Opleiding tot Leraar Lichamelijke Opvoeding', 'Opleiding tot Verpleegkundige','Huidtherapie','Voeding & Diëtetiek','Sportkunde (International Sportmanagement)','Kenniskring / Lectoraat','Faculteitsbureau']
-    }, {
-      naam: 'Faculteit IT & Design',
-      opleidingen: ['HBO-ICT - Den Haag','HBO-ICT - Delft','HBO-ICT - Zoetermeer','Communication and Multimedia Design','Kenniskring / Lectoraat','Faculteitsbureau']
-    }, {
-      naam: 'Faculteit Management & Organisatie',
-      opleidingen: ['Bedrijfskunde','Communicatie','European Studies','Facilitaire Diensverlening','Personeelszaken','Kenniskring / Lectoraat','Faculteitsbureau']
-    }, {
-      naam: 'Faculteit Sociaal Werk & Educatie',
-      opleidingen: ['Opleiding tot Leraar Basisonderwijs','Pedagogiek','Maatschappelijk Werk','Kenniskring / Lectoraat','Faculteitsbureau']
-    }, {
-      naam: 'Faculteit Technologie, Innovatie & Samenleving',
-      opleidingen: ['Bouwkunde', 'IDE | Industrieel Product Ontwerpen - English Stream', 'PFT | Process & Food Technology','Civiele Techniek','Elektrotechniek','IPO | Industrieel Product Ontwerpen','Mechatronica','Ruimtelijke Ontwikkeling | Climate & Management','Technische Bedrijfskunde','Technische Natuurkunde','Toegepaste Wiskunde','Werktuigbouwkunde','Kenniskring / Lectoraat','Faculteitsbureau']
-    }, {
-      naam: 'Academie voor Masters & Professional Courses',
-      opleidingen: []
-    }, {
-      naam: 'Bestuurszaken',
-      opleidingen: []
-    }, {
-      naam: 'Dienst Bedrijfsvoering & Control',
-      opleidingen: ['Dienstbureau','Eenheidsregeling','Eenheidsdiensten','Unit Subsidiedesk']
-    }, {
-      naam: 'Dienst Facilitaire Zaken & IT',
-      opleidingen: ['Dienstbureau','Unit Facility Services & Huisvesting','Unit Frontoffice & Support','Unit Innovatie & Projecten','IT-Eenheid']
-    }, {
-      naam: 'Dienst Human Resources Management',
-      opleidingen: ['Dienstbureau','Unit Strategie en HRD','Unit Advies en Dienstverlening']
-    }, {
-      naam: 'Dienst Onderwijs, Kennis & Communicatie',
-      opleidingen: ['Dienstbureau','Eenheid Bibliotheek','Eenheid Onderwijs','Unit Studentenservice','Unit Wereldburgerschap & Internationalisering','Unit Marketing en Communicatie']
-    }
-  ];
-
-  stateGroupOptions: Observable<OpleidingenGroup[]>;
+    stateGroups: OpleidingenGroup[];
+    stateGroupOptions: Observable<OpleidingenGroup[]>;
 
 
     ngOnInit() {
-        this.stateGroupOptions = this.stateForm.get('opleidingEnFaculteit')!.valueChanges
-          .pipe(
-            startWith(''),
-            map(value => this._filterGroup(value))
-          );
+
           this.getData();
+
+          setTimeout(this.getOpleidingen.bind(this),400);
+    }
+
+    getOpleidingen() {
+      this.http.get( AuthService.apiUrl,
+        { headers: {Authorization: "Bearer "+this.authService.token}, responseType: 'json', params: {function: 'faculteitenopleiding'} }
+      )
+      .subscribe(data => {
+        console.log("returned",data);
+        var dedata:any = data;
+        this.stateGroups=dedata;
+        this.stateGroupOptions = this.stateForm.get('opleidingEnFaculteit')!.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterGroup(value))
+        );
+        this.stateForm.removeControl("opleidingEnFaculteit");
+        this.stateForm.addControl("opleidingEnFaculteit", new FormControl(this.user.opleiding + " — " + this.user.faculteit,[this.validateFaculteit.bind(this)]));
+      },
+      error => {
+        this.showToast("We konden de opleidingen niet ophalen. Ben je nog verbonden?", 3000);
+        console.log("error at data request", error);
+      });
     }
 
     private _filterGroup(value: string): OpleidingenGroup[] {
@@ -169,7 +146,7 @@ getData() {
 }
 
 stateForm: FormGroup = this._formBuilder.group({
-    opleidingEnFaculteit:  new FormControl('', [Validators.required, this.validateFaculteit.bind(this)]),
+    opleidingEnFaculteit:  new FormControl('', [Validators.required]),
     geslacht: new FormControl('', [Validators.required]),
     opOfObp: new FormControl('', [Validators.required]),
     contractsoort: '',

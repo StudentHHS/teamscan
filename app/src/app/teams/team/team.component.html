@@ -67,7 +67,7 @@
             <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'">Geef je mening</button>
         </mat-card-content>
         <mat-card-content *ngIf="teamdata.team?.gescoord">
-            <div>Je hebt de gescoord. Wacht tot de eerstvolgende sluitingsdatum voor de resultaten van de teamscan.</div>
+            <div>Je hebt gescoord. Wacht tot de eerstvolgende sluitingsdatum voor de resultaten van de teamscan.</div>
         </mat-card-content>
     </mat-card>
     <mat-card class=""  style="width:100%" *ngIf="teamdata.teamscan?.status === 'gesloten'">
