@@ -8,9 +8,7 @@
         <mat-list>
             <mat-list-item routerLink="create-team" matRipple><mat-icon mat-list-icon>add</mat-icon><h4 mat-line>Maak een nieuw team</h4></mat-list-item>
         </mat-list>
-    </mat-card-content>
     <mat-divider [inset]="true"></mat-divider>
-    <mat-card-content>
         <mat-list *ngIf="teams != null" style="padding-top:0;" [@grow]>
             <ng-container *ngFor="let team of teams; last as isLast; first as isFirst">
                 <div class="card-button" matRipple >
@@ -23,10 +21,11 @@
                 </div>
                 <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
             </ng-container>
-            <mat-list-item *ngIf="teams.length == 0">
-                    <p>Je bent nog geen lid van een team.</p>
-            </mat-list-item>
         </mat-list>
+        <div *ngIf="teams?.length == 0" style="text-align:center">
+            <p>Je bent nog geen lid van een team.<br>Kom later terug wanneer je toegevoegd bent of maak een team aan.</p>
+            <button mat-stroked-button style="margin:10px auto;" (click)="reload()">Overzicht verversen</button>
+        </div>
         <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="teams == null && !requestFailed"></mat-spinner>
         <div *ngIf="requestFailed" style="text-align:center; margin-top:20px;">
             Er kon geen verbinding worden gemaakt.<br><br>

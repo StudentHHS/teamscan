@@ -59,6 +59,7 @@ export class TeamsComponent {
     }
 
   reload() {
+    this.teams=null;
     this.getData();
     this.requestFailed = false;
   }
