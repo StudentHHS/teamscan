@@ -40,11 +40,7 @@ export class SettingsComponent implements OnInit {
 
 
     ngOnInit() {
-        this.stateGroupOptions = this.stateForm.get('opleidingEnFaculteit')!.valueChanges
-          .pipe(
-            startWith(''),
-            map(value => this._filterGroup(value))
-          );
+
           this.getData();
 
           setTimeout(this.getOpleidingen.bind(this),400);
@@ -58,6 +54,13 @@ export class SettingsComponent implements OnInit {
         console.log("returned",data);
         var dedata:any = data;
         this.stateGroups=dedata;
+        this.stateGroupOptions = this.stateForm.get('opleidingEnFaculteit')!.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterGroup(value))
+        );
+        this.stateForm.removeControl("opleidingEnFaculteit");
+        this.stateForm.addControl("opleidingEnFaculteit", new FormControl(this.user.opleiding + " — " + this.user.faculteit,[this.validateFaculteit.bind(this)]));
       },
       error => {
         this.showToast("We konden de opleidingen niet ophalen. Ben je nog verbonden?", 3000);
@@ -143,7 +146,7 @@ getData() {
 }
 
 stateForm: FormGroup = this._formBuilder.group({
-    opleidingEnFaculteit:  new FormControl('', [Validators.required, this.validateFaculteit.bind(this)]),
+    opleidingEnFaculteit:  new FormControl('', [Validators.required]),
     geslacht: new FormControl('', [Validators.required]),
     opOfObp: new FormControl('', [Validators.required]),
     contractsoort: '',
