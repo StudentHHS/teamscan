@@ -30,6 +30,7 @@ export class ResultatenComponent {
     requestFailed: Boolean = false;
     public resultdata: any = null;
     public objectKeys = Object.keys;
+    public avgRounded = 0;
 
     constructor(
         private route: ActivatedRoute,
@@ -54,6 +55,7 @@ export class ResultatenComponent {
                 console.log(data);
                 this.requestFailed = false;
                 this.resultdata = data;
+                this.avgRounded = Math.round(data["gemiddelde"]);
             },
                 error => {
                     this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);

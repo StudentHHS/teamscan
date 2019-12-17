@@ -27,7 +27,6 @@
                             <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
                         </div>
                     </mat-list-item>
-                    
                 </ng-container>
             </mat-list>
             <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="!resultdata && !requestFailed"></mat-spinner>
@@ -35,6 +34,14 @@
                 Er kon geen verbinding worden gemaakt.<br><br>
                 <button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>
             </div>
+            <mat-divider></mat-divider><br>
+            <h2 style="margin-top:0">Gemiddelde fase</h2>
+            <h6>Fase {{(resultdata) ? resultdata.gemiddelde : "0.0"}}</h6>
+            <p *ngIf="avgRounded == 0">Momentje...</p>
+            <p *ngIf="avgRounded == 1">Fase 1 staat voor: Iedere medewerker gaat zijn weg</p>
+            <p *ngIf="avgRounded == 2">Fase 2 staat voor: Accent op organisatorische taken in het team</p>
+            <p *ngIf="avgRounded == 3">Fase 3 staat voor: Doelgericht werken binnen het team</p>
+            <p *ngIf="avgRounded == 4">Fase 4 staat voor: Accent op zelfstandig verbeteren m.b.t. de omgeving</p>
     </mat-card-content>
 </mat-card>
 <br>
@@ -43,19 +50,37 @@
         De populairste verbeterpunten
     </mat-card-title>
     <mat-card-content>
-            <mat-list>
+        <mat-list>
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_one</mat-icon>
                 <h4 mat-line>{{resultdata?.scoren[0]?.antwoord}}</h4>
+                <span mat-line>{{(resultdata?.scoren[0]?.aantal / (resultdata?.scoren[0]?.deelnemers))}}</span>
             </mat-list-item>
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_two</mat-icon>
                 <h4 mat-line>{{resultdata?.scoren[1]?.antwoord}}</h4>
+                <span mat-line>{{(resultdata?.scoren[1]?.aantal / (resultdata?.scoren[1]?.deelnemers))}}</span>
             </mat-list-item>
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_3</mat-icon>
                 <h4 mat-line>{{resultdata?.scoren[2]?.antwoord}}</h4>
+                <span mat-line>{{(resultdata?.scoren[2]?.aantal / (resultdata?.scoren[2]?.deelnemers))}}</span>
             </mat-list-item>
         </mat-list>
+        <mat-expansion-panel *ngIf="resultdata?.scoren.length > 3" [@grow]>
+            <mat-expansion-panel-header  style="background:lightgrey;">
+              <mat-panel-title style="color:black">
+                Bekijk meer verbeterpunten
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-list>
+                <mat-list-item *ngFor="let punt of resultdata?.scoren | slice:3; let i = index">
+                    <mat-icon mat-list-icon>arrow_right</mat-icon>
+                    <h4 mat-line>{{punt.antwoord}} ({{(punt.aantal / (punt.deelnemers))}})</h4>
+                </mat-list-item>
+                
+            </mat-list>
+        </mat-expansion-panel>
     </mat-card-content>
 </mat-card>
