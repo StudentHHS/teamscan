@@ -17,6 +17,13 @@ mat-form-field{
   padding-left:5px;
 }
 
-.helpIcon {
-  font-size: 50px;
+.faseInBolletje {
+  position: absolute;
+  left: 23px;
+  top: calc(50% - 5px);
+  line-height: 1;
+  font-size: 11px;
+  margin: 0;
+  color: #666;
+  padding: 0;
 }

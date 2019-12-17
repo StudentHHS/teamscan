@@ -16,16 +16,21 @@
         <form [formGroup]="antwoordForm" (ngSubmit)="save(antwoordForm.value)">
             <mat-vertical-stepper #stepper>
 
-                <mat-step stepControl="firstFormGroup" *ngFor="let title of objectKeys(dimensions); let index = index; last as isLast; first as isFirst">
-                    <ng-template matStepLabel>{{title}} *</ng-template>
-                    <mat-radio-group [name]="dimensions[title][0].dimensie_id" [formControlName]="dimensions[title][0].dimensie_id" required>
-                        <mat-list>
-                            <div *ngFor="let question of dimensions[title]; last as isLast">
-                                <mat-list-item>
-                                    <mat-radio-button mat-list-base [value]="question.fase_id" [name]="dimensions[title][0].dimensie_id" style="width:100%;">
-                                        <p>{{question.antwoord_kort}}</p>
-                                    </mat-radio-button>
-                                    <button type="button" mat-icon-button (click)="tooltip.show()" [matTooltip]="question.antwoord" matTooltipPosition="left" #tooltip="matTooltip" class="infobutton">
+            <mat-step stepControl="firstFormGroup" *ngFor="let title of objectKeys(dimensions); let index = index; last as isLast; first as isFirst">
+                <ng-template matStepLabel>{{title}} *</ng-template>
+                <mat-radio-group [name]="dimensions[title][0].dimensie_id" [formControlName]="dimensions[title][0].dimensie_id" required>
+                    <mat-list>
+                        <div *ngFor="let question of dimensions[title]; last as isLast">
+                            <mat-list-item>
+                                <mat-radio-button mat-list-base [value]="question.fase_id"
+                                    [name]="dimensions[title][0].dimensie_id" style="width:100%;" #val>
+                                    <p class="faseInBolletje" [style.visibility]="val.checked ? 'hidden' : NULL">
+                                        {{question.fase_id}}
+                                    </p>
+                                    <p>{{question.antwoord_kort}}</p>
+                                </mat-radio-button>
+                                <button type="button" mat-icon-button (click)="tooltip.show()"
+                                    [matTooltip]="question.antwoord" matTooltipPosition="left" #tooltip="matTooltip" class="infobutton">
                                     <mat-icon>info</mat-icon>
                                 </button>
                                 </mat-list-item>
