@@ -14,8 +14,8 @@
       </mat-form-field>
       <mat-label>Is er sprake van een samenwerkingsverband?</mat-label><br>
       <mat-radio-group formControlName="samenwerking" required>
-          <mat-radio-button value="1" style="margin-bottom:10px">Team overkoepelt meerdere opleidingen of diensten</mat-radio-button><br>
-          <mat-radio-button value="0">Team valt onder 1 opleiding of dienst</mat-radio-button>
+          <mat-radio-button value="1" style="margin-bottom:10px">Dit team bevat deelnemers overstijgend aan de eigen opleiding/unit</mat-radio-button><br>
+          <mat-radio-button value="0">Dit team bevat deelnemers van dezelfde opleiding/unit</mat-radio-button>
       </mat-radio-group>
       <br>
       <mat-form-field *ngIf="createTeamForm.get('samenwerking').value == 0">
@@ -47,8 +47,8 @@
         </mat-chip-list>
         <mat-hint>E-mailadressen gescheiden door komma's, minimaal 2 andere leden</mat-hint>
       </mat-form-field>
-      <button type="submit" [disabled]="createTeamForm.invalid">
-        Maak nieuw team
+      <button type="submit" [disabled]="createTeamForm.invalid || verstuurd == true">
+        {{verstuurdKnop}}
       </button>
     </form>
   </mat-card-content>
