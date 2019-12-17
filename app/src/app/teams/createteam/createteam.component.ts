@@ -29,6 +29,10 @@ export const _filter = (opt: string[], value: string): string[] => {
 export class CreateTeamComponent {
   @ViewChild('chipList', { static: true }) chipList: MatChipList;
 
+  // checken of form verstuur is
+  verstuurd = false;
+  verstuurdKnop = "Maak nieuw team"
+
   // email chips
   visible = true;
   selectable = true;
@@ -174,16 +178,18 @@ export class CreateTeamComponent {
         console.log("send",data)
         this.location.back();
       });
+      this.verstuurd = true;
+      this.verstuurdKnop = "Aanmaken..."
     }
   }
 
   stateGroups: OpleidingenGroup[] = [{
     naam: 'Faculteit Business, Finance & Marketing',
-    opleidingen: ['Accountancy', 'Finance & control', 'Commerciële Economie', 'International Business', 'Ondernemerschap & Retail Management', 'Kenniskring / Lectoraat', 'Faculteitsbureau'
+    opleidingen: ['Boekhouden', 'IFMC - English Stream', 'Finance & Control - Associate Degree', 'Finance & control', 'Commerciële Economie', 'Internationale Zaken', 'Ondernemerschap & Retail Management', 'Kenniskring / Lectoraat', 'Faculteitsbureau'
     ]
   }, {
     naam: 'Faculteit Bestuur, Recht & Veiligheid',
-    opleidingen: ['Bestuurskunde/Overheidsmanagement', 'HBO-Rechten', 'Integrale Veiligheidskunde', 'Kenniskring / Lectoraat', 'Faculteitsbureau'
+    opleidingen: ['Bestuurskunde/Overheidsmanagement', 'IPM/Bestuurskunde/Overheidsmanagement - English Stream', 'Law (I&EL)/HBO-Rechten - English Stream', 'SSMS/Integrale Veiligheidskunde - English Stream', 'HBO-Rechten', 'Integrale Veiligheidskunde', 'Kenniskring / Lectoraat', 'Faculteitsbureau'
         ]
   }, {
     naam: 'Faculteit Gezondheid, Voeding & Sport',
@@ -193,13 +199,13 @@ export class CreateTeamComponent {
     opleidingen: ['HBO-ICT - Den Haag','HBO-ICT - Delft','HBO-ICT - Zoetermeer','Communication and Multimedia Design','Kenniskring / Lectoraat','Faculteitsbureau']
   }, {
     naam: 'Faculteit Management & Organisatie',
-    opleidingen: ['Bedrijfskunde','Communicatie','European Studies','Facility Management','Human Resource Management','Kenniskring / Lectoraat','Faculteitsbureau']
+    opleidingen: ['Bedrijfskunde','Communicatie','European Studies','Facilitaire Diensverlening','Personeelszaken','Kenniskring / Lectoraat','Faculteitsbureau']
   }, {
     naam: 'Faculteit Sociaal Werk & Educatie',
-    opleidingen: ['Opleiding tot Leraar Basisonderwijs','Pedagogiek','Social Work','Kenniskring / Lectoraat','Faculteitsbureau']
+    opleidingen: ['Opleiding tot Leraar Basisonderwijs','Pedagogiek','Maatschappelijk Werk','Kenniskring / Lectoraat','Faculteitsbureau']
   }, {
     naam: 'Faculteit Technologie, Innovatie & Samenleving',
-    opleidingen: ['Bouwkunde','PFT | Process & Food Technology','Civiele Techniek','Elektrotechniek','IPO | Industrieel Product Ontwerpen','Mechatronica','Ruimtelijke Ontwikkeling | Climate & Management','Technische Bedrijfskunde','Technische Natuurkunde','Toegepaste Wiskunde','Werktuigbouwkunde','Kenniskring / Lectoraat','Faculteitsbureau']
+    opleidingen: ['Bouwkunde', 'IDE | Industrieel Product Ontwerpen - English Stream', 'PFT | Process & Food Technology','Civiele Techniek','Elektrotechniek','IPO | Industrieel Product Ontwerpen','Mechatronica','Ruimtelijke Ontwikkeling | Climate & Management','Technische Bedrijfskunde','Technische Natuurkunde','Toegepaste Wiskunde','Werktuigbouwkunde','Kenniskring / Lectoraat','Faculteitsbureau']
   }, {
     naam: 'Academie voor Masters & Professional Courses',
     opleidingen: []
@@ -208,16 +214,16 @@ export class CreateTeamComponent {
     opleidingen: []
   }, {
     naam: 'Dienst Bedrijfsvoering & Control',
-    opleidingen: ['Dienstbureau','Unit Control','Unit Services','Unit Subsidiedesk']
+    opleidingen: ['Dienstbureau','Eenheidsregeling','Eenheidsdiensten','Unit Subsidiedesk']
   }, {
     naam: 'Dienst Facilitaire Zaken & IT',
-    opleidingen: ['Dienstbureau','Unit Facility Services & Huisvesting','Unit Frontoffice & Support','Unit Innovatie & Projecten','Unit IT & Educational Services']
+    opleidingen: ['Dienstbureau','Unit Facility Services & Huisvesting','Unit Frontoffice & Support','Unit Innovatie & Projecten','IT-Eenheid']
   }, {
     naam: 'Dienst Human Resources Management',
     opleidingen: ['Dienstbureau','Unit Strategie en HRD','Unit Advies en Dienstverlening']
   }, {
     naam: 'Dienst Onderwijs, Kennis & Communicatie',
-    opleidingen: ['Dienstbureau','Unit Bibliotheek','Unit Onderwijs & Onderzoek','Unit Studentenservice','Unit Wereldburgerschap & Internationalisering','Unit Marketing en Communicatie']
+    opleidingen: ['Dienstbureau','Eenheid Bibliotheek','Eenheid Onderwijs','Unit Studentenservice','Unit Wereldburgerschap & Internationalisering','Unit Marketing en Communicatie']
   }
 ];
 
