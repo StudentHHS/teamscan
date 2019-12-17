@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 import { startWith, map } from 'rxjs/operators';
 
 export interface OpleidingenGroup {
@@ -27,7 +28,8 @@ export class SettingsComponent implements OnInit {
   constructor(private authService: AuthService,
     private _formBuilder: FormBuilder,
     private http: HttpClient,
-    private toastController: ToastController) {
+    private toastController: ToastController,
+    private location: Location) {
     }
 
     private user: any = null;
@@ -187,6 +189,7 @@ onSubmit(formData: any) {
   )
   .subscribe(data => {
     console.log("returned",data);
+    this.location.back();
   },
   error => {
     this.showToast("We konden de gegevens niet opslaan. Ben je nog verbonden?", 3000);
@@ -196,6 +199,7 @@ onSubmit(formData: any) {
 
   signOut(): void {
     this.authService.signOut();
+    this.location.back();
     console.log("auth",this.authService.authenticated);
   }
 }
