@@ -1,24 +1,26 @@
-<div class=""  style="color: white;position:fixed;top: 10px;right: 24px;">
-        <button mat-stroked-button *ngIf="teamdata.teamscan" [matMenuTriggerFor]="changeteamscan" (click)="openteamscanmenu()" style="margin-top: -5px;line-height: 25px;border-color:white">
+<div class="" style="color: white;position:fixed;top: 10px;right: 24px;">
+    <button mat-stroked-button *ngIf="teamdata.teamscan" [matMenuTriggerFor]="changeteamscan" (click)="openteamscanmenu()" style="margin-top: -5px;line-height: 25px;border-color:white">
             {{teamdata.teamscan?.naam}}
             <mat-icon>keyboard_arrow_down</mat-icon>
         </button>
 
-        <mat-menu #changeteamscan="matMenu">
-            <div style="min-width:250px;"><mat-spinner style="margin:10px auto;" diameter="30" *ngIf="!teamscans"></mat-spinner></div>
-            <button mat-menu-item *ngFor="let scan of teamscans" [routerLink]="'/team/'+id+'/'+scan.id">
+    <mat-menu #changeteamscan="matMenu">
+        <div style="min-width:250px;">
+            <mat-spinner style="margin:10px auto;" diameter="30" *ngIf="!teamscans"></mat-spinner>
+        </div>
+        <button mat-menu-item *ngFor="let scan of teamscans" [routerLink]="'/team/'+id+'/'+scan.id">
                 <mat-icon mat-list-icon>assessment</mat-icon>
                 <span>{{scan.naam}} ({{scan.status=='gesloten'?"gesloten op": "sluit"}} {{scan.eindOpenVraag|date:'d/M'}})</span>
             </button>
-        </mat-menu>
+    </mat-menu>
 </div>
 <mat-expansion-panel *ngIf="teamdata.team?.beheerder" style="margin-bottom:19px">
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        <h6 style="margin:0">Beheerderdersmenu</h6>
-      </mat-panel-title>
+        <mat-panel-title>
+            <h6 style="margin:0">Beheerderdersmenu</h6>
+        </mat-panel-title>
     </mat-expansion-panel-header>
-  
+
     <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.teamscan">Status: {{teamdata.teamscan?.status}} <mat-icon>keyboard_arrow_down</mat-icon></button>
     <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px"><mat-icon>add</mat-icon>Teamscan</button>
     <button mat-stroked-button [matMenuTriggerFor]="addmember" #addMemberMenuTrigger="matMenuTrigger">
@@ -27,7 +29,7 @@
     </button>
 
     <mat-menu #addmember="matMenu">
-        <form (click)="$event.stopPropagation();" style="margin:5px 20px"  [formGroup]="addmemberform" (ngSubmit)="onSubmitMember(addmemberform.value, addMemberMenuTrigger)">
+        <form (click)="$event.stopPropagation();" style="margin:5px 20px" [formGroup]="addmemberform" (ngSubmit)="onSubmitMember(addmemberform.value, addMemberMenuTrigger)">
             <mat-form-field>
                 <input matInput placeholder="E-mailadres" formControlName="email">
             </mat-form-field>
@@ -41,12 +43,12 @@
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Sluiten</button>
     </mat-menu>
-  
- </mat-expansion-panel>
+
+</mat-expansion-panel>
 <div *ngIf="teamdata.team?.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'invullen'">
         <mat-card-title>
-        Invullen
+            Invullen
         </mat-card-title>
         <mat-card-content *ngIf="!teamdata.team?.ingevuld && teamdata.team">
             <div>Er staan vragen voor je klaar.</div><br>
@@ -60,19 +62,19 @@
     </mat-card>
     <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'scoren'">
         <mat-card-title>
-        Scoren verbeterpunten
+            Scoren verbeterpunten
         </mat-card-title>
         <mat-card-content *ngIf="!teamdata.team?.gescoord">
-            <div>Geef je mening over de verbeterpunten die teamleden aandragen.</div><br>
+            <div>Geef je mening over de verbeterpunten die je teamleden aandragen.</div><br>
             <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'">Geef je mening</button>
         </mat-card-content>
         <mat-card-content *ngIf="teamdata.team?.gescoord">
-            <div>Je hebt gescoord. Wacht tot de eerstvolgende sluitingsdatum voor de resultaten van de teamscan.</div>
+            <div>Je hebt de opmerkingen van je teamgenoten gescoord. Wacht tot de eerstvolgende sluitingsdatum voor de resultaten van de teamscan.</div>
         </mat-card-content>
     </mat-card>
-    <mat-card class=""  style="width:100%" *ngIf="teamdata.teamscan?.status === 'gesloten'">
+    <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'gesloten'">
         <mat-card-title>
-        Resultaten
+            Resultaten
         </mat-card-title>
         <mat-card-content class="">
             <div>Bekijk de resultaten van deze teamscan.</div><br>
@@ -84,8 +86,7 @@
     <mat-card-content *ngIf="teamdata.team?.teamscan?.status !== 'gesloten'">
         <div class="row">
             <div style="width: 50%; float: left; text-align: left; vertical-align: middle;">
-                <i class="material-icons" style="vertical-align:middle;">room</i>Start:
-                {{startDate|date: 'dd/M/yyyy'}}
+                <i class="material-icons" style="vertical-align:middle;">room</i>Start: {{startDate|date: 'dd/M/yyyy'}}
             </div>
             <div style="width: 50%; float: left; text-align: right;">Eind: {{endDate|date: 'dd/M/yyyy'}}
                 <i class="material-icons" style="vertical-align:middle;">room</i>
@@ -96,10 +97,8 @@
         <br>
         <div style="text-align:center;" *ngIf="daysUntillStatusEnd >= 0">
             <div style="vertical-align:middle;">
-                <i class="material-icons" style="vertical-align:middle;">schedule</i>
-                Er zijn nog {{daysUntillStatusEnd}} dagen
-                {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}}
-                {{teamdata.teamscan?.status=="scoren"?" om de verbeterpunten te scoren":""}}
+                <i class="material-icons" style="vertical-align:middle;">schedule</i> Er zijn nog {{daysUntillStatusEnd}} dagen {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?" om de verbeterpunten
+                te scoren":""}}
             </div>
         </div>
         <div style="text-align:center;" *ngIf="daysUntillStatusEnd < 0">
@@ -126,13 +125,15 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title>
-        Teamleden
+            Teamleden
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <mat-list *ngIf="teamdata">
             <ng-container *ngFor="let lid of teamdata.leden; last as isLast; first as isFirst">
-                <mat-list-item *ngIf="isFirst"><p mat-line style="margin-bottom:20px"> Aangemaakt door: {{lid.leider_mail}} </p></mat-list-item>
+                <mat-list-item *ngIf="isFirst">
+                    <p mat-line style="margin-bottom:20px"> Aangemaakt door: {{lid.leider_mail}} </p>
+                </mat-list-item>
                 <mat-divider *ngIf="isFirst"></mat-divider>
                 <mat-list-item *ngIf="lid.givenName">
                     <mat-icon mat-list-icon [style.color]="(teamdata.teamscan?.status=='invullen' && lid.ingevuld) || (teamdata.teamscan?.status!='ingevuld' && lid.gescoord) ? '#9ea700' : NULL">{{lid.beheerder ? "supervised_user_circle" : "people"}}</mat-icon>
@@ -142,7 +143,10 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                 </mat-list-item>
-                <mat-list-item *ngIf="!lid.givenName" style="color:#777"><mat-icon mat-list-icon>people</mat-icon> <h4 mat-line>{{lid.userPrincipalName}}</h4><p mat-line> Nog niet geregistreerd. </p>
+                <mat-list-item *ngIf="!lid.givenName" style="color:#777">
+                    <mat-icon mat-list-icon>people</mat-icon>
+                    <h4 mat-line>{{lid.userPrincipalName}}</h4>
+                    <p mat-line> Nog niet geregistreerd. </p>
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opties voor teamlid">
                         <mat-icon>more_vert</mat-icon>
                     </button>
@@ -162,7 +166,7 @@
                       <mat-icon mat-list-icon>delete</mat-icon>
                       <span>Verwijder lid</span>
                     </button>
-                  </mat-menu>
+                </mat-menu>
             </ng-container>
         </mat-list>
         <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="teamdata.length == 0 && !requestFailed"></mat-spinner>
