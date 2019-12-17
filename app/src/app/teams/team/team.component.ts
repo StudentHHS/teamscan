@@ -117,6 +117,7 @@ export class TeamComponent {
   }
 
   teamscanChangeState(teamscanId : any, state: string) {
+    this.showToast("Wijzigen...", 1000);
     console.log(teamscanId);
       let data: FormData = new FormData();  
       data.append("teamscanid", teamscanId);

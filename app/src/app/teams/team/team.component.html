@@ -48,7 +48,7 @@
 <div *ngIf="teamdata.team?.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'invullen'">
         <mat-card-title>
-            Invullen
+            {{teamdata.team?.ingevuld ? NULL : 'To do: '}}Invullen
         </mat-card-title>
         <mat-card-content *ngIf="!teamdata.team?.ingevuld && teamdata.team">
             <div>Er staan vragen voor je klaar.</div><br>
@@ -62,7 +62,7 @@
     </mat-card>
     <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'scoren'">
         <mat-card-title>
-            Scoren verbeterpunten
+            {{teamdata.team?.gescoord ? NULL : 'To do: '}}Scoren verbeterpunten
         </mat-card-title>
         <mat-card-content *ngIf="!teamdata.team?.gescoord">
             <div>Geef je mening over de verbeterpunten die je teamleden aandragen.</div><br>
@@ -82,39 +82,60 @@
         </mat-card-content>
     </mat-card>
 </div>
-<mat-card *ngIf="teamdata.team?.teamscan" [@grow] style="margin-bottom:19px;">
-    <mat-card-content *ngIf="teamdata.team?.teamscan?.status !== 'gesloten'">
-        <div class="row">
-            <div style="width: 50%; float: left; text-align: left; vertical-align: middle;">
-                <i class="material-icons" style="vertical-align:middle;">room</i>Start: {{startDate|date: 'dd/M/yyyy'}}
+<mat-card *ngIf="teamdata.teamscan" [@grow] style="margin-bottom:19px;">
+    <mat-card-content>
+        <div class="customStepper">
+            <div [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'">
+                <div class="opener"></div>
+                <div class="middle">Invullen</div>
+                <div class="closer"></div>
             </div>
-            <div style="width: 50%; float: left; text-align: right;">Eind: {{endDate|date: 'dd/M/yyyy'}}
-                <i class="material-icons" style="vertical-align:middle;">room</i>
+            <div [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'">
+                <div class="opener"></div>
+                <div class="middle">Scoren</div>
+                <div class="closer"></div>
+            </div>
+            <div [class]="(teamdata.teamscan?.status == 'gesloten') ? 'stepChip selected' : 'stepChip'">
+                <div class="opener"></div>
+                <div class="middle">Resultaten</div>
+                <div class="closer"></div>
             </div>
         </div>
-        <br><br>
-        <mat-progress-bar mode="determinate" color="#9ea700" [value]="progressBarValue"></mat-progress-bar>
-        <br>
-        <div style="text-align:center;" *ngIf="daysUntillStatusEnd >= 0">
-            <div style="vertical-align:middle;">
-                <i class="material-icons" style="vertical-align:middle;">schedule</i> Er zijn nog {{daysUntillStatusEnd}} dagen {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?" om de verbeterpunten
-                te scoren":""}}
+        <div *ngIf="teamdata.teamscan?.status !== 'gesloten'">
+            
+            <div class="row">
+                <div style="width: 50%; float: left; text-align: left; vertical-align: middle;">
+                    <i class="material-icons" style="vertical-align:middle;">room</i>
+                    <div style="color: #222;background: #eee;display: inline-block;padding: 2px 8px;border-radius: 5px;"><b style="font-weight:500">Start</b> {{startDate|date: 'dd/M'}}</div>
+                </div>
+                <div style="width: 50%; float: left; text-align: right;">
+                    <div style="color: #222;background: #eee;display: inline-block;padding: 2px 8px;border-radius: 5px;"><b style="font-weight:500">Eind</b> {{endDate|date: 'dd/M'}}</div>
+                    <i class="material-icons" style="vertical-align:middle;">room</i>
+                </div>
+            </div>
+            <br><br>
+            <mat-progress-bar mode="determinate" color="#9ea700" [value]="progressBarValue"></mat-progress-bar>
+            <br>
+            <div style="text-align:center;" *ngIf="daysUntillStatusEnd >= 0">
+                <div style="vertical-align:middle;">
+                    <i class="material-icons" style="vertical-align:middle;">schedule</i> Er zijn nog <b style="font-weight:500">{{daysUntillStatusEnd}} dagen</b> {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?" om de verbeterpunten te scoren":""}}
+                </div>
+            </div>
+            <div style="text-align:center;" *ngIf="daysUntillStatusEnd < 0">
+                <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De termijn voor het invullen van de teamscan is ten einde.</div>
             </div>
         </div>
-        <div style="text-align:center;" *ngIf="daysUntillStatusEnd < 0">
-            <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De termijn voor het invullen van de teamscan is ten einde.</div>
-        </div>
-    </mat-card-content>
-    <mat-card-content *ngIf="teamdata.team?.teamscan?.status == 'gesloten'">
-        <div style="text-align:center;">
-            <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De teamscan is gesloten.</div>
+        <div *ngIf="teamdata.teamscan?.status == 'gesloten'">
+            <div style="text-align:center;">
+                <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De teamscan is gesloten.<br><span [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Bekijk de resultaten.</span></div>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>
 
 <mat-card *ngIf="!teamdata.teamscan && teamdata.team?.beheerder" [@grow] style="margin-bottom:19px;">
     <mat-card-title>
-        Maak een teamscan aan
+        To do: Maak een teamscan aan
     </mat-card-title>
     <mat-card-content>
         Je hebt nu een team aangemaakt. Start zo snel mogelijk een teamscan om van start te gaan.<br>

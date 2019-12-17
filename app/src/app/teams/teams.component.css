@@ -22,3 +22,45 @@
         grid-template-columns: 1fr;
     }
 }
+
+.customStepper {
+    font-size:16px;margin:0 10px 10px;
+    text-align: center;
+}
+.customStepper .stepChip {
+    display:inline-block;margin: 2px -4px;
+}
+
+.customStepper .stepChip .opener {
+    vertical-align: bottom; display: inline-block;
+    border-left: 12px solid transparent; border-top: 12px solid #eee; border-bottom: 12px solid #eee;
+}
+.customStepper .stepChip.selected .opener {
+    border-left: 12px solid transparent; border-top: 12px solid #628462; border-bottom: 12px solid #628462;
+}
+.customStepper .stepChip .middle {
+    background: #eee;display: inline-block;color: white;padding: 2px 9px 0px 9px;height: 24px;
+    color:#222;
+}
+.customStepper .stepChip.selected .middle {
+    background: #628462;
+    color:white;
+}
+.customStepper .stepChip .closer {
+    vertical-align: bottom; display: inline-block;
+    border-left: 12px solid #eee;  border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+}
+.customStepper .stepChip.selected .closer {
+    border-left: 12px solid #628462;  border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+}
+
+@media screen and (min-width: 600px) {
+    .customStepper .stepChip .middle {
+        width:140px;
+    }
+}
+@media screen and (min-width: 900px) {
+    .customStepper .stepChip .middle {
+        width:200px;
+    }
+}
