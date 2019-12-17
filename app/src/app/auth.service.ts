@@ -66,7 +66,7 @@ export class AuthService {
   }
 
     init(token: string) {
-      this.showToast("Inloggen...", 1000);
+      this.showToast("Inloggen, even geduld...", 2500);
       if(token) {
           this.MSALToken=token;
           this.graphClient = Client.init({
