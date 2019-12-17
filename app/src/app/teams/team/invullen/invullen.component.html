@@ -1,45 +1,62 @@
+<mat-card>
+    <mat-card-content>
+        <p>Wat leuk dat u de teamscan gaat invullen! Elke vraag is onderverdeeld in 4 fases. Elk antwoord is genummerd
+            met de bijbehorende fase. De fases staan voor:</p>  
+        <p>Fase 1: Iedere medewerker gaat zijn weg.</p>
+        <p>Fase 2: Accent op organisatorische taken in het team</p>
+        <p>Fase 3: Doelgericht werken binnen het team</p>
+        <p>Fase 4: Accent op zelfstandig verbeteren m.b.t. de omgeving</p>
+    </mat-card-content>
+</mat-card>
+<br>
 <mat-card *ngIf="objectKeys(dimensions).length > 0">
     <mat-card-content>
+        <div>
+        </div>
         <form [formGroup]="antwoordForm" (ngSubmit)="save(antwoordForm.value)">
-        <mat-vertical-stepper #stepper>
+            <mat-vertical-stepper #stepper>
 
-            <mat-step stepControl="firstFormGroup" *ngFor="let title of objectKeys(dimensions); let index = index; last as isLast; first as isFirst">
-                <ng-template matStepLabel>{{title}} *</ng-template>
-                <mat-radio-group [name]="dimensions[title][0].dimensie_id" [formControlName]="dimensions[title][0].dimensie_id" required>
-                    <mat-list>
-                        <div *ngFor="let question of dimensions[title]; last as isLast">
-                            <mat-list-item>
-                                <mat-radio-button mat-list-base [value]="question.fase_id"
-                                    [name]="dimensions[title][0].dimensie_id" style="width:100%;">
-                                    <p>{{question.antwoord_kort}}</p>
-                                </mat-radio-button>
-                                <button type="button" mat-icon-button (click)="tooltip.show()"
-                                    [matTooltip]="question.antwoord" matTooltipPosition="left" #tooltip="matTooltip" class="infobutton">
-                                    <mat-icon>info</mat-icon>
-                                </button>
-                            </mat-list-item>
-                            <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
-                        </div>
-                    </mat-list>
-                </mat-radio-group>
-                <br>
-                <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
-                <button mat-flat-button color="primary" style="float:right" type="button"
-                    matStepperNext>Volgende</button>
-            </mat-step>
+                <mat-step stepControl="firstFormGroup"
+                    *ngFor="let title of objectKeys(dimensions); let index = index; last as isLast; first as isFirst">
+                    <ng-template matStepLabel>{{title}} *</ng-template>
+                    <mat-radio-group [name]="dimensions[title][0].dimensie_id"
+                        [formControlName]="dimensions[title][0].dimensie_id" required>
+                        <mat-list>
+                            <div *ngFor="let question of dimensions[title]; last as isLast">
+                                <mat-list-item>
+                                    <mat-radio-button mat-list-base [value]="question.fase_id"
+                                        [name]="dimensions[title][0].dimensie_id" style="width:100%;">
+                                        <p>{{question.antwoord_kort}}</p>
+                                    </mat-radio-button>
+                                    <button type="button" mat-icon-button (click)="tooltip.show()"
+                                        [matTooltip]="question.antwoord" matTooltipPosition="left" #tooltip="matTooltip"
+                                        class="infobutton">
+                                        <mat-icon>info</mat-icon>
+                                    </button>
+                                </mat-list-item>
+                                <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
+                            </div>
+                        </mat-list>
+                    </mat-radio-group>
+                    <br>
+                    <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
+                    <button mat-flat-button color="primary" style="float:right" type="button"
+                        matStepperNext>Volgende</button>
+                </mat-step>
 
-            <mat-step stepControl="firstFormGroup">
-                <ng-template matStepLabel>Feedback</ng-template>
-                <p>Wat zijn voor jou belangrijke prioriteiten waarmee je jouw team verder kan professionaliseren/ontwikkelen?</p>
-                <mat-form-field>
-                    <textarea matInput type="text" placeholder="Antwoord" formControlName="feedback"></textarea>
-                </mat-form-field>
-                <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
-                <button mat-flat-button color="primary" style="float:right"
-                    type="submit" [disabled]="antwoordForm.invalid">Bewaren</button>
-            </mat-step>
-        </mat-vertical-stepper>
-    </form>
+                <mat-step stepControl="firstFormGroup">
+                    <ng-template matStepLabel>Feedback</ng-template>
+                    <p>Wat zijn voor jou belangrijke prioriteiten waarmee je jouw team verder kan
+                        professionaliseren/ontwikkelen?</p>
+                    <mat-form-field>
+                        <textarea matInput type="text" placeholder="Antwoord" formControlName="feedback"></textarea>
+                    </mat-form-field>
+                    <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
+                    <button mat-flat-button color="primary" style="float:right" type="submit"
+                        [disabled]="antwoordForm.invalid">Bewaren</button>
+                </mat-step>
+            </mat-vertical-stepper>
+        </form>
     </mat-card-content>
 </mat-card>
 <div *ngIf="objectKeys(dimensions).length == 0 && !requestFailed" style="text-align:center; margin-top:80px;">
