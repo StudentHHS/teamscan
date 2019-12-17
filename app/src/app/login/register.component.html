@@ -16,8 +16,10 @@
                             <li>Uw <b>gebruiker id</b> vanuit Microsoft (deze is versleuteld)</li>
                             <li>Uw <b>mailadres</b> om u rechten toe te kennen en tevens om u toe te kunnen voegen aan
                                 een team/teamscan.</li>
-                            <li>Naast uw <b>gebruiker id</b> en uw <b>mailadres</b> worden uw <b>voornaam</b>, <b>achternaam</b>, <b>displayName</b>,
-                                <b>userPrincipalName</b> en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor u het
+                            <li>Naast uw <b>gebruiker id</b> en uw <b>mailadres</b> worden uw <b>voornaam</b>,
+                                <b>achternaam</b>, <b>displayName</b>,
+                                <b>userPrincipalName</b> en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor u
+                                het
                                 juiste profiel zodat u zonder problemen gebruik kunt maken van de teamscan app.</li>
                             <li>Uw <b>geslacht</b> voor het trekken van statistieken o.b.v. geslacht</li>
                             <li>Uw <b>geboortedatum</b> voor het trekken van statistieken o.b.v. leeftijd</li>
@@ -150,18 +152,25 @@
                             </mat-error>
                         </mat-form-field>
                         <br>
-                        <p style="color:red">Wanneer u op <b>volgende</b> klikt geeft u De Haagse Hogeschool toestemming
-                            om
-                            gegevens over u te verwerken met als doel het juist functioneren van de teamscan app. De
-                            desbetreffende persoonsgegevens, zoals deze zijn beschreven op de voorgaande pagina, zullen
-                            slechts worden opgeslagen. Tevens heeft slechts geautoriseerd personeel toegang tot
-                            gemiddelden welke voortkomen uit de door (o.a.) u gevormde resultaten. Uw naam zal vanwege
-                            privacy redenen <b>nergens</b> naar voren komen in de eerder beschreven gemiddelden.
-                        </p>
-                        <br>
-                        <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
-                        <button mat-flat-button color="primary" style="float:right" type="submit"
-                            [disabled]="stateForm.invalid">Volgende</button>
+                        <p style="color:red">
+                            <div *ngFor="let item of verwerkingGegevens; let i = index;">
+                                <mat-checkbox [checked]="item.checked" (change)="onChange($event, i, item)">
+                                </mat-checkbox>
+                                Hierbij geeft u De Haagse Hogeschool toestemming om
+                                gegevens over u te verwerken met als doel het juist functioneren van de teamscan app. De
+                                desbetreffende persoonsgegevens, zoals deze zijn beschreven op de voorgaande pagina,
+                                zullen
+                                slechts worden opgeslagen. Tevens heeft slechts geautoriseerd personeel toegang tot
+                                gemiddelden welke voortkomen uit de door (o.a.) u gevormde resultaten. Uw naam zal
+                                vanwege
+                                privacy redenen <b>nergens</b> naar voren komen in de eerder beschreven gemiddelden.
+                            </div>
+                            <br>
+                            <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
+                            <div *ngFor="let item of verwerkingGegevens">
+                                    <!-- stateForm.invalid &&  -->
+                                <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="item.checked == false">Volgende</button>
+                            </div>
                     </form>
                 </mat-step>
 

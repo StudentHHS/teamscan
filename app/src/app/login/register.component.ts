@@ -27,6 +27,8 @@ export const _filter = (opt: string[], value: string): string[] => {
 
 export class RegisterComponent implements OnInit {
 
+  verwerkingGegevens = [{checked: false}] ;
+
     constructor(
         private authService: AuthService,
         private _formBuilder: FormBuilder,
@@ -139,6 +141,10 @@ export class RegisterComponent implements OnInit {
             valid: false
           }
         };
+    }
+
+    onChange(event, index, item) {
+        item.checked = !item.checked;
     }
 
     stateForm: FormGroup = this._formBuilder.group({
