@@ -54,14 +54,14 @@
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_one</mat-icon>
                 <h4 mat-line>{{resultdata?.scoren[0]?.antwoord}}</h4>
-                <span mat-line>{{(resultdata?.scoren[0]?.aantal / (resultdata?.scoren[0]?.deelnemers))}}</span>
+                <span mat-line *ngIf="resultdata?.scoren[0]">{{(resultdata?.scoren[0]?.aantal / (resultdata?.scoren[0]?.deelnemers))}}</span>
             </mat-list-item>
-            <mat-list-item>
+            <mat-list-item *ngIf="resultdata?.scoren[1]">
                 <mat-icon mat-list-icon>looks_two</mat-icon>
                 <h4 mat-line>{{resultdata?.scoren[1]?.antwoord}}</h4>
                 <span mat-line>{{(resultdata?.scoren[1]?.aantal / (resultdata?.scoren[1]?.deelnemers))}}</span>
             </mat-list-item>
-            <mat-list-item>
+            <mat-list-item *ngIf="resultdata?.scoren[2]">
                 <mat-icon mat-list-icon>looks_3</mat-icon>
                 <h4 mat-line>{{resultdata?.scoren[2]?.antwoord}}</h4>
                 <span mat-line>{{(resultdata?.scoren[2]?.aantal / (resultdata?.scoren[2]?.deelnemers))}}</span>
