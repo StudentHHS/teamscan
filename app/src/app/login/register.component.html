@@ -2,35 +2,74 @@
     <mat-card>
         <mat-card-content>
             <mat-horizontal-stepper #stepper linear>
-                
-                <mat-step> 
+
+                <mat-step>
                     <ng-template matStepLabel></ng-template>
-                    <h4>Welkom bij de Teamscan-app</h4>
+                    <h5>Welkom bij de Teamscan-app</h5>
                     <p>Deze app gaat je helpen jouw team verder te brengen. Ga snel van start.</p>
                     <br>
-                    <button mat-flat-button color="primary" *ngIf="!isLast" style="float:right" matStepperNext>Volgende</button> 
+                    <h5>Verwerking persoonsgegevens</h5>
+                    <p>Voor het juist kunnen functioneren van de app zullen wij gegevens van u verwerken. Het zal gaan
+                        om de volgende gegevens:
+
+                        <ul>
+                            <li>Uw <b>gebruiker id</b> vanuit Microsoft (deze is versleuteld)</li>
+                            <li>Uw <b>mailadres</b> om u rechten toe te kennen en tevens om u toe te kunnen voegen aan
+                                een team/teamscan.</li>
+                            <li>Naast uw <b>gebruiker id</b> en uw <b>mailadres</b> worden uw <b>voornaam</b>, <b>achternaam</b>, <b>displayName</b>,
+                                <b>userPrincipalName</b> en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor u het
+                                juiste profiel zodat u zonder problemen gebruik kunt maken van de teamscan app.</li>
+                            <li>Uw <b>geslacht</b> voor het trekken van statistieken o.b.v. geslacht</li>
+                            <li>Uw <b>geboortedatum</b> voor het trekken van statistieken o.b.v. leeftijd</li>
+                            <li>De overige gegevens op de volgende pagina, welke verplicht zijn gesteld, zullen tevens
+                                worden gebruikt voor statistische doeleinden.</li>
+                            <li>Naast de gegevens die u op de volgende pagina invult, zullen resultaten welke voortkomen
+                                uit het invullen van de teamscans, aan uw gebruiker id worden gekoppeld zodat de door u
+                                ingevulde resultaten voor uzelf en het beheer van het team (waarin u bent toegevoegd)
+                                inzichtelijk zijn.</li>
+                        </ul>
+                        <p>Deze gegevens zullen slechts gebruikt worden voor het integer functioneren van de app. De
+                            gegevens zullen niet voor ongeautoriseerd personeel inzichtelijk zijn. Geautoriseerd
+                            personeel
+                            heeft de plicht zorgvuldig met uw gegevens om te gaan en is dus strafbaar wanneer deze
+                            gegevens
+                            zonder uw toestemming worden verspreid. Deze gegevens worden inzichtelijk voor het personeel
+                            dat
+                            verplicht is statistische gegevens over te dragen aan het College Van Bestuur (CVB). Deze
+                            gegevensoverdracht verloopt volgens de richtlijnen van de AVG wetgeving.
+                        </p>
+                        <br>
+                        <button mat-flat-button color="primary" *ngIf="!isLast" style="float:right"
+                            matStepperNext>Volgende</button>
                 </mat-step>
 
-                <mat-step completed="false"> 
+                <mat-step completed="false">
                     <ng-template matStepLabel></ng-template>
                     <h4>We leren je graag beter kennen</h4>
-                    <p>Voordat we van start gaan zouden we graag eerst eens willen kennismaken. Zou je misschien antwoord willen geven op de volgende vragen? Hierdoor krijgen we meer inzicht in de teams van De Haagse Hogeschool.</p>
-                    <form [formGroup]="stateForm" id="registerForm"  (ngSubmit)="onSubmit(stateForm.value, stepper)">
+                    <p>Voordat we van start gaan zouden we graag eerst eens willen kennismaken. Zou je misschien
+                        antwoord willen geven op de volgende vragen? Hierdoor krijgen we meer inzicht in de teams van De
+                        Haagse Hogeschool.</p>
+                    <form [formGroup]="stateForm" id="registerForm" (ngSubmit)="onSubmit(stateForm.value, stepper)">
                         <mat-form-field>
-                            <input type="text" matInput placeholder="Opleiding of unit" formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
+                            <input type="text" matInput placeholder="Opleiding of unit"
+                                formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
                             <mat-autocomplete #autoGroup="matAutocomplete">
                                 <mat-optgroup *ngFor="let faculty of stateGroupOptions | async" [label]="faculty.naam">
-                                    <mat-option *ngFor="let opleiding of faculty.opleidingen" [value]="opleiding + ' — ' + faculty.naam">
-                                    {{opleiding}}
+                                    <mat-option *ngFor="let opleiding of faculty.opleidingen"
+                                        [value]="opleiding + ' — ' + faculty.naam">
+                                        {{opleiding}}
                                     </mat-option>
                                 </mat-optgroup>
                             </mat-autocomplete>
-                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('validateFaculteit')">Kies een opleiding of dienst uit de lijst</mat-error>
-                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog geen opleiding of dienst gekozen</mat-error>
+                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('validateFaculteit')">Kies
+                                een opleiding of dienst uit de lijst</mat-error>
+                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog
+                                geen opleiding of dienst gekozen</mat-error>
                         </mat-form-field>
                         <br>
                         <p>
-                        Geslacht*: <mat-hint *ngIf="stateForm.get('geslacht').hasError('required')">Geslacht opgeven is verplicht</mat-hint>
+                            Geslacht*: <mat-hint *ngIf="stateForm.get('geslacht').hasError('required')">Geslacht opgeven
+                                is verplicht</mat-hint>
                         </p>
                         <mat-radio-group formControlName="geslacht" required>
                             <mat-radio-button value="m" style="width: 140px; margin: 0 0 4px 0;">Man</mat-radio-button>
@@ -38,11 +77,14 @@
                         </mat-radio-group>
                         <br>
                         <p>
-                        Soort personeel*: <mat-hint *ngIf="stateForm.get('opOfObp').hasError('required')">Optie opgeven is verplicht</mat-hint>
+                            Soort personeel*: <mat-hint *ngIf="stateForm.get('opOfObp').hasError('required')">Optie
+                                opgeven is verplicht</mat-hint>
                         </p>
                         <mat-radio-group formControlName="opOfObp" required>
-                            <mat-radio-button value="OP" style="width: 140px; margin: 0 0 4px 0;">Onderwijzend</mat-radio-button>
-                            <mat-radio-button value="OBP" style="margin: 0 40px 4px 0">Niet-onderwijzend personeel</mat-radio-button>
+                            <mat-radio-button value="OP" style="width: 140px; margin: 0 0 4px 0;">Onderwijzend
+                            </mat-radio-button>
+                            <mat-radio-button value="OBP" style="margin: 0 40px 4px 0">Niet-onderwijzend personeel
+                            </mat-radio-button>
                         </mat-radio-group>
                         <br>
                         <br>
@@ -50,7 +92,7 @@
                         <mat-divider></mat-divider>
                         <br>
                         <mat-form-field>
-                            <mat-select placeholder="Contractsoort"  formControlName="contractsoort"> 
+                            <mat-select placeholder="Contractsoort" formControlName="contractsoort">
                                 <mat-option value="ot">Groot</mat-option>
                                 <mat-option value="bpNaarOt">Tijdelijk met uitzicht op vast</mat-option>
                                 <mat-option value="bp">Tijdelijk eind rechtswege</mat-option>
@@ -61,7 +103,7 @@
                         </mat-form-field>
                         <br>
                         <mat-form-field>
-                            <mat-select placeholder="Waar werk je voornamelijk?"  formControlName="locatie">  
+                            <mat-select placeholder="Waar werk je voornamelijk?" formControlName="locatie">
                                 <mat-option value="Den Haag">Hoofdvestiging Den Haag</mat-option>
                                 <mat-option value="Poseidon">Poseidon</mat-option>
                                 <mat-option value="Delft">Delft</mat-option>
@@ -75,46 +117,64 @@
                         </mat-form-field>
                         <br>
                         <mat-form-field>
-                            <input matInput placeholder="Aanstellingsomvang (fte's)" formControlName="aanstellingsomvang">
+                            <input matInput placeholder="Aanstellingsomvang (fte's)"
+                                formControlName="aanstellingsomvang">
                             <mat-hint>In fte (bijvoorbeeld 0.6)</mat-hint>
-                            <mat-error *ngIf="stateForm.get('aanstellingsomvang').invalid">Geef je fte-aantal op met een waarde tussen 0.0 en 1.0</mat-error>
+                            <mat-error *ngIf="stateForm.get('aanstellingsomvang').invalid">Geef je fte-aantal op met een
+                                waarde tussen 0.0 en 1.0</mat-error>
                         </mat-form-field>
                         <br>
                         <br>
                         <mat-divider></mat-divider>
                         <br>
-                        <p>De volgende vragen geven inzicht in welk jaar je begonnen bent met de volgende onderwerpen. Mocht je het niet meer precies weten, maak dan een schatting of vul dit later in.</p>
+                        <p>De volgende vragen geven inzicht in welk jaar je begonnen bent met de volgende onderwerpen.
+                            Mocht je het niet meer precies weten, maak dan een schatting of vul dit later in.</p>
                         <mat-form-field>
-                            <input matInput placeholder="In welk jaar ben je begonnen op de HHS?"  formControlName="startjaarDienst">
-                            <mat-error *ngIf="stateForm.get('startjaarDienst').invalid">Geef een geldig jaartal op.</mat-error>
+                            <input matInput placeholder="In welk jaar ben je begonnen op de HHS?"
+                                formControlName="startjaarDienst">
+                            <mat-error *ngIf="stateForm.get('startjaarDienst').invalid">Geef een geldig jaartal op.
+                            </mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field>
-                            <input matInput placeholder="In welk jaar ben je begonnen in het onderwijs?"  formControlName="startjaarOnderwijs">
-                            <mat-error *ngIf="stateForm.get('startjaarOnderwijs').invalid">Geef een geldig jaartal op.</mat-error>
+                            <input matInput placeholder="In welk jaar ben je begonnen in het onderwijs?"
+                                formControlName="startjaarOnderwijs">
+                            <mat-error *ngIf="stateForm.get('startjaarOnderwijs').invalid">Geef een geldig jaartal op.
+                            </mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field>
-                            <input matInput placeholder="In welk jaar ben je begonnen met je huidige functie?"  formControlName="startjaarFunctie">
-                            <mat-error *ngIf="stateForm.get('startjaarFunctie').invalid">Geef een geldig jaartal op.</mat-error>
+                            <input matInput placeholder="In welk jaar ben je begonnen met je huidige functie?"
+                                formControlName="startjaarFunctie">
+                            <mat-error *ngIf="stateForm.get('startjaarFunctie').invalid">Geef een geldig jaartal op.
+                            </mat-error>
                         </mat-form-field>
-
+                        <br>
+                        <p style="color:red">Wanneer u op <b>volgende</b> klikt geeft u De Haagse Hogeschool toestemming
+                            om
+                            gegevens over u te verwerken met als doel het juist functioneren van de teamscan app. De
+                            desbetreffende persoonsgegevens, zoals deze zijn beschreven op de voorgaande pagina, zullen
+                            slechts worden opgeslagen. Tevens heeft slechts geautoriseerd personeel toegang tot
+                            gemiddelden welke voortkomen uit de door (o.a.) u gevormde resultaten. Uw naam zal vanwege
+                            privacy redenen <b>nergens</b> naar voren komen in de eerder beschreven gemiddelden.
+                        </p>
                         <br>
                         <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
-                        <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="stateForm.invalid">Volgende</button> 
+                        <button mat-flat-button color="primary" style="float:right" type="submit"
+                            [disabled]="stateForm.invalid">Volgende</button>
                     </form>
                 </mat-step>
 
-                <mat-step stepControl=""> 
+                <mat-step stepControl="">
                     <ng-template matStepLabel></ng-template>
                     <h4>Wij zijn er klaar voor!</h4>
                     <p>Zodra je bent toegevoegd aan een team kun je teamscans maken en inzien.</p>
                     <br>
                     <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
-                    <button mat-flat-button color="primary" style="float:right" (click)="start()">Aan de slag</button>  
+                    <button mat-flat-button color="primary" style="float:right" (click)="start()">Aan de slag</button>
                 </mat-step>
-            
+
             </mat-horizontal-stepper>
         </mat-card-content>
     </mat-card>
-    </div>
+</div>

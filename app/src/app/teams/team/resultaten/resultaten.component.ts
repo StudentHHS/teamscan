@@ -102,19 +102,6 @@ export class ResultatenComponent {
 
     dagenGeldigProgressieBar = (this.verlopenPeriode / this.dagenGeldig) * 100;
 
-    naamRespondent = "Jeremy Hut"
-    inAfwachtingOp = [
-        { naam: "Stan Ravensbergen" },
-        { naam: "Charlie Vierling" },
-        { naam: "Jeroen van Rossum" },
-        { naam: "Desirée Lemans" },
-        { naam: "Laura Lodewijk - Schmidt" }
-    ];
-
-    antwoord1 = "Als we een sterker team willen vormen moet de communicatie beter gaan verlopen.";
-    antwoord2 = "Als we een hechter team willen worden, dan moet er van meerdere collega's input komen wanneer er verkeerd gehandeld wordt zodat we dit kunnen aanpakken.";
-    antwoord3 = "Wanneer er meerdere uitjes worden gehouden per jaar zullen wij een sterker teamsverband creëeren";
-
     max = this.dagenGeldig;
     current = this.verlopenPeriode;
 
