@@ -12,26 +12,17 @@
             <li>Doelgericht werken binnen het team</li>
             <li>Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
         </ol>
-    
-        <div>
-            {{work|json}}
-        </div>
-
         <mat-list *ngIf="resultdata" [@grow]>
             <ng-container>
                 <mat-list-item *ngFor="let dimensie of objectKeys(resultdata.lijst); last as isLast; first as isFirst">
                     <div class="phaseContainer">
-                        <div>
+                        <div *ngIf="4 > resultdata.lijst[dimensie][1].dimensie">
                         <h6>Dimensie {{dimensie}}: {{resultdata.lijst[dimensie][1].dimensie_naam}}</h6>
                         <div class="phaseBarChart">
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">1</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">2</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">3</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">4</div>
+                            <div [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">1</div>
+                            <div [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">2</div>
+                            <div [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">3</div>
+                            <div [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">4</div>
                         </div>
                         <p *ngIf="resultdata.lijst[dimensie][1].aantal >= resultdata.lijst[dimensie][2].aantal
                                    && resultdata.lijst[dimensie][1].aantal >= resultdata.lijst[dimensie][3].aantal

@@ -34,7 +34,7 @@ export class ResultatenComponent {
     public avgRounded = 0;
 
     public counter = 0;
-    public quality = {"Kwaliteit van werk": {}};
+    public quality = [];
     public organize = [];
     public work = [];
     public goal = [];
@@ -59,10 +59,11 @@ export class ResultatenComponent {
                 { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: { teamid: this.id, teamscanid: this.teamscan, function: "getresults" } }
             ).subscribe(data => {
                 console.log("resultaat");
+                console.log(data);
                 // console.log(data["lijst"]["1"]);
                 for (const dimensie in data["lijst"]) {
                     if (data["lijst"].hasOwnProperty(dimensie) && this.counter <= 3) {                        
-                        this.quality["Kwalteit van werk"].push(data["lijst"][this.counter]);     
+                        this.quality.push(data["lijst"][this.counter]);     
                         this.counter ++;
                     }
                     else if (data["lijst"].hasOwnProperty(dimensie) && (this.counter > 3 && this.counter <= 6)) {                        

@@ -11,6 +11,7 @@
                 <li>Doelgericht werken binnen het team</li>
                 <li>Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
             </ol>
+            <p style="font-size: .90em">Een * achter een dimensietitel geeft aan dat een antwoord verplicht is.</p>
     </mat-card-content>
 </mat-card>
 <br>
@@ -32,7 +33,7 @@
                                     <p class="faseInBolletje" [style.visibility]="val.checked ? 'hidden' : NULL">
                                         {{question.fase_id}}
                                     </p>
-                                    <p>{{question.antwoord_kort}}</p>
+                                    <p style="font-size: .85em">{{question.antwoord_kort}}</p>
                                 </mat-radio-button>
                                 <button type="button" mat-icon-button (click)="tooltip.show()"
                                     [matTooltip]="question.antwoord" matTooltipPosition="left" #tooltip="matTooltip" class="infobutton">
