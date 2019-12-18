@@ -6,7 +6,7 @@
                 <mat-step>
                     <ng-template matStepLabel></ng-template>
                     <h5>Welkom bij de Teamscan-app</h5>
-                    <p>Deze app gaat je helpen jouw team verder te brengen. Ga snel van start.</p>
+                    <p>Deze app gaat je helpen jouw team verder te brengen. Ga snel onderin van start.</p>
                     <br>
                     <h5>Verwerking persoonsgegevens</h5>
                     <p>Voor het juist kunnen functioneren van de app zullen wij gegevens van u verwerken. Het zal gaan
@@ -18,7 +18,7 @@
                                 een team/teamscan.</li>
                             <li>Naast uw <b>gebruiker id</b> en uw <b>mailadres</b> worden uw <b>voornaam</b>,
                                 <b>achternaam</b>, <b>displayName</b>,
-                                <b>userPrincipalName</b> en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor u
+                                <b>userPrincipalName</b> (mail-alias) en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor u
                                 het
                                 juiste profiel zodat u zonder problemen gebruik kunt maken van de teamscan app.</li>
                             <li>Uw <b>geslacht</b> voor het trekken van statistieken o.b.v. geslacht</li>
@@ -41,7 +41,8 @@
                             gegevensoverdracht verloopt volgens de richtlijnen van de AVG wetgeving.
                         </p>
                         <br>
-                        <button mat-flat-button color="primary" *ngIf="!isLast" style="float:right"
+                        <button mat-flat-button color="warn" (click)="logOut()">Uitloggen</button>
+                        <button mat-flat-button color="primary" style="float:right"
                             matStepperNext>Volgende</button>
                 </mat-step>
 

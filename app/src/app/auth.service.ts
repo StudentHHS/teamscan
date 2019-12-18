@@ -49,6 +49,7 @@ export class AuthService {
   signOut(): void {
     //this.msalService.logout();
     this.user = null;
+    this.firstUse = false;
     this.authenticated = false;
     this.storage.clear();
   }

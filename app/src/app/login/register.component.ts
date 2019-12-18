@@ -94,6 +94,10 @@ export class RegisterComponent implements OnInit {
       toast.present();
     }
 
+    logOut(){
+      this.authService.signOut();
+    }
+
     onSubmit(formData: any, stepper: MatStepper) {
         console.log(formData);
         this.http.get(
