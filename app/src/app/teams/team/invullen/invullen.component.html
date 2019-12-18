@@ -21,7 +21,7 @@
         <form [formGroup]="antwoordForm" (ngSubmit)="save(antwoordForm.value)">
             <mat-vertical-stepper #stepper>
 
-            <mat-step stepControl="firstFormGroup" *ngFor="let title of objectKeys(dimensions); let index = index; last as isLast; first as isFirst">
+            <mat-step *ngFor="let title of objectKeys(dimensions); let index = index; last as isLast; first as isFirst" [stepControl]="antwoordForm.get(dimensions[title][0].dimensie_id.toString())">
                 <ng-template matStepLabel>{{title}} *</ng-template>
                 <mat-radio-group [name]="dimensions[title][0].dimensie_id" [formControlName]="dimensions[title][0].dimensie_id" required>
                     <mat-list>
@@ -58,6 +58,9 @@
                     <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="antwoordForm.invalid">Bewaren</button>
                     <p *ngIf="antwoordForm.invalid" style="color:red"><mat-icon style="vertical-align: -7px;">warning</mat-icon> Je hebt nog niet alle meerkeuzevragen beantwoord.</p>
                 </mat-step>
+                <ng-template matStepperIcon="edit">
+                    <mat-icon>done</mat-icon>
+                </ng-template>
             </mat-vertical-stepper>
         </form>
     </mat-card-content>
