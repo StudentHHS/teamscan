@@ -153,8 +153,8 @@
         <mat-list *ngIf="teamdata">
             <ng-container *ngFor="let lid of teamdata.leden; last as isLast; first as isFirst">
                 <mat-list-item *ngIf="isFirst">
-                    <p mat-line> Aangemaakt door: </p>
                     <mat-icon mat-list-icon>build</mat-icon>
+                    <p mat-line> Aangemaakt door: </p>
                     <p mat-line style="margin-bottom:20px"> {{lid.leider_mail}} </p>
                 </mat-list-item>
                 <mat-divider *ngIf="isFirst"></mat-divider>
