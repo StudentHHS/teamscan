@@ -6,6 +6,7 @@ import { UtilityService } from 'src/app/utility.service';
 import { AuthService } from 'src/app/auth.service';
 import { ToastController } from '@ionic/angular';
 import { trigger, transition, animate, style, group } from '@angular/animations'
+import { delay } from 'q';
 
 @Component({
     selector: 'app-resultaten',
@@ -32,6 +33,12 @@ export class ResultatenComponent {
     public objectKeys = Object.keys;
     public avgRounded = 0;
 
+    public counter = 0;
+    public quality = {"Kwaliteit van werk": {}};
+    public organize = [];
+    public work = [];
+    public goal = [];
+
     constructor(
         private route: ActivatedRoute,
         private us: UtilityService,
@@ -52,7 +59,25 @@ export class ResultatenComponent {
                 { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: { teamid: this.id, teamscanid: this.teamscan, function: "getresults" } }
             ).subscribe(data => {
                 console.log("resultaat");
-                console.log(data);
+                // console.log(data["lijst"]["1"]);
+                for (const dimensie in data["lijst"]) {
+                    if (data["lijst"].hasOwnProperty(dimensie) && this.counter <= 3) {                        
+                        this.quality["Kwalteit van werk"].push(data["lijst"][this.counter]);     
+                        this.counter ++;
+                    }
+                    else if (data["lijst"].hasOwnProperty(dimensie) && (this.counter > 3 && this.counter <= 6)) {                        
+                        this.organize.push(data["lijst"][this.counter]);     
+                        this.counter ++;
+                    }
+                    else if (data["lijst"].hasOwnProperty(dimensie) && (this.counter > 6 && this.counter <= 9)) {                        
+                        this.work.push(data["lijst"][this.counter]);     
+                        this.counter ++;
+                    }
+                    else if (data["lijst"].hasOwnProperty(dimensie) && (this.counter > 9 && this.counter <= 12)) {                        
+                        this.goal.push(data["lijst"][this.counter]);     
+                        this.counter ++;
+                    }
+                }
                 this.requestFailed = false;
                 this.resultdata = data;
                 this.avgRounded = Math.round(data["gemiddelde"]);
