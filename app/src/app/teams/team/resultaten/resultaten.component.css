@@ -3,11 +3,15 @@
 }
 
 .phaseContainer p {
-    margin-bottom:8px;
+    margin-top:0px;
+    margin-bottom:16px;
+    font-size:14px;
 }
 
 .phaseBarChart {
-    text-align:center;font-size:16px;line-height:1.2;height:auto; margin-bottom:16px;color:white;
+    text-align:center;font-size:16px;line-height:1.2;height:auto;
+    margin-bottom:4px;
+    color:white;
     border-radius:2px;
     overflow:hidden;
 }
@@ -29,3 +33,13 @@
 .phaseBarChart div:nth-child(4) {
     background:#24b5a1;
 }
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
