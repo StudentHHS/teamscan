@@ -14,15 +14,15 @@ import { delay } from 'q';
     styleUrls: ['./resultaten.component.css'],
     animations: [
         trigger('grow', [
-          transition(':enter', [
-            style({height: '0', opacity: 0}),
+            transition(':enter', [
+                style({ height: '0', opacity: 0 }),
                 group([
-                    animate("200ms cubic-bezier(0,.97,.53,1)", style({height: '*'})),
-                    animate('400ms ease-out', style({'opacity': '1'}))
+                    animate("200ms cubic-bezier(0,.97,.53,1)", style({ height: '*' })),
+                    animate('400ms ease-out', style({ 'opacity': '1' }))
                 ])
-          ])
+            ])
         ])
-      ]
+    ]
 })
 
 export class ResultatenComponent {
@@ -33,11 +33,10 @@ export class ResultatenComponent {
     public objectKeys = Object.keys;
     public avgRounded = 0;
 
-    public counter = 0;
-    public quality = [];
-    public organize = [];
-    public work = [];
-    public goal = [];
+    public themas = [{ naam: "Kwaliteit van werk", beschrijving: "vergroten individuele competenties en versterken van inzetbaarheid op uitvoerende taken van teamleden.", dimensies: [1], gemiddelde: null },
+    { naam: "Organiseren", beschrijving: "vergroten zelfstandigheid door regeltaken in team te beleggen. Items zijn verdeling werkzaamheden, regeltaken, teamoverleg en competentieontwikkelingen.", dimensies: [2, 3, 4, 10], gemiddelde: null },
+    { naam: "Samenwerken", beschrijving: "verbeteren onderlinge betrekkingen en besluitvorming. Items zijn besluitvorming, onderlinge relaties, niveaus van leren en conflicthantering.", dimensies: [5, 6, 7, 11], gemiddelde: null },
+    { naam: "Ondernemen", beschrijving: "vergroten prestatiegerichtheid, doelgerichtheid en het voorzien zijn van (financiële) managementinformatie.", dimensies: [8, 9, 12], gemiddelde: null }];
 
     constructor(
         private route: ActivatedRoute,
@@ -56,32 +55,45 @@ export class ResultatenComponent {
         if (this.authService.token) {
             this.http.get(
                 AuthService.apiUrl,
-                { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: { teamid: this.id, teamscanid: this.teamscan, function: "getresults" } }
+                { headers: { Authorization: "Bearer " + this.authService.token }, responseType: 'json', params: { teamid: this.id, teamscanid: this.teamscan, function: "getresults" } }
             ).subscribe(data => {
                 console.log("resultaat");
                 console.log(data);
-                // console.log(data["lijst"]["1"]);
-                for (const dimensie in data["lijst"]) {
-                    if (data["lijst"].hasOwnProperty(dimensie) && this.counter <= 3) {                        
-                        this.quality.push(data["lijst"][this.counter]);     
-                        this.counter ++;
-                    }
-                    else if (data["lijst"].hasOwnProperty(dimensie) && (this.counter > 3 && this.counter <= 6)) {                        
-                        this.organize.push(data["lijst"][this.counter]);     
-                        this.counter ++;
-                    }
-                    else if (data["lijst"].hasOwnProperty(dimensie) && (this.counter > 6 && this.counter <= 9)) {                        
-                        this.work.push(data["lijst"][this.counter]);     
-                        this.counter ++;
-                    }
-                    else if (data["lijst"].hasOwnProperty(dimensie) && (this.counter > 9 && this.counter <= 12)) {                        
-                        this.goal.push(data["lijst"][this.counter]);     
-                        this.counter ++;
-                    }
-                }
+                console.log(data["lijst"]["1"]);
                 this.requestFailed = false;
                 this.resultdata = data;
                 this.avgRounded = Math.round(data["gemiddelde"]);
+
+                for (let thema of this.themas) {
+                    var fases = { 1: 0, 2: 0, 3: 0, 4: 0 };
+                    for (let dimensie of thema.dimensies) {
+                        fases[1] += this.resultdata.lijst[dimensie][1].aantal
+                        fases[2] += this.resultdata.lijst[dimensie][2].aantal
+                        fases[3] += this.resultdata.lijst[dimensie][3].aantal
+                        fases[4] += this.resultdata.lijst[dimensie][4].aantal
+                    }
+
+                    var keys = Object.keys(fases);
+                    var largest = Math.max.apply(null, keys.map(x => fases[x]))
+                    var result = keys.reduce((result, key) => {
+                        if (fases[key] === largest) {
+                            result.push(key);
+                        }
+                        return result;
+                    }, []);
+
+                    console.log("nfjksadnjasdnas:", result)
+
+                    var gemiddelde = 0;
+                    for(let getal of result){
+                        gemiddelde += +getal;
+                    }
+                    thema.gemiddelde = gemiddelde / result.length;
+                }
+                
+                console.log("njkdsajkdhasjkdhjasmjdlsadhasjkbdkjsahdjksbjd", this.themas)
+
+
             },
                 error => {
                     this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
