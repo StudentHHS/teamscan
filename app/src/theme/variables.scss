@@ -180,6 +180,23 @@ div.mat-step-label, div.mat-step-label-selected {
   font-size:20px;
 }
 
+@media screen and (max-width: 480px) {
+  .mat-vertical-content {
+    padding: 0 15px 24px 15px!important;
+  }
+  .mat-vertical-content .mat-list-item-content {
+    padding: 0px!important;
+  }
+  .mat-vertical-content .mat-vertical-content .mat-list-base {
+    margin-left: -5px;
+  }
+  .mat-vertical-content .mat-list-item-content .mat-radio-label-content p:not(.faseInBolletje) {
+    padding-left: 0px!important;
+  }
+  .mat-vertical-content .mat-radio-label-content {
+    padding-left:10px;
+  }
+}
 
 router-outlet ~ * {
   position: absolute;

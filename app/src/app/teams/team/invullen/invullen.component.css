@@ -27,3 +27,9 @@ mat-form-field{
   color: #666;
   padding: 0;
 }
+
+@media screen and (max-width: 480px) {
+  .faseInBolletje {
+    left:7px;
+  }
+}

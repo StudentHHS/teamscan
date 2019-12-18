@@ -1,11 +1,16 @@
 <mat-card>
+    <mat-card-header>
+        <mat-card-title style="margin-left:-6px">Voor we van start gaan</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-        <p>Wat leuk dat u de teamscan gaat invullen! Elke vraag is onderverdeeld in 4 fases. Elk antwoord is genummerd
+        <p>Wat leuk dat je de teamscan gaat invullen! Elke vraag is onderverdeeld in 4 fases. Elk antwoord is genummerd
             met de bijbehorende fase. De fases staan voor:</p>  
-        <p>Fase 1: Iedere medewerker gaat zijn weg.</p>
-        <p>Fase 2: Accent op organisatorische taken in het team</p>
-        <p>Fase 3: Doelgericht werken binnen het team</p>
-        <p>Fase 4: Accent op zelfstandig verbeteren m.b.t. de omgeving</p>
+            <ol>
+                <li>Iedere medewerker gaat zijn weg</li>
+                <li>Accent op organisatorische taken in het team</li>
+                <li>Doelgericht werken binnen het team</li>
+                <li>Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
+            </ol>
     </mat-card-content>
 </mat-card>
 <br>
@@ -51,6 +56,7 @@
                     </mat-form-field>
                     <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
                     <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="antwoordForm.invalid">Bewaren</button>
+                    <p *ngIf="antwoordForm.invalid" style="color:red"><mat-icon style="vertical-align: -7px;">warning</mat-icon> Je hebt nog niet alle meerkeuzevragen beantwoord.</p>
                 </mat-step>
             </mat-vertical-stepper>
         </form>
