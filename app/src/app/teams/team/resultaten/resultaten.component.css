@@ -43,3 +43,26 @@
     justify-content: space-between;
     align-items: center;
   }
+
+.nowrap-list .mat-list-item {
+    height:initial;
+    padding:10px 0;
+}
+.nowrap-list .mat-list-item .mat-line {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.phase1 {
+    background:#1686bb;
+}
+
+.phase2 {
+    background:#7d5a9c;
+}
+.phase3 {
+    background:#b79b4d;
+}
+.phase4 {
+    background:#24b5a1;
+}

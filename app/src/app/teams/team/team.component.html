@@ -5,13 +5,18 @@
         </button>
 
     <mat-menu #changeteamscan="matMenu">
+        <button mat-menu-item [routerLink]="'/team/'+id+'/aanmaken'" *ngIf="teamdata.team?.beheerder">
+            <mat-icon>add</mat-icon>
+            <span>Teamscan aanmaken</span>
+        </button>
+        <mat-divider *ngIf="teamdata.team?.beheerder"></mat-divider>
         <div style="min-width:250px;">
             <mat-spinner style="margin:10px auto;" diameter="30" *ngIf="!teamscans"></mat-spinner>
         </div>
         <button mat-menu-item *ngFor="let scan of teamscans" [routerLink]="'/team/'+id+'/'+scan.id">
-                <mat-icon mat-list-icon>assessment</mat-icon>
-                <span>{{scan.naam}} ({{scan.status=='gesloten'?"gesloten op": "sluit"}} {{scan.eindOpenVraag|date:'d/M'}})</span>
-            </button>
+            <mat-icon>assessment</mat-icon>
+            <span>{{scan.naam}} ({{scan.status=='gesloten'?"gesloten op": "sluit"}} {{scan.eindOpenVraag|date:'d/M'}})</span>
+        </button>
     </mat-menu>
 </div>
 <mat-expansion-panel *ngIf="teamdata.team?.beheerder" style="margin-bottom:19px">
@@ -23,21 +28,7 @@
 
     <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.teamscan">Status: {{teamdata.teamscan?.status}} <mat-icon>keyboard_arrow_down</mat-icon></button>
     <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px"><mat-icon>add</mat-icon>Teamscan</button>
-    <button mat-stroked-button [matMenuTriggerFor]="addmember" #addMemberMenuTrigger="matMenuTrigger">
-        <mat-icon>add</mat-icon>
-        Teamlid
-    </button>
 
-    <mat-menu #addmember="matMenu">
-        <form (click)="$event.stopPropagation();" style="margin:5px 20px" [formGroup]="addmemberform" (ngSubmit)="onSubmitMember(addmemberform.value, addMemberMenuTrigger)">
-            <mat-form-field>
-                <input matInput placeholder="E-mailadres" formControlName="email">
-            </mat-form-field>
-            <button mat-stroked-button type="submit">
-                <span>Toevoegen</span>
-            </button>
-        </form>
-    </mat-menu>
     <mat-menu #choosestatus="matMenu">
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
@@ -52,12 +43,10 @@
         </mat-card-title>
         <mat-card-content *ngIf="!teamdata.team?.ingevuld && teamdata.team">
             <div>Er staan vragen voor je klaar.</div><br>
-            <div>Periode:</div>
-            <div>{{moment(teamdata.teamscan?.start).format("DD/MM/YYYY")}} - {{moment(teamdata.teamscan?.eind).format("DD/MM/YYYY")}}</div><br>
             <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'">Beantwoord de vragen</button>
         </mat-card-content>
         <mat-card-content *ngIf="teamdata.team?.ingevuld && teamdata.team">
-            <div>Je bent klaar met invullen. Wacht tot de eerstvolgende sluitingsdatum voor het scoren van de verbeterpunten.</div>
+            <div>Je bent klaar met invullen. Wacht tot de eerstvolgende sluitingsdatum ({{endDate|date: 'dd/M'}}) voor het scoren van de verbeterpunten.</div>
         </mat-card-content>
     </mat-card>
     <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'scoren'">
@@ -69,7 +58,7 @@
             <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'">Geef je mening</button>
         </mat-card-content>
         <mat-card-content *ngIf="teamdata.team?.gescoord">
-            <div>Je hebt de opmerkingen van je teamgenoten gescoord. Wacht tot de eerstvolgende sluitingsdatum voor de resultaten van de teamscan.</div>
+            <div>Je hebt de opmerkingen van je teamgenoten gescoord. Wacht tot de eerstvolgende sluitingsdatum ({{endDate|date: 'dd/M'}}) om de resultaten van de teamscan te kunnen bekijken.</div>
         </mat-card-content>
     </mat-card>
     <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'gesloten'">
@@ -153,9 +142,9 @@
         <mat-list *ngIf="teamdata">
             <ng-container *ngFor="let lid of teamdata.leden; last as isLast; first as isFirst">
                 <mat-list-item *ngIf="isFirst">
-                    <mat-icon mat-list-icon>build</mat-icon>
-                    <p mat-line> Aangemaakt door: </p>
-                    <p mat-line style="margin-bottom:20px"> {{lid.leider_mail}} </p>
+                    <mat-icon mat-list-icon>add_comment</mat-icon>
+                    <h4 mat-line> Aangemaakt door: </h4>
+                    <p mat-line> {{lid.leider_mail}} </p>
                 </mat-list-item>
                 <mat-divider *ngIf="isFirst"></mat-divider>
                 <mat-list-item *ngIf="lid.givenName">
@@ -174,7 +163,7 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                 </mat-list-item>
-                <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
+                <mat-divider *ngIf="!isLast || teamdata.team?.beheerder" inset="true"></mat-divider>
 
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item *ngIf="lid.givenName && lid.beheerder" (click)="updateBeheerder(0,lid.userPrincipalName,lid.mail)">
@@ -191,6 +180,22 @@
                     </button>
                 </mat-menu>
             </ng-container>
+            <mat-list-item  *ngIf="teamdata.team?.beheerder" [matMenuTriggerFor]="addmember" #addMemberMenuTrigger="matMenuTrigger" mat-ripple>
+                <mat-icon mat-list-icon>add</mat-icon>
+                <p mat-line> Teamlid toevoegen </p>
+            
+                <mat-menu #addmember="matMenu">
+                    <form (click)="$event.stopPropagation();" style="margin:5px 20px" [formGroup]="addmemberform" (ngSubmit)="onSubmitMember(addmemberform.value, addMemberMenuTrigger)">
+                        <mat-form-field style="width:100%;">
+                            <input matInput placeholder="E-mailadres" formControlName="email">
+                            <mat-error>Voer een geldig (HHS-)mailadres in.</mat-error>
+                        </mat-form-field>
+                        <button mat-stroked-button type="submit">
+                            <span>Toevoegen</span>
+                        </button>
+                    </form>
+                </mat-menu>
+            </mat-list-item>
         </mat-list>
         <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="teamdata.length == 0 && !requestFailed"></mat-spinner>
         <div *ngIf="requestFailed" style="text-align:center; margin-top:20px;">

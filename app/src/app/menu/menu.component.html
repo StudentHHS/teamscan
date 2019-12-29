@@ -1,3 +1,20 @@
+<div style="color: white;position:fixed;top: 43px;right: 24px;">
+  <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+    <mat-icon>settings</mat-icon>
+  </button>
+
+  <mat-menu #settingsMenu="matMenu">
+    <button mat-menu-item routerLink="instellingen">
+        <mat-icon>settings_applications</mat-icon>
+        <span>Instellingen</span>
+    </button>
+    <button mat-menu-item (click)="signOut()">
+        <mat-icon>vpn_key</mat-icon>
+        <span>Uitloggen</span>
+    </button>
+  </mat-menu>
+</div>
+
 <mat-card routerLink="/todo" class="card-button" matRipple>
   <mat-card-content class="dashboard-card-content">
     <button mat-button style="width:100%;text-align:left;font-size:20px;">
@@ -36,13 +53,5 @@
     </mat-list>
   </mat-card-content>
   <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
-</mat-card>
-<mat-card routerLink="instellingen">
-  <mat-card-content class="dashboard-card-content">
-    <button mat-button  style="width:100%;text-align:left" *ngIf="this.authService?.user !== null">
-      <mat-icon>settings</mat-icon>
-      Instellingen
-    </button>
-  </mat-card-content>
 </mat-card>
 

@@ -9,33 +9,33 @@
                     <p>Deze app gaat je helpen jouw team verder te brengen. Ga snel onderin van start.</p>
                     <br>
                     <h5>Verwerking persoonsgegevens</h5>
-                    <p>Voor het juist kunnen functioneren van de app zullen wij gegevens van u verwerken. Het zal gaan
+                    <p>Voor het juist kunnen functioneren van de app zullen wij gegevens van jou (hierna: de gebruiker) verwerken. Het zal gaan
                         om de volgende gegevens:
 
                         <ul>
-                            <li>Uw <b>gebruiker id</b> vanuit Microsoft (deze is versleuteld)</li>
-                            <li>Uw <b>mailadres</b> om u rechten toe te kennen en tevens om u toe te kunnen voegen aan
+                            <li>De <b>gebruikers-id</b> vanuit Microsoft</li>
+                            <li>Het <b>mailadres</b> om de gebruiker rechten toe te kennen en tevens om de gebruiker toe te kunnen voegen aan
                                 een team/teamscan.</li>
-                            <li>Naast uw <b>gebruiker id</b> en uw <b>mailadres</b> worden uw <b>voornaam</b>,
+                            <li>Naast het <b>gebruikers-id</b> en het <b>mailadres</b> worden de <b>voornaam</b>,
                                 <b>achternaam</b>, <b>displayName</b>,
-                                <b>userPrincipalName</b> (mail-alias) en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor u
-                                het
-                                juiste profiel zodat u zonder problemen gebruik kunt maken van de teamscan app.</li>
-                            <li>Uw <b>geslacht</b> voor het trekken van statistieken o.b.v. geslacht</li>
-                            <li>Uw <b>geboortedatum</b> voor het trekken van statistieken o.b.v. leeftijd</li>
-                            <li>De overige gegevens op de volgende pagina, welke verplicht zijn gesteld, zullen tevens
+                                <b>userPrincipalName</b> (mail-alias) en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor de gebruiker
+                                het juiste profiel zodat de gebruiker zonder problemen gebruik kunt maken van de Teamscan-app.</li>
+                            <li>De <b>opleiding of unit</b> voor het trekken van statistieken op basis van opleiding/unit.</li>
+                            <li>Het <b>geslacht</b> voor het trekken van statistieken op basis van geslacht.</li>
+                            <li>De <b>personeelssoort</b> voor het trekken van statistieken op basis van onderwijzend en niet-onderwijzend personeel.</li>
+                            <li>De overige gegevens op de volgende pagina, deze zijn niet verplicht te zijn in te vullen, zullen tevens
                                 worden gebruikt voor statistische doeleinden.</li>
-                            <li>Naast de gegevens die u op de volgende pagina invult, zullen resultaten welke voortkomen
-                                uit het invullen van de teamscans, aan uw gebruiker id worden gekoppeld zodat de door u
-                                ingevulde resultaten voor uzelf en het beheer van het team (waarin u bent toegevoegd)
+                            <li>Naast de gegevens die de gebruiker op de volgende pagina invult, zullen resultaten welke voortkomen
+                                uit het invullen van de teamscans, aan de gebruikers-id worden gekoppeld zodat de door de gebruiker
+                                ingevulde resultaten voor de gebruiker en het beheer van het team (waarin de gebruiker is toegevoegd)
                                 inzichtelijk zijn.</li>
                         </ul>
                         <p>Deze gegevens zullen slechts gebruikt worden voor het integer functioneren van de app. De
                             gegevens zullen niet voor ongeautoriseerd personeel inzichtelijk zijn. Geautoriseerd
                             personeel
-                            heeft de plicht zorgvuldig met uw gegevens om te gaan en is dus strafbaar wanneer deze
+                            heeft de plicht zorgvuldig met de gegevens van de gebruiker om te gaan en is dus strafbaar wanneer deze
                             gegevens
-                            zonder uw toestemming worden verspreid. Deze gegevens worden inzichtelijk voor het personeel
+                            zonder toestemming van de gebruiker worden verspreid. Deze gegevens worden inzichtelijk voor het personeel
                             dat
                             verplicht is statistische gegevens over te dragen aan het College Van Bestuur (CVB). Deze
                             gegevensoverdracht verloopt volgens de richtlijnen van de AVG wetgeving.
@@ -157,12 +157,12 @@
                             <div *ngFor="let item of verwerkingGegevens; let i = index;">
                                 <mat-checkbox [checked]="item.checked" (change)="onChange($event, i, item)">
                                 </mat-checkbox>
-                                Hierbij geeft u De Haagse Hogeschool toestemming om
-                                gegevens over u te verwerken met als doel het juist functioneren van de teamscan app. De
+                                Hierbij geef je De Haagse Hogeschool toestemming om
+                                gegevens over je te verwerken met als doel het juist functioneren van de teamscan app. De
                                 desbetreffende persoonsgegevens, zoals deze zijn beschreven op de voorgaande pagina,
                                 zullen
                                 slechts worden opgeslagen. Tevens heeft slechts geautoriseerd personeel toegang tot
-                                gemiddelden welke voortkomen uit de door (o.a.) u gevormde resultaten. Uw naam zal
+                                gemiddelden welke voortkomen uit de door (o.a.) u gevormde resultaten. Je naam zal
                                 vanwege
                                 privacy redenen <b>nergens</b> naar voren komen in de eerder beschreven gemiddelden.
                             </div>

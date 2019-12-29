@@ -20,6 +20,7 @@ export class AuthService {
   private graphClient: Client;
   public redirectUri: string;
   public static apiUrl: string = "https://hhs-teamscan.azurewebsites.net/api/";
+  private latestToastController: HTMLIonToastElement;
 
   constructor(
     private msalService: MsalService, private storage: Storage, private http: HttpClient,
@@ -67,7 +68,7 @@ export class AuthService {
   }
 
     init(token: string) {
-      this.showToast("Inloggen, even geduld...", 2500);
+      this.showToast("Inloggen...", 5000);
       if(token) {
           this.MSALToken=token;
           this.graphClient = Client.init({
@@ -110,14 +111,18 @@ export class AuthService {
         message: text,
         duration: duration,
       });
+      if(this.latestToastController) this.latestToastController.dismiss();
       toast.present();
+      this.latestToastController = toast;
     }
 
     setUserLoggedIn(user: any) {
+        this.showToast("Inloggen, even geduld...", 5000);
         console.log("set user", user);
         this.user = user;
         var context = this;
         this.getUserFromDatabase(function(data) {
+          context.showToast("Welkom "+ data.givenName, 1500);
           context.token=data.token;
           context.dbUser=data;
           console.log("token from this", context.token);

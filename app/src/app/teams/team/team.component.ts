@@ -39,6 +39,7 @@ export class TeamComponent {
   public progressBarValue=0;
   public startDate=null;
   public endDate=null;
+  private loadInterval: NodeJS.Timer;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +55,11 @@ export class TeamComponent {
       this.teamscan = this.route.snapshot.paramMap.get('scan');
     }
     this.getData();
+    this.loadInterval = setInterval(this.getData.bind(this), 15000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.loadInterval)
   }
 
   getData() {

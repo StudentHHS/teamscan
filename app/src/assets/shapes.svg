@@ -1,1 +1,95 @@
-<svg width="350" height="140" xmlns="http://www.w3.org/2000/svg" style="background:#f6f7f9"><g fill="none" fill-rule="evenodd"><path fill="#F04141" style="mix-blend-mode:multiply" d="M61.905-34.23l96.194 54.51-66.982 54.512L22 34.887z"/><circle fill="#10DC60" style="mix-blend-mode:multiply" cx="155.5" cy="135.5" r="57.5"/><path fill="#3880FF" style="mix-blend-mode:multiply" d="M208.538 9.513l84.417 15.392L223.93 93.93z"/><path fill="#FFCE00" style="mix-blend-mode:multiply" d="M268.625 106.557l46.332-26.75 46.332 26.75v53.5l-46.332 26.75-46.332-26.75z"/><circle fill="#7044FF" style="mix-blend-mode:multiply" cx="299.5" cy="9.5" r="38.5"/><rect fill="#11D3EA" style="mix-blend-mode:multiply" transform="rotate(-60 148.47 37.886)" x="143.372" y="-7.056" width="10.196" height="89.884" rx="5.098"/><path d="M-25.389 74.253l84.86 8.107c5.498.525 9.53 5.407 9.004 10.905a10 10 0 0 1-.057.477l-12.36 85.671a10.002 10.002 0 0 1-11.634 8.42l-86.351-15.226c-5.44-.959-9.07-6.145-8.112-11.584l13.851-78.551a10 10 0 0 1 10.799-8.219z" fill="#7044FF" style="mix-blend-mode:multiply"/><circle fill="#0CD1E8" style="mix-blend-mode:multiply" cx="273.5" cy="106.5" r="20.5"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   style="enable-background:new 0 0 500 500;"
+   viewBox="0 0 500 500"
+   height="500px"
+   width="500px"
+   y="0px"
+   x="0px"
+   id="Laag_1"
+   version="1.1"><metadata
+   id="metadata49"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs47" />
+<polygon
+   id="polygon2"
+   points="419.446,69.5 399.951,431.048 98.201,408.97 79.553,94.532 "
+   style="fill:#ffffff" />
+<path
+   id="path4"
+   d="M365,354.299c0,5.91-4.791,10.701-10.701,10.701  H145.701c-5.91,0-10.701-4.791-10.701-10.701V145.701c0-5.91,4.791-10.701,10.701-10.701h208.598c5.91,0,10.701,4.791,10.701,10.701  V354.299z"
+   style="fill:none;stroke:#9ea700;stroke-width:26;stroke-miterlimit:10;stroke-opacity:1" />
+<rect
+   id="rect6"
+   height="298"
+   width="131"
+   style="fill:#ffffff"
+   y="101"
+   x="184" />
+<rect
+   id="rect8"
+   height="118"
+   width="278"
+   style="fill:#ffffff"
+   y="191"
+   x="108" />
+<g
+   id="g12">
+	<path
+   id="path10"
+   d="M264.303,332.662h-33.149V207.06h-42.452v-26.915h118.053v26.915h-42.451V332.662z"
+   style="fill:#9ea700;fill-opacity:1" />
+</g>
+<g
+   id="g14">
+</g>
+<g
+   id="g16">
+</g>
+<g
+   id="g18">
+</g>
+<g
+   id="g20">
+</g>
+<g
+   id="g22">
+</g>
+<g
+   id="g24">
+</g>
+<g
+   id="g26">
+</g>
+<g
+   id="g28">
+</g>
+<g
+   id="g30">
+</g>
+<g
+   id="g32">
+</g>
+<g
+   id="g34">
+</g>
+<g
+   id="g36">
+</g>
+<g
+   id="g38">
+</g>
+<g
+   id="g40">
+</g>
+<g
+   id="g42">
+</g>
+</svg>
