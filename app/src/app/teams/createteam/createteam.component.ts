@@ -84,7 +84,7 @@ export class CreateTeamComponent {
       this.stateGroups=dedata;
     },
     error => {
-      this.showToast("We konden de opleidingen niet ophalen. Ben je nog verbonden?", 3000);
+      this.showToast("We konden de data niet ophalen. Ben je nog verbonden?", 3000);
       console.log("error at data request", error);
     });
   }
@@ -162,7 +162,7 @@ export class CreateTeamComponent {
     // Reset the input value
 
       event.value = '';
-    
+
   }
 
   //Remove email

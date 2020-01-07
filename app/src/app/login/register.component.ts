@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit {
         this.stateGroups=dedata;
       },
       error => {
-        this.showToast("We konden de opleidingen niet ophalen. Ben je nog verbonden?", 3000);
+        this.showToast("We konden de data niet ophalen. Ben je nog verbonden?", 3000);
         console.log("error at data request", error);
       });
     }
@@ -109,8 +109,14 @@ export class RegisterComponent implements OnInit {
           stepper.next();
         },
         error => {
-          this.showToast("We konden de gegevens niet opslaan. Ben je nog verbonden?", 3000);
+          if (this.stateForm.invalid) {
+          this.showToast("We konden de gegevens niet versturen. Ben je misschien iets vergeten in te vullen?", 3000);
+          console.log("error at data send", error);
+          }
+          else {
+          this.showToast("We konden de data niet ophalen. Ben je nog verbonden?", 3000);
           console.log("error at data request", error);
+          }
         }
       );
 

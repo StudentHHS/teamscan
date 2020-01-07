@@ -63,7 +63,7 @@ export class SettingsComponent implements OnInit {
         this.stateForm.addControl("opleidingEnFaculteit", new FormControl(this.user.opleiding + " — " + this.user.faculteit,[this.validateFaculteit.bind(this)]));
       },
       error => {
-        this.showToast("We konden de opleidingen niet ophalen. Ben je nog verbonden?", 3000);
+        this.showToast("We konden de data niet ophalen. Ben je nog verbonden?", 3000);
         console.log("error at data request", error);
       });
     }

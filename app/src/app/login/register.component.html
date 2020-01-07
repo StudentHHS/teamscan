@@ -9,70 +9,51 @@
                     <p>Deze app gaat je helpen jouw team verder te brengen. Ga snel onderin van start.</p>
                     <br>
                     <h5>Verwerking persoonsgegevens</h5>
-                    <p>Voor het juist kunnen functioneren van de app zullen wij gegevens van jou (hierna: de gebruiker) verwerken. Het zal gaan
-                        om de volgende gegevens:
+                    <p>Voor het juist kunnen functioneren van de app zullen wij gegevens van jou (hierna: de gebruiker) verwerken. Het zal gaan om de volgende gegevens:
 
                         <ul>
                             <li>De <b>gebruikers-id</b> vanuit Microsoft</li>
-                            <li>Het <b>mailadres</b> om de gebruiker rechten toe te kennen en tevens om de gebruiker toe te kunnen voegen aan
-                                een team/teamscan.</li>
+                            <li>Het <b>mailadres</b> om de gebruiker rechten toe te kennen en tevens om de gebruiker toe te kunnen voegen aan een team/teamscan.</li>
                             <li>Naast het <b>gebruikers-id</b> en het <b>mailadres</b> worden de <b>voornaam</b>,
                                 <b>achternaam</b>, <b>displayName</b>,
-                                <b>userPrincipalName</b> (mail-alias) en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor de gebruiker
-                                het juiste profiel zodat de gebruiker zonder problemen gebruik kunt maken van de Teamscan-app.</li>
+                                <b>userPrincipalName</b> (mail-alias) en <b>voorkeurstaal</b> vastgelegd. Deze gegevens vormen voor de gebruiker het juiste profiel zodat de gebruiker zonder problemen gebruik kunt maken van de Teamscan-app.</li>
                             <li>De <b>opleiding of unit</b> voor het trekken van statistieken op basis van opleiding/unit.</li>
                             <li>Het <b>geslacht</b> voor het trekken van statistieken op basis van geslacht.</li>
                             <li>De <b>personeelssoort</b> voor het trekken van statistieken op basis van onderwijzend en niet-onderwijzend personeel.</li>
-                            <li>De overige gegevens op de volgende pagina, deze zijn niet verplicht te zijn in te vullen, zullen tevens
-                                worden gebruikt voor statistische doeleinden.</li>
-                            <li>Naast de gegevens die de gebruiker op de volgende pagina invult, zullen resultaten welke voortkomen
-                                uit het invullen van de teamscans, aan de gebruikers-id worden gekoppeld zodat de door de gebruiker
-                                ingevulde resultaten voor de gebruiker en het beheer van het team (waarin de gebruiker is toegevoegd)
-                                inzichtelijk zijn.</li>
+                            <li>De overige gegevens op de volgende pagina, deze zijn niet verplicht te zijn in te vullen, zullen tevens worden gebruikt voor statistische doeleinden.</li>
+                            <li>Naast de gegevens die de gebruiker op de volgende pagina invult, zullen resultaten welke voortkomen uit het invullen van de teamscans, aan de gebruikers-id worden gekoppeld zodat de door de gebruiker ingevulde resultaten voor
+                                de gebruiker en het beheer van het team (waarin de gebruiker is toegevoegd) inzichtelijk zijn.</li>
                         </ul>
-                        <p>Deze gegevens zullen slechts gebruikt worden voor het integer functioneren van de app. De
-                            gegevens zullen niet voor ongeautoriseerd personeel inzichtelijk zijn. Geautoriseerd
-                            personeel
-                            heeft de plicht zorgvuldig met de gegevens van de gebruiker om te gaan en is dus strafbaar wanneer deze
-                            gegevens
-                            zonder toestemming van de gebruiker worden verspreid. Deze gegevens worden inzichtelijk voor het personeel
-                            dat
-                            verplicht is statistische gegevens over te dragen aan het College Van Bestuur (CVB). Deze
-                            gegevensoverdracht verloopt volgens de richtlijnen van de AVG wetgeving.
+                        <p>Deze gegevens zullen slechts gebruikt worden voor het integer functioneren van de app. De gegevens zullen niet voor ongeautoriseerd personeel inzichtelijk zijn. Geautoriseerd personeel heeft de plicht zorgvuldig met de gegevens
+                            van de gebruiker om te gaan en is dus strafbaar wanneer deze gegevens zonder toestemming van de gebruiker worden verspreid. Deze gegevens worden inzichtelijk voor het personeel dat verplicht is statistische gegevens over te
+                            dragen aan het College Van Bestuur (CVB). Deze gegevensoverdracht verloopt volgens de richtlijnen van de AVG wetgeving.
                         </p>
                         <br>
                         <button mat-flat-button color="warn" (click)="logOut()">Uitloggen</button>
-                        <button mat-flat-button color="primary" style="float:right"
-                            matStepperNext>Volgende</button>
+                        <button mat-flat-button color="primary" style="float:right" matStepperNext>Volgende</button>
                 </mat-step>
 
                 <mat-step completed="false">
                     <ng-template matStepLabel></ng-template>
                     <h4>We leren je graag beter kennen</h4>
-                    <p>Voordat we van start gaan zouden we graag eerst eens willen kennismaken. Zou je misschien
-                        antwoord willen geven op de volgende vragen? Hierdoor krijgen we meer inzicht in de teams van De
-                        Haagse Hogeschool.</p>
+                    <p>Voordat we van start gaan zouden we graag eerst eens willen kennismaken. Zou je misschien antwoord willen geven op de volgende vragen? Hierdoor krijgen we meer inzicht in de teams van De Haagse Hogeschool.</p>
                     <form [formGroup]="stateForm" id="registerForm" (ngSubmit)="onSubmit(stateForm.value, stepper)">
                         <mat-form-field>
-                            <input type="text" matInput placeholder="Opleiding of unit"
-                                formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
+                            <input type="text" matInput placeholder="Opleiding of unit" formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
                             <mat-autocomplete #autoGroup="matAutocomplete">
                                 <mat-optgroup *ngFor="let faculty of stateGroupOptions | async" [label]="faculty.naam">
-                                    <mat-option *ngFor="let opleiding of faculty.opleidingen"
-                                        [value]="opleiding + ' — ' + faculty.naam">
+                                    <mat-option *ngFor="let opleiding of faculty.opleidingen" [value]="opleiding + ' — ' + faculty.naam">
                                         {{opleiding}}
                                     </mat-option>
                                 </mat-optgroup>
                             </mat-autocomplete>
-                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('validateFaculteit')">Kies
-                                een opleiding of dienst uit de lijst</mat-error>
-                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog
-                                geen opleiding of dienst gekozen</mat-error>
+                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('validateFaculteit')">Kies een opleiding of dienst uit de lijst</mat-error>
+                            <mat-error *ngIf="stateForm.get('opleidingEnFaculteit').hasError('required')">Je hebt nog geen opleiding of dienst gekozen</mat-error>
                         </mat-form-field>
                         <br>
                         <p>
-                            Geslacht*: <mat-hint *ngIf="stateForm.get('geslacht').hasError('required')">Geslacht opgeven
-                                is verplicht</mat-hint>
+                            Geslacht *:
+                            <mat-hint *ngIf="stateForm.get('geslacht').hasError('required')">Geslacht opgeven is verplicht</mat-hint>
                         </p>
                         <mat-radio-group formControlName="geslacht" required>
                             <mat-radio-button value="m" style="width: 140px; margin: 0 0 4px 0;">Man</mat-radio-button>
@@ -80,8 +61,8 @@
                         </mat-radio-group>
                         <br>
                         <p>
-                            Soort personeel*: <mat-hint *ngIf="stateForm.get('opOfObp').hasError('required')">Optie
-                                opgeven is verplicht</mat-hint>
+                            Soort personeel *:
+                            <mat-hint *ngIf="stateForm.get('opOfObp').hasError('required')">Optie opgeven is verplicht</mat-hint>
                         </p>
                         <mat-radio-group formControlName="opOfObp" required>
                             <mat-radio-button value="OP" style="width: 140px; margin: 0 0 4px 0;">Onderwijzend
@@ -120,35 +101,29 @@
                         </mat-form-field>
                         <br>
                         <mat-form-field>
-                            <input matInput placeholder="Aanstellingsomvang (fte's)"
-                                formControlName="aanstellingsomvang">
+                            <input matInput placeholder="Aanstellingsomvang (fte's)" formControlName="aanstellingsomvang">
                             <mat-hint>In fte (bijvoorbeeld 0.6)</mat-hint>
-                            <mat-error *ngIf="stateForm.get('aanstellingsomvang').invalid">Geef je fte-aantal op met een
-                                waarde tussen 0.0 en 1.0</mat-error>
+                            <mat-error *ngIf="stateForm.get('aanstellingsomvang').invalid">Geef je fte-aantal op met een waarde tussen 0.0 en 1.0</mat-error>
                         </mat-form-field>
                         <br>
                         <br>
                         <mat-divider></mat-divider>
                         <br>
-                        <p>De volgende vragen geven inzicht in welk jaar je begonnen bent met de volgende onderwerpen.
-                            Mocht je het niet meer precies weten, maak dan een schatting of vul dit later in.</p>
+                        <p>De volgende vragen geven inzicht in welk jaar je begonnen bent met de volgende onderwerpen. Mocht je het niet meer precies weten, maak dan een schatting of vul dit later in.</p>
                         <mat-form-field>
-                            <input matInput placeholder="In welk jaar ben je begonnen op de HHS?"
-                                formControlName="startjaarDienst">
+                            <input matInput placeholder="In welk jaar ben je begonnen op de HHS?" formControlName="startjaarDienst">
                             <mat-error *ngIf="stateForm.get('startjaarDienst').invalid">Geef een geldig jaartal op.
                             </mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field>
-                            <input matInput placeholder="In welk jaar ben je begonnen in het onderwijs?"
-                                formControlName="startjaarOnderwijs">
+                            <input matInput placeholder="In welk jaar ben je begonnen in het onderwijs?" formControlName="startjaarOnderwijs">
                             <mat-error *ngIf="stateForm.get('startjaarOnderwijs').invalid">Geef een geldig jaartal op.
                             </mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field>
-                            <input matInput placeholder="In welk jaar ben je begonnen met je huidige functie?"
-                                formControlName="startjaarFunctie">
+                            <input matInput placeholder="In welk jaar ben je begonnen met je huidige functie?" formControlName="startjaarFunctie">
                             <mat-error *ngIf="stateForm.get('startjaarFunctie').invalid">Geef een geldig jaartal op.
                             </mat-error>
                         </mat-form-field>
@@ -157,21 +132,15 @@
                             <div *ngFor="let item of verwerkingGegevens; let i = index;">
                                 <mat-checkbox [checked]="item.checked" (change)="onChange($event, i, item)">
                                 </mat-checkbox>
-                                Hierbij geef je De Haagse Hogeschool toestemming om
-                                gegevens over je te verwerken met als doel het juist functioneren van de teamscan app. De
-                                desbetreffende persoonsgegevens, zoals deze zijn beschreven op de voorgaande pagina,
-                                zullen
-                                slechts worden opgeslagen. Tevens heeft slechts geautoriseerd personeel toegang tot
-                                gemiddelden welke voortkomen uit de door (o.a.) u gevormde resultaten. Je naam zal
-                                vanwege
-                                privacy redenen <b>nergens</b> naar voren komen in de eerder beschreven gemiddelden.
+                                Hierbij geef je De Haagse Hogeschool toestemming om gegevens over je te verwerken met als doel het juist functioneren van de teamscan app. De desbetreffende persoonsgegevens, zoals deze zijn beschreven op de voorgaande pagina, zullen slechts worden opgeslagen.
+                                Tevens heeft slechts geautoriseerd personeel toegang tot gemiddelden welke voortkomen uit de door (o.a.) u gevormde resultaten. Je naam zal vanwege privacy redenen <b>nergens</b> naar voren
+                                komen in de eerder beschreven gemiddelden.
                             </div>
                             <br>
                             <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
                             <div *ngFor="let item of verwerkingGegevens">
                                 <!-- stateForm.invalid &&  -->
-                                <button mat-flat-button color="primary" style="float:right" type="submit"
-                                    [disabled]="item.checked == false">Volgende</button>
+                                <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="item.checked == false">Volgende</button>
                             </div>
                         </div>
                     </form>

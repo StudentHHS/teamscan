@@ -90,13 +90,13 @@ export class ResultatenComponent {
                     }
                     thema.gemiddelde = gemiddelde / result.length;
                 }
-                
+
                 console.log("njkdsajkdhasjkdhjasmjdlsadhasjkbdkjsahdjksbjd", this.themas)
 
 
             },
                 error => {
-                    this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
+                    this.showToast("De gegevens konden niet worden ingeladen. Ben je nog verbonden?", 3000);
                     this.requestFailed = true;
                     console.log("error at data request", error);
                 }

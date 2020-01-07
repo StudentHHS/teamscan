@@ -47,7 +47,7 @@ export class TeamsComponent {
             if(error.status=="404") {
               this.teams = [];
             } else {
-              this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
+              this.showToast("De teams konden niet worden ingeladen. Ben je nog verbonden?", 3000);
               this.requestFailed = true;
             }
             console.log("error at data request", error);
@@ -64,7 +64,7 @@ export class TeamsComponent {
     this.requestFailed = false;
   }
 
-  
+
   async showToast(text: string, duration: number) {
     const toast = await this.toastController.create({
       message: text,
