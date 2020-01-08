@@ -25,6 +25,7 @@ import { UtilityService } from './utility.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { SettingsComponent } from './settings/settings.component';
+import { DialogComponent } from './teams/team/invullen/dialog/dialog.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -53,7 +54,7 @@ import { MatNativeDateModule} from '@angular/material';
 import { MatChipsModule} from '@angular/material/chips';
 import { MatRippleModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import { MatExpansionModule} from '@angular/material/expansion'
-
+import { MatDialogModule } from '@angular/material';
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
 
@@ -61,8 +62,8 @@ import { OAuthSettings } from '../oauth';
   declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
      TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent,
      RegisterComponent, AanmakenComponent, ScorenComponent, CreateTeamComponent,
-     SettingsComponent],
-  entryComponents: [],
+     SettingsComponent, DialogComponent],
+  entryComponents: [DialogComponent],
   imports: [BrowserModule, ChartsModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),
     MatButtonModule, MatCheckboxModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
@@ -71,7 +72,7 @@ import { OAuthSettings } from '../oauth';
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
     HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule, MatRippleModule,
-    MatExpansionModule
+    MatExpansionModule, MatDialogModule
   ],
   providers: [
     StatusBar,
