@@ -73,8 +73,8 @@
 </div>
 <mat-card *ngIf="teamdata.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card-content>
-        <div class="customStepper">
-            <div [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'">
+        <div class="customStepper" *ngIf="teamdata.teamscan?.status == 'invullen'">
+            <div [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'" style='cursor: pointer; outline: none'>
                 <div class="opener"></div>
                 <div class="middle">Invullen</div>
                 <div class="closer"></div>
@@ -90,8 +90,45 @@
                 <div class="closer"></div>
             </div>
         </div>
+
+        <div class="customStepper" *ngIf="teamdata.teamscan?.status == 'scoren'">
+            <div [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'">
+                <div class="opener"></div>
+                <div class="middle">Invullen</div>
+                <div class="closer"></div>
+            </div>
+            <div [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'" style='cursor: pointer; outline: none'>
+                <div class="opener"></div>
+                <div class="middle">Scoren</div>
+                <div class="closer"></div>
+            </div>
+            <div [class]="(teamdata.teamscan?.status == 'gesloten') ? 'stepChip selected' : 'stepChip'">
+                <div class="opener"></div>
+                <div class="middle">Resultaten</div>
+                <div class="closer"></div>
+            </div>
+        </div>
+
+        <div class="customStepper" *ngIf="teamdata.teamscan?.status == 'gesloten'">
+            <div [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'">
+                <div class="opener"></div>
+                <div class="middle">Invullen</div>
+                <div class="closer"></div>
+            </div>
+            <div [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'">
+                <div class="opener"></div>
+                <div class="middle">Scoren</div>
+                <div class="closer"></div>
+            </div>
+            <div [class]="(teamdata.teamscan?.status == 'gesloten') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'" style='cursor: pointer; outline: none'>
+                <div class="opener"></div>
+                <div class="middle">Resultaten</div>
+                <div class="closer"></div>
+            </div>
+        </div>
+
         <div *ngIf="teamdata.teamscan?.status !== 'gesloten'">
-            
+
             <div class="row">
                 <div style="width: 50%; float: left; text-align: left; vertical-align: middle;">
                     <i class="material-icons" style="vertical-align:middle;">room</i>
@@ -107,7 +144,8 @@
             <br>
             <div style="text-align:center;" *ngIf="daysUntillStatusEnd >= 0">
                 <div style="vertical-align:middle;">
-                    <i class="material-icons" style="vertical-align:middle;">schedule</i> Er zijn nog <b style="font-weight:500">{{daysUntillStatusEnd}} dagen</b> {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?" om de verbeterpunten te scoren":""}}
+                    <i class="material-icons" style="vertical-align:middle;">schedule</i> Er zijn nog <b style="font-weight:500">{{daysUntillStatusEnd}} dagen</b> {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?"
+                    om de verbeterpunten te scoren":""}}
                 </div>
             </div>
             <div style="text-align:center;" *ngIf="daysUntillStatusEnd < 0">
@@ -180,10 +218,10 @@
                     </button>
                 </mat-menu>
             </ng-container>
-            <mat-list-item  *ngIf="teamdata.team?.beheerder" [matMenuTriggerFor]="addmember" #addMemberMenuTrigger="matMenuTrigger" mat-ripple>
+            <mat-list-item *ngIf="teamdata.team?.beheerder" [matMenuTriggerFor]="addmember" #addMemberMenuTrigger="matMenuTrigger" mat-ripple>
                 <mat-icon mat-list-icon>add</mat-icon>
                 <p mat-line> Teamlid toevoegen </p>
-            
+
                 <mat-menu #addmember="matMenu">
                     <form (click)="$event.stopPropagation();" style="margin:5px 20px" [formGroup]="addmemberform" (ngSubmit)="onSubmitMember(addmemberform.value, addMemberMenuTrigger)">
                         <mat-form-field style="width:100%;">
