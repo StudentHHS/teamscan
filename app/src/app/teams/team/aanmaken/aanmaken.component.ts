@@ -16,11 +16,12 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./aanmaken.component.scss'],
 })
 export class AanmakenComponent implements OnInit {
+  minDate = new Date();
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient, 
+    private http: HttpClient,
     private location: Location,
-    private toastController: ToastController, 
+    private toastController: ToastController,
     private authService: AuthService,
     private route: ActivatedRoute) {
 
@@ -33,7 +34,22 @@ export class AanmakenComponent implements OnInit {
     teamscanstartdatum: ['', Validators.required],
     teamscaneinddatum: ['', Validators.required],
     teamscanopenvraageinddatum: ['', Validators.required],
-  });
+  }, {validators: this.startBeforeEnd('teamscanstartdatum', 'teamscaneinddatum', 'teamscanopenvraageinddatum')}
+  );
+
+  startBeforeEnd(start: string, eind: string, open: string) {
+    return (group: FormGroup): {[key: string]: any} => {
+      let s = group.controls[start];
+      let e = group.controls[eind];
+      let o = group.controls[open];
+      if (s.value > e.value || e.value > o.value ) {
+        return {
+          endBeforeStart: true
+        };
+      }
+      return {};
+    }
+  }
 
    createTeamscan(formData: any){
     console.log("Start adding teamscan");
