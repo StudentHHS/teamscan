@@ -138,7 +138,7 @@
                                 komen in de eerder beschreven gemiddelden.
                             </div>
                             <br>
-                            <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
+                            <button mat-stroked-button *ngIf="!isFirst" style="float:left" matStepperPrevious>Terug</button>
                             <div *ngFor="let item of verwerkingGegevens">
                                 <!-- stateForm.invalid &&  -->
                                 <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="item.checked == false">Volgende</button>
@@ -149,9 +149,58 @@
 
                 <mat-step stepControl="">
                     <ng-template matStepLabel></ng-template>
-                    <h4>Wij zijn er klaar voor!</h4>
-                    <p>Zodra je bent toegevoegd aan een team kun je teamscans maken en inzien.</p>
-                    <br>
+                    <mat-tab-group headerPosition="below" mat-align-tabs="center">
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <mat-icon>lens</mat-icon>
+                            </ng-template>
+                            <h4>Hoe werkt het?</h4>
+                            <p>
+                                De teamscan app is een tool waarmee teamscans kunnen worden uitgevoerd.<br><br> Zo dadelijk kan je een overzicht bekijken van alle teams waaraan je bent toegevoegd door je teamleider(s) of welke jij zelf hebt aangemaakt.
+                                Door een team te selecteren krijg je meer informatie over dat team te zien.<br> Mocht er een teamscan zijn klaargezet, dan zie je dit natuurlijk ook en kan je deze invullen.<br> De teamscan bestaat uit twaalf onderwerpen.<br>                                Per onderwerp worden er vier stellingen gegeven, aan jou de taak om aan te geven welke stelling volgens jou het beste past bij jouw huidige team.<br> Op basis van de antwoorden wordt er bepaald in welke fase je team zich
+                                bevindt.
+                                <br> Is de fase niet hoog genoeg? Dan weet je waar je aan moet werken.
+                            </p>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <mat-icon>lens</mat-icon>
+                            </ng-template>
+                            <h4>Wat is een teamscan eigenlijk?</h4>
+                            <p>
+                                De teamscan is oorspronkelijk ontwikkeld door Windesheim om de samenwerking binnen teams en de ontwikkeling er van te kunnen meten en monitoren.<br><br> Gebaseerd op het proefschrift 'Samenwerken in teams, een vanzelfsprekendheid?'
+                                van Tuckman, zijn er vier fases waar een team zich in kan bevinden:</p>
+                            <ol>
+                                <li>Bungeling individuen</li>
+                                <li>Groep</li>
+                                <li>Team</li>
+                                <li>Open team</li>
+                            </ol>
+                            <p>
+                                Om te kunnen bepalen in welke fase een team zich bevind, wordt er een teamscan ingevuld. Een teamscan is gebaseerd op de volgende vier dimensies:
+                            </p>
+                            <ol>
+                                <li>Kwaliteit van werk</li>
+                                <li>Organiseren</li>
+                                <li>Samenwerken</li>
+                                <li>Ondernemen</li>
+                            </ol>
+                            <p>
+                                Binnen een teamscan zal er op deze dimensies een score worden gegeven door de teamleden.<br> Hiermee kan worden bepaald in welke fase het team zich op dat moment bevindt.<br> Mocht de fase niet al te hoog zijn, dan kan
+                                er eventueel een plan worden opgesteld om het team een stapje omhoog te helpen.
+                            </p>
+
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <mat-icon>lens</mat-icon>
+                            </ng-template>
+                            <h4>Ben je er klaar voor?</h4>
+                            <p>
+                                Wij wensen je veel succes met het maken van teamscans en het verder ontwikkelen van jezelf en je team(s)!
+                            </p>
+                        </mat-tab>
+                    </mat-tab-group>
                     <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
                     <button mat-flat-button color="primary" style="float:right" (click)="start()">Aan de slag</button>
                 </mat-step>

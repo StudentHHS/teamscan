@@ -1,3 +1,15 @@
 mat-form-field {
-    width:100%;
+    width: 100%;
+}
+
+mat-tab {
+    text-align: left;
+}
+
+mat-tab-label {
+    font-size: 200;
+}
+
+mat-icon {
+    color: #9EA700;
 }

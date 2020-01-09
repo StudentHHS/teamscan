@@ -53,6 +53,7 @@ import { MatNativeDateModule} from '@angular/material';
 import { MatChipsModule} from '@angular/material/chips';
 import { MatRippleModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import { MatExpansionModule} from '@angular/material/expansion'
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -71,7 +72,7 @@ import { OAuthSettings } from '../oauth';
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
     HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule, MatRippleModule,
-    MatExpansionModule
+    MatExpansionModule, MatTabsModule
   ],
   providers: [
     StatusBar,
