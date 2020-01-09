@@ -37,6 +37,7 @@
                     <ng-template matStepLabel></ng-template>
                     <h4>We leren je graag beter kennen</h4>
                     <p>Voordat we van start gaan zouden we graag eerst eens willen kennismaken. Zou je misschien antwoord willen geven op de volgende vragen? Hierdoor krijgen we meer inzicht in de teams van De Haagse Hogeschool.</p>
+                    <p style="font-size: .90em">Een * bij een invoerveld geeft aan dat deze verplicht moet worden ingevuld.</p>
                     <form [formGroup]="stateForm" id="registerForm" (ngSubmit)="onSubmit(stateForm.value, stepper)">
                         <mat-form-field>
                             <input type="text" matInput placeholder="Opleiding of unit" formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
