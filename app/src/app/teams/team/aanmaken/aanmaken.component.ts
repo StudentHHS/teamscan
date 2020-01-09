@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { Location } from '@angular/common';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth.service';
+import {MatTooltip} from '@angular/material';
 
 @Component({
   selector: 'app-aanmaken',

@@ -1,3 +1,65 @@
-mat-form-field{
-  width:100%;
+mat-form-field {
+    width: 100%;
+}
+
+.infobutton {
+    display: none;
+}
+
+@media screen and (max-width: 355px) {
+    mat-form-field {
+        width: 80%;
+    }
+    .infobutton {
+        display: inline;
+        margin-right: -15px;
+        padding-left: 5px;
+        padding-top: 5px;
+        background: none;
+        vertical-align: middle;
+    }
+}
+
+@media screen and (min-width: 356px) and (max-width: 480px) {
+    mat-form-field {
+        width: 90%;
+    }
+    .infobutton {
+        display: inline;
+        margin-right: -15px;
+        padding-left: 5px;
+        padding-top: 5px;
+        background: none;
+        vertical-align: middle;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 1250px) {
+    mat-form-field {
+        width: 90%;
+    }
+    .infobutton {
+        display: inline;
+        margin-right: -15px;
+        padding-left: 5px;
+        padding-top: 5px;
+        background: none;
+        vertical-align: middle;
+        padding-right: 5%;
+    }
+}
+
+@media screen and (min-width: 1251px) {
+    mat-form-field {
+        width: 96%;
+    }
+    .infobutton {
+        display: inline;
+        margin-right: -15px;
+        padding-left: 5px;
+        padding-top: 5px;
+        background: none;
+        vertical-align: middle;
+        padding-right: 0;
+    }
 }
