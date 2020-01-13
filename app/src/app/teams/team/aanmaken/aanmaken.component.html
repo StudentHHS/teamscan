@@ -17,7 +17,7 @@
                 <mat-datepicker #Startdatum disabled="false" touchUi></mat-datepicker>
                 <mat-error *ngIf="createTeamScan.get('teamscanstartdatum').invalid">Vul een geldige datum in</mat-error>
             </mat-form-field>
-            <button type="button" #tooltip1="matTooltip" matTooltip="Op deze datum wordt de teamscan zichtbaar voor de teamleden." (click)="tooltip1.toggle()" class="infobutton" matTooltipPosition="left">
+            <button type="button" #tooltip1="matTooltip" matTooltip="Op deze datum wordt de teamscan beschikbaar voor de teamleden." (click)="tooltip1.toggle()" class="infobutton" matTooltipPosition="left">
               <mat-icon>info</mat-icon>
             </button>
             <mat-form-field>
@@ -26,7 +26,6 @@
                 <mat-datepicker-toggle matSuffix [for]="Einddatum"></mat-datepicker-toggle>
                 <mat-datepicker #Einddatum disabled="false" touchUi></mat-datepicker>
                 <mat-error *ngIf="createTeamScan.get('teamscaneinddatum').invalid">Vul een geldige datum in</mat-error>
-                <mat-error *ngIf="createTeamScan.get('teamscaneinddatum').hasError('endBeforeStart')">Deze datum kan niet voor de startdatum vallen</mat-error>
             </mat-form-field>
             <button type="button" #tooltip2="matTooltip" matTooltip="Tot deze datum hebben de teamleden de tijd om de teamscan in te vullen." (click)="tooltip2.toggle()" class="infobutton" matTooltipPosition="left">
               <mat-icon>info</mat-icon>
@@ -41,6 +40,7 @@
             <button type="button" #tooltip3="matTooltip" matTooltip="Tot deze datum hebben de teamleden de tijd om de feedback over het team te beoordelen." (click)="tooltip3.toggle()" class="infobutton" matTooltipPosition="left">
               <mat-icon>info</mat-icon>
             </button>
+            <p *ngIf="createTeamScan.hasError('endBeforeStart')" style="color:rgb(187, 84, 0)"><mat-icon style="vertical-align: -7px;">warning</mat-icon> Zorg ervoor dat de <b>startdatum</b> eerder is dan de <b>eerste einddatum</b> en dat de <b>eerste einddatum</b> ook eerder is dan de <b>tweede einddatum</b>.</p>
             <button mat-flat-button type="submit" [disabled]="createTeamScan.invalid" style="width:auto;" color="primary">Aanmaken</button>
 
         </form>
