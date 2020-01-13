@@ -54,9 +54,10 @@
                     <mat-form-field>
                         <textarea matInput type="text" placeholder="Antwoord" formControlName="feedback"></textarea>
                     </mat-form-field>
+                    <p>Deze verbeterpunten worden later gescoord door je teamleden en is voor je teamleden zichtbaar.</p>
+                    <p *ngIf="antwoordForm.invalid" style="color:red"><mat-icon style="vertical-align: -7px;">warning</mat-icon> Je hebt nog niet alle meerkeuzevragen beantwoord.</p>
                     <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
                     <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="antwoordForm.invalid">Bewaren</button>
-                    <p *ngIf="antwoordForm.invalid" style="color:red"><mat-icon style="vertical-align: -7px;">warning</mat-icon> Je hebt nog niet alle meerkeuzevragen beantwoord.</p>
                 </mat-step>
                 <ng-template matStepperIcon="edit">
                     <mat-icon>done</mat-icon>
