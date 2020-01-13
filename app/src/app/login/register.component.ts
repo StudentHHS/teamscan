@@ -27,7 +27,7 @@ export const _filter = (opt: string[], value: string): string[] => {
 
 export class RegisterComponent implements OnInit {
 
-  verwerkingGegevens = [{checked: false}] ;
+  verwerkingGegevens = [{checked: false}];
 
     constructor(
         private authService: AuthService,
