@@ -74,7 +74,12 @@
 <mat-card *ngIf="teamdata.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card-content>
         <div class="customStepper" *ngIf="teamdata.teamscan?.status == 'invullen'">
-            <div [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'" style='cursor: pointer; outline: none'>
+            <div *ngIf="!teamdata.team?.ingevuld && teamdata.team" [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'" style='cursor: pointer; outline: none'>
+                <div class="opener"></div>
+                <div class="middle">Invullen</div>
+                <div class="closer"></div>
+            </div>
+            <div *ngIf="teamdata.team?.ingevuld && teamdata.team" [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" style='cursor: pointer; outline: none'>
                 <div class="opener"></div>
                 <div class="middle">Invullen</div>
                 <div class="closer"></div>
@@ -97,7 +102,12 @@
                 <div class="middle">Invullen</div>
                 <div class="closer"></div>
             </div>
-            <div [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'" style='cursor: pointer; outline: none'>
+            <div *ngIf="!teamdata.team?.gescoord" [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'" style='cursor: pointer; outline: none'>
+                <div class="opener"></div>
+                <div class="middle">Scoren</div>
+                <div class="closer"></div>
+            </div>
+            <div *ngIf="teamdata.team?.gescoord" [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'" style='cursor: pointer; outline: none'>
                 <div class="opener"></div>
                 <div class="middle">Scoren</div>
                 <div class="closer"></div>
