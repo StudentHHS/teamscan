@@ -11,7 +11,7 @@
 .phaseBarChart {
     text-align:center;font-size:16px;line-height:1.2;height:auto;
     margin-bottom:4px;
-    color:white;
+    color:black;
     border-radius:2px;
     overflow:hidden;
 }
@@ -19,18 +19,26 @@
 .phaseBarChart div {
     height:100%;
     display:inline-block;
-    background:#1686bb;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.phaseBarChart.colors div {
+    color:white;
     box-shadow: inset -6px 0px 6px -4px rgba(0, 0, 0, 0.45);
     text-shadow: -1px -1px 3px #000, 1px 1px 3px #000;
 }
 
-.phaseBarChart div:nth-child(2) {
+.phaseBarChart.colors div:nth-child(1) {
+    background:#1686bb;
+}
+.phaseBarChart.colors div:nth-child(2) {
     background:#7d5a9c;
 }
-.phaseBarChart div:nth-child(3) {
+.phaseBarChart.colors div:nth-child(3) {
     background:#b79b4d;
 }
-.phaseBarChart div:nth-child(4) {
+.phaseBarChart.colors div:nth-child(4) {
     background:#24b5a1;
 }
 

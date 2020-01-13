@@ -72,30 +72,20 @@
                                 [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 4</div>
                         </div>
-                        <p *ngIf="resultdata.lijst[dimensie][1].aantal >= resultdata.lijst[dimensie][2].aantal
-                                   && resultdata.lijst[dimensie][1].aantal >= resultdata.lijst[dimensie][3].aantal
-                                   && resultdata.lijst[dimensie][1].aantal >= resultdata.lijst[dimensie][4].aantal">
-                            Fase 1: Iedere medewerker gaat zijn weg
-                            ({{(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%)
-                        </p>
-                        <p *ngIf="resultdata.lijst[dimensie][2].aantal >= resultdata.lijst[dimensie][1].aantal
-                                   && resultdata.lijst[dimensie][2].aantal >= resultdata.lijst[dimensie][3].aantal
-                                   && resultdata.lijst[dimensie][2].aantal >= resultdata.lijst[dimensie][4].aantal">
-                            Fase 2: Accent op organisatorische taken in het team
-                            ({{(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][2].totaal) * 100}}%)
-                        </p>
-                        <p *ngIf="resultdata.lijst[dimensie][3].aantal >= resultdata.lijst[dimensie][2].aantal
-                                   && resultdata.lijst[dimensie][3].aantal >= resultdata.lijst[dimensie][1].aantal
-                                   && resultdata.lijst[dimensie][3].aantal >= resultdata.lijst[dimensie][4].aantal">
-                            Fase 3: Doelgericht werken binnen het team
-                            ({{(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][3].totaal) * 100}}%)
-                        </p>
-                        <p *ngIf="resultdata.lijst[dimensie][4].aantal >= resultdata.lijst[dimensie][2].aantal
-                                   && resultdata.lijst[dimensie][4].aantal >= resultdata.lijst[dimensie][3].aantal
-                                   && resultdata.lijst[dimensie][4].aantal >= resultdata.lijst[dimensie][1].aantal">
-                            Fase 4: Accent op zelfstandig verbeteren m.b.t. de omgeving
-                            ({{(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][4].totaal) * 100}}%)
-                        </p>
+                        <div class="phaseBarChart colors">
+                            <div
+                                [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                                {{(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                            <div
+                                [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                                {{(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                            <div
+                                [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                                {{(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                            <div
+                                [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                                {{(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                        </div>
                         <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
                     </div>
                 </mat-list-item>
