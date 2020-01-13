@@ -7,10 +7,14 @@
             De antwoorden van de teamscan zijn ingedeeld in 4 fases van teamvorming.
         </p>
         <ol>
-            <li><div class="phase1" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Iedere medewerker gaat zijn weg</li>
-            <li><div class="phase2" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op organisatorische taken in het team</li>
-            <li><div class="phase3" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Doelgericht werken binnen het team</li>
-            <li><div class="phase4" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
+            <li>
+                <div class="phase1" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Iedere medewerker gaat zijn weg</li>
+            <li>
+                <div class="phase2" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op organisatorische taken in het team</li>
+            <li>
+                <div class="phase3" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Doelgericht werken binnen het team</li>
+            <li>
+                <div class="phase4" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
         </ol>
         <p>Bekijk de resultaten gegroepeerd op thema of dimensie.</p>
     </mat-card-content>
@@ -59,31 +63,23 @@
                     <div class="phaseContainer">
                         <h6>Dimensie {{dimensie}}: {{resultdata.lijst[dimensie][1].dimensie_naam}}</h6>
                         <div class="phaseBarChart">
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 1</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 2</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 3</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 4</div>
                         </div>
                         <div class="phaseBarChart colors">
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 {{(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 {{(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 {{(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 {{(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
                         </div>
                         <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
@@ -109,12 +105,43 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div [class]="'phase'+avgRounded" style="color: #fff;display: inline-block;padding: 2px 8px;border-radius: 5px;"><h6 style="margin:0">Fase {{(resultdata) ? resultdata.gemiddelde : "0.0"}}</h6></div>
+        <div [class]="'phase'+avgRounded" style="color: #fff;display: inline-block;padding: 2px 8px;border-radius: 5px;">
+            <h6 style="margin:0">Fase {{(resultdata) ? resultdata.gemiddelde : "0.0"}}</h6>
+        </div>
         <p *ngIf="avgRounded == 0">Momentje...</p>
-        <p *ngIf="avgRounded == 1">Fase 1 staat voor: Iedere medewerker gaat zijn weg</p>
-        <p *ngIf="avgRounded == 2">Fase 2 staat voor: Accent op organisatorische taken in het team</p>
-        <p *ngIf="avgRounded == 3">Fase 3 staat voor: Doelgericht werken binnen het team</p>
-        <p *ngIf="avgRounded == 4">Fase 4 staat voor: Accent op zelfstandig verbeteren m.b.t. de omgeving</p>
+        <div *ngIf="avgRounded == 1">
+            <p>Fase 1 staat voor: Iedere medewerker gaat zijn weg</p>
+            <p>Om het team naar de volgende fase te krijgen,<br> probeer te focussen op het ontwikkelen van de volgende teamcompetenties:</p>
+            <ul>
+                <li>Gezamenlijkheid ontwikkelen</li>
+                <li>Resultaatgerichtheid</li>
+                <li>Werken aan luisteren</li>
+                <li>Basaal communiceren</li>
+            </ul>
+        </div>
+        <div *ngIf="avgRounded == 2">
+            <p>Fase 2 staat voor: Accent op organisatorische taken in het team</p>
+            <p>Om het team naar de volgende fase te krijgen,<br> probeer te focussen op het ontwikkelen van de volgende teamcompetenties:</p>
+            <ul>
+                <li>Feedback geven en ontvangen</li>
+                <li>Conflictvaardig: omgaan met verschillen</li>
+                <li>Zakelijk omgaan met emoties</li>
+            </ul>
+        </div>
+        <div *ngIf="avgRounded == 3">
+            <p>Fase 3 staat voor: Doelgericht werken binnen het team</p>
+            <p>Om het team naar de volgende fase te krijgen,<br> probeer te focussen op het ontwikkelen van de volgende teamcompetenties:</p>
+            <ul>
+                <li>Omgevings- en organisatiebewustzijn</li>
+                <li>Verantwoordelijkheid voor groter geheel</li>
+                <li>Rolflexbiliteit</li>
+            </ul>
+        </div>
+        <div *ngIf="avgRounded == 4">
+            <p>Fase 4 staat voor: Accent op zelfstandig verbeteren m.b.t. de omgeving</p>
+            <p>Het lijkt erop dat jullie een fantastisch team zijn.</p>
+            <p>Ga zo door!</p>
+        </div>
     </mat-expansion-panel>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
