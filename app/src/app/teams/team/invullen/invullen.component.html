@@ -35,8 +35,7 @@
                                     </p>
                                     <p style="font-size: .85em">{{question.antwoord_kort}}</p>
                                 </mat-radio-button>
-                                <button type="button" mat-icon-button (click)="tooltip.show()"
-                                    [matTooltip]="question.antwoord" matTooltipPosition="left" #tooltip="matTooltip" class="infobutton">
+                                <button type="button" mat-icon-button (click)="openDialog(question.antwoord)" class="infobutton">
                                     <mat-icon>info</mat-icon>
                                 </button>
                                 </mat-list-item>

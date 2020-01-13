@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { DialogComponent } from  './dialog/dialog.component';
 
 // import { BrowserModule } from '@angular/platform-browser';
 // import { $ } from 'protractor';
@@ -19,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 export class InvullenComponent implements OnInit{
   constructor(private http: HttpClient, private location: Location,
     private toastController: ToastController, private authService: AuthService,
-    private fb: FormBuilder, private route: ActivatedRoute) {}
+    private fb: FormBuilder, private route: ActivatedRoute, public dialog: MatDialog) {}
 
   result: Array<Object>;
   public dimensions: Object = Array();
@@ -88,6 +90,17 @@ export class InvullenComponent implements OnInit{
         this.showToast('We ondervonden een probleem bij het verzenden.', 3000);
       });
 
+  }
+
+  openDialog(antwoord: string) : void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      antwoord : antwoord
+    };
+
+    const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
   }
 
 }
