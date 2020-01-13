@@ -176,6 +176,10 @@ mat-step-header.mat-vertical-stepper-header {
   height:auto;
 }
 
+div.mat-step-label {
+  white-space: normal; 
+}
+
 div.mat-step-label, div.mat-step-label-selected {
   font-size:15px;
 }
