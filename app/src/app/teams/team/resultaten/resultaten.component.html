@@ -126,13 +126,16 @@
         <p *ngIf="avgRounded == 3">Fase 3 staat voor: Doelgericht werken binnen het team</p>
         <p *ngIf="avgRounded == 4">Fase 4 staat voor: Accent op zelfstandig verbeteren m.b.t. de omgeving</p>
     </mat-expansion-panel>
-</mat-accordion>
-<br>
-<mat-card>
-    <mat-card-title>
-        De populairste verbeterpunten
-    </mat-card-title>
-    <mat-card-content>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title style="font-weight:500">
+                De populairste verbeterpunten
+            </mat-panel-title>
+            <mat-panel-description>
+                Resultaat per thema
+            </mat-panel-description>
+        </mat-expansion-panel-header>
         <mat-list class="nowrap-list">
             <mat-list-item>
                 <mat-icon mat-list-icon>looks_one</mat-icon>
@@ -168,5 +171,5 @@
 
             </mat-list>
         </mat-expansion-panel>
-    </mat-card-content>
-</mat-card>
+    </mat-expansion-panel>
+</mat-accordion>
