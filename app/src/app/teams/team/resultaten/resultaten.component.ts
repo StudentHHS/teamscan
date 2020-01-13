@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/auth.service';
 import { ToastController } from '@ionic/angular';
 import { trigger, transition, animate, style, group } from '@angular/animations'
 import { delay } from 'q';
+import { Chart} from 'chart.js'
 
 @Component({
     selector: 'app-resultaten',
@@ -32,6 +33,7 @@ export class ResultatenComponent {
     public resultdata: any = null;
     public objectKeys = Object.keys;
     public avgRounded = 0;
+    private radarChart;
 
     public themas = [{ naam: "Kwaliteit van werk", beschrijving: "vergroten individuele competenties en versterken van inzetbaarheid op uitvoerende taken van teamleden.", dimensies: [1], gemiddelde: null },
     { naam: "Organiseren", beschrijving: "vergroten zelfstandigheid door regeltaken in team te beleggen. Items zijn verdeling werkzaamheden, regeltaken, teamoverleg en competentieontwikkelingen.", dimensies: [2, 3, 4, 10], gemiddelde: null },
@@ -49,6 +51,45 @@ export class ResultatenComponent {
         this.id = this.route.snapshot.paramMap.get('id');
         this.teamscan = this.route.snapshot.paramMap.get('scan');
         this.getData();
+
+        var options = {
+            scale: {
+                angleLines: {
+                    display: true,
+                    lineWidth: 1,
+                    color:"#eaeaea"
+                },
+                gridLines: {
+                    display: true,
+                    lineWidth: 2
+                },
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 4,
+                    stepSize:1
+                }
+            }
+          };
+        var ctx:any = document.getElementById('themaChart');
+        this.radarChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['1 (dimensie)','2','3','4','10','5','6','7','11','8','9','12'],
+                datasets: [{label: this.themas[0].naam},
+                {label: this.themas[1].naam},
+                {label: this.themas[2].naam},
+                {label: this.themas[3].naam}]
+            },
+            options: options
+        });
+    }
+
+    private gemVanDimensie(dimensie) {
+        return (1*this.resultdata.lijst[dimensie][1].aantal
+                +2*this.resultdata.lijst[dimensie][2].aantal
+                +3*this.resultdata.lijst[dimensie][3].aantal
+                +4*this.resultdata.lijst[dimensie][4].aantal)
+                  /this.resultdata.lijst[dimensie][4].totaal;
     }
 
     getData() {
@@ -92,7 +133,41 @@ export class ResultatenComponent {
                 }
 
                 console.log("njkdsajkdhasjkdhjasmjdlsadhasjkbdkjsahdjksbjd", this.themas)
-
+            
+                  this.radarChart.data.datasets = [{
+                          label: this.themas[0].naam,
+                          data: [this.gemVanDimensie(1)],
+                          backgroundColor:"rgba(255, 99, 132, 0.05)",
+                          borderColor:"rgb(255, 99, 132)",
+                          pointRadius: 3,
+                          pointHoverRadius: 12,
+                          pointBorderWidth:6
+                      },{
+                        label: this.themas[1].naam,
+                        data: [null, this.gemVanDimensie(2), this.gemVanDimensie(3),  this.gemVanDimensie(4),  this.gemVanDimensie(10), null, null, null, null, null, null, null],
+                        backgroundColor:"rgba(54, 162, 235, 0.05)",
+                        borderColor:"rgba(54, 162, 235)",
+                        pointRadius: 3,
+                        pointHoverRadius: 12,
+                        pointBorderWidth:6
+                      },{
+                        label: this.themas[2].naam,
+                        data: [null, null, null, null, null, this.gemVanDimensie(5), this.gemVanDimensie(6), this.gemVanDimensie(7), this.gemVanDimensie(11), null, null, null],
+                        backgroundColor:"rgba(0, 162, 0, 0.05)",
+                        borderColor:"rgba(0, 162, 0)",
+                        pointRadius: 3,
+                        pointHoverRadius: 12,
+                        pointBorderWidth:6
+                      },{
+                        label: this.themas[3].naam,
+                        data: [null, null, null, null, null, null, null, null, null, this.gemVanDimensie(8), this.gemVanDimensie(9), this.gemVanDimensie(12)],
+                        backgroundColor:"rgba(54, 0, 235, 0.05)",
+                        borderColor:"rgba(54, 0, 235)",
+                        pointRadius: 3,
+                        pointHoverRadius: 12,
+                        pointBorderWidth:6
+                      }];
+                  this.radarChart.update();
 
             },
                 error => {

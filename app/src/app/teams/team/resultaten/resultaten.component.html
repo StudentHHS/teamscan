@@ -30,6 +30,7 @@
                 Resultaat per thema
             </mat-panel-description>
         </mat-expansion-panel-header>
+        <canvas id="themaChart" width="400" height="400" style="max-width:400px"></canvas>
         <div *ngIf="resultdata" [@grow]>
             <div *ngFor="let thema of themas" style="padding:6px 0 14px 0">
                 <b style="font-weight:500">{{thema.naam}}: </b>{{thema.beschrijving}}
