@@ -71,6 +71,30 @@
         </mat-card-content>
     </mat-card>
 </div>
+
+<div *ngIf="teamdata.team?.ingevuld && teamdata.team">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Individuele resultaten
+            </mat-panel-title>
+            <mat-panel-description>
+                Bekijk je ingevulde teamscan
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-list class="nowrap-list">
+            <div *ngFor="let dimensie of objectKeys(individualResults.lijst); let i = index">
+                <mat-list-item style="height: initial; padding: 10px 0;">
+                    <mat-icon mat-list-icon>arrow_right</mat-icon>
+                    <h4 mat-line style="word-wrap: break-word; white-space: prewrap;">{{individualResults.lijst[dimensie][1].dimensie_naam}}</h4>
+                    <span mat-line>{{individualResults.lijst[dimensie][1].fase}}</span>
+                </mat-list-item>
+            </div>
+        </mat-list>
+    </mat-expansion-panel>
+</div>
+<br>
 <mat-card *ngIf="teamdata.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card-content>
         <div class="customStepper" *ngIf="teamdata.teamscan?.status == 'invullen'">
@@ -167,20 +191,6 @@
     <mat-card-content>
         Je hebt nu een team aangemaakt. Start zo snel mogelijk een teamscan om van start te gaan.<br>
         <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-top:8px"><mat-icon>add</mat-icon>Teamscan</button>
-    </mat-card-content>
-</mat-card>
-
-<mat-card *ngIf="teamdata.team?.ingevuld && teamdata.team" >
-    <mat-card-header>
-        <mat-card-title>
-            Individuele score
-        </mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-        <mat-list *ngFor="let dimensie of objectKeys(individualResults.lijst);">
-           <p>test</p>
-        </mat-list>
     </mat-card-content>
 </mat-card>
 
