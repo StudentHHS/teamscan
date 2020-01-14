@@ -30,6 +30,8 @@
     <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px"><mat-icon>add</mat-icon>Teamscan</button>
 
     <mat-menu #choosestatus="matMenu">
+        <p style="margin:10px;font-size:14px">Dit veranderd de status van de teamscan voor alle leden.</p>
+        <mat-divider></mat-divider>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Sluiten</button>
@@ -97,6 +99,16 @@
 <br>
 <mat-card *ngIf="teamdata.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card-content>
+        <button mat-stroked-button style="float:right" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.teamscan">Aanpassen <mat-icon>keyboard_arrow_down</mat-icon></button>
+    
+        <mat-menu #choosestatus="matMenu">
+            <p style="margin:10px;font-size:14px">Dit veranderd de status van de teamscan voor alle leden.</p>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
+            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
+            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten</button>
+        </mat-menu>
+
         <div class="customStepper" *ngIf="teamdata.teamscan?.status == 'invullen'">
             <div *ngIf="!teamdata.team?.ingevuld && teamdata.team" [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'" style='cursor: pointer; outline: none'>
                 <div class="opener"></div>
