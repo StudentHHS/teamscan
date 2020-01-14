@@ -7,10 +7,14 @@
             De antwoorden van de teamscan zijn ingedeeld in 4 fases van teamvorming.
         </p>
         <ol>
-            <li><div class="phase1" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Iedere medewerker gaat zijn weg</li>
-            <li><div class="phase2" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op organisatorische taken in het team</li>
-            <li><div class="phase3" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Doelgericht werken binnen het team</li>
-            <li><div class="phase4" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
+            <li>
+                <div class="phase1" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Iedere medewerker gaat zijn weg</li>
+            <li>
+                <div class="phase2" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op organisatorische taken in het team</li>
+            <li>
+                <div class="phase3" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Doelgericht werken binnen het team</li>
+            <li>
+                <div class="phase4" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
         </ol>
         <p>Bekijk de resultaten gegroepeerd op thema of dimensie.</p>
     </mat-card-content>
@@ -26,6 +30,7 @@
                 Resultaat per thema
             </mat-panel-description>
         </mat-expansion-panel-header>
+        <canvas id="themaChart" width="400" height="400" style="max-width:400px"></canvas>
         <div *ngIf="resultdata" [@grow]>
             <div *ngFor="let thema of themas" style="padding:6px 0 14px 0">
                 <b style="font-weight:500">{{thema.naam}}: </b>{{thema.beschrijving}}
@@ -59,43 +64,25 @@
                     <div class="phaseContainer">
                         <h6>Dimensie {{dimensie}}: {{resultdata.lijst[dimensie][1].dimensie_naam}}</h6>
                         <div class="phaseBarChart">
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 1</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 2</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 3</div>
-                            <div
-                                [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
                                 4</div>
                         </div>
-                        <p *ngIf="resultdata.lijst[dimensie][1].aantal >= resultdata.lijst[dimensie][2].aantal
-                                   && resultdata.lijst[dimensie][1].aantal >= resultdata.lijst[dimensie][3].aantal
-                                   && resultdata.lijst[dimensie][1].aantal >= resultdata.lijst[dimensie][4].aantal">
-                            Fase 1: Iedere medewerker gaat zijn weg
-                            ({{(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%)
-                        </p>
-                        <p *ngIf="resultdata.lijst[dimensie][2].aantal >= resultdata.lijst[dimensie][1].aantal
-                                   && resultdata.lijst[dimensie][2].aantal >= resultdata.lijst[dimensie][3].aantal
-                                   && resultdata.lijst[dimensie][2].aantal >= resultdata.lijst[dimensie][4].aantal">
-                            Fase 2: Accent op organisatorische taken in het team
-                            ({{(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][2].totaal) * 100}}%)
-                        </p>
-                        <p *ngIf="resultdata.lijst[dimensie][3].aantal >= resultdata.lijst[dimensie][2].aantal
-                                   && resultdata.lijst[dimensie][3].aantal >= resultdata.lijst[dimensie][1].aantal
-                                   && resultdata.lijst[dimensie][3].aantal >= resultdata.lijst[dimensie][4].aantal">
-                            Fase 3: Doelgericht werken binnen het team
-                            ({{(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][3].totaal) * 100}}%)
-                        </p>
-                        <p *ngIf="resultdata.lijst[dimensie][4].aantal >= resultdata.lijst[dimensie][2].aantal
-                                   && resultdata.lijst[dimensie][4].aantal >= resultdata.lijst[dimensie][3].aantal
-                                   && resultdata.lijst[dimensie][4].aantal >= resultdata.lijst[dimensie][1].aantal">
-                            Fase 4: Accent op zelfstandig verbeteren m.b.t. de omgeving
-                            ({{(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][4].totaal) * 100}}%)
-                        </p>
+                        <div class="phaseBarChart colors">
+                            <div [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                                {{(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                            <div [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                                {{(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                            <div [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                                {{(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                            <div [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
+                                {{(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                        </div>
                         <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
                     </div>
                 </mat-list-item>
@@ -119,57 +106,59 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div [class]="'phase'+avgRounded" style="color: #fff;display: inline-block;padding: 2px 8px;border-radius: 5px;"><h6 style="margin:0">Fase {{(resultdata) ? resultdata.gemiddelde : "0.0"}}</h6></div>
+        <div [class]="'phase'+avgRounded" style="color: #fff;display: inline-block;padding: 2px 8px;border-radius: 5px;">
+            <h6 style="margin:0">Fase {{(resultdata) ? resultdata.gemiddelde : "0.0"}}</h6>
+        </div>
         <p *ngIf="avgRounded == 0">Momentje...</p>
-        <p *ngIf="avgRounded == 1">Fase 1 staat voor: Iedere medewerker gaat zijn weg</p>
-        <p *ngIf="avgRounded == 2">Fase 2 staat voor: Accent op organisatorische taken in het team</p>
-        <p *ngIf="avgRounded == 3">Fase 3 staat voor: Doelgericht werken binnen het team</p>
-        <p *ngIf="avgRounded == 4">Fase 4 staat voor: Accent op zelfstandig verbeteren m.b.t. de omgeving</p>
+        <div *ngIf="avgRounded == 1">
+            <p>Fase 1 staat voor: Iedere medewerker gaat zijn weg</p>
+            <p>Om het team naar de volgende fase te krijgen,<br> probeer te focussen op het ontwikkelen van de volgende teamcompetenties:</p>
+            <ul>
+                <li>Gezamenlijkheid ontwikkelen</li>
+                <li>Resultaatgerichtheid</li>
+                <li>Werken aan luisteren</li>
+                <li>Basaal communiceren</li>
+            </ul>
+        </div>
+        <div *ngIf="avgRounded == 2">
+            <p>Fase 2 staat voor: Accent op organisatorische taken in het team</p>
+            <p>Om het team naar de volgende fase te krijgen,<br> probeer te focussen op het ontwikkelen van de volgende teamcompetenties:</p>
+            <ul>
+                <li>Feedback geven en ontvangen</li>
+                <li>Conflictvaardig: omgaan met verschillen</li>
+                <li>Zakelijk omgaan met emoties</li>
+            </ul>
+        </div>
+        <div *ngIf="avgRounded == 3">
+            <p>Fase 3 staat voor: Doelgericht werken binnen het team</p>
+            <p>Om het team naar de volgende fase te krijgen,<br> probeer te focussen op het ontwikkelen van de volgende teamcompetenties:</p>
+            <ul>
+                <li>Omgevings- en organisatiebewustzijn</li>
+                <li>Verantwoordelijkheid voor groter geheel</li>
+                <li>Rolflexbiliteit</li>
+            </ul>
+        </div>
+        <div *ngIf="avgRounded == 4">
+            <p>Fase 4 staat voor: Accent op zelfstandig verbeteren m.b.t. de omgeving</p>
+            <p>Het lijkt erop dat jullie een fantastisch team zijn.</p>
+            <p>Ga zo door!</p>
+        </div>
     </mat-expansion-panel>
-
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title style="font-weight:500">
-                De populairste verbeterpunten
+                Verbeterpunten
             </mat-panel-title>
             <mat-panel-description>
-                Resultaat per thema
+                Gesorteerd op populariteit
             </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-list class="nowrap-list">
-            <mat-list-item>
-                <mat-icon mat-list-icon>looks_one</mat-icon>
-                <h4 mat-line>{{resultdata?.scoren[0]?.antwoord}}</h4>
-                <span mat-line
-                    *ngIf="resultdata?.scoren[0]">{{(resultdata?.scoren[0]?.aantal / (resultdata?.scoren[0]?.deelnemers)) | number:'1.0-1'}}</span>
-            </mat-list-item>
-            <mat-list-item *ngIf="resultdata?.scoren[1]">
-                <mat-icon mat-list-icon>looks_two</mat-icon>
-                <h4 mat-line>{{resultdata?.scoren[1]?.antwoord}}</h4>
-                <span
-                    mat-line>{{(resultdata?.scoren[1]?.aantal / (resultdata?.scoren[1]?.deelnemers)) | number:'1.0-1'}}</span>
-            </mat-list-item>
-            <mat-list-item *ngIf="resultdata?.scoren[2]">
-                <mat-icon mat-list-icon>looks_3</mat-icon>
-                <h4 mat-line>{{resultdata?.scoren[2]?.antwoord}}</h4>
-                <span
-                    mat-line>{{(resultdata?.scoren[2]?.aantal / (resultdata?.scoren[2]?.deelnemers)) | number:'1.0-1'}}</span>
+            <mat-list-item *ngFor="let punt of resultdata?.scoren; let i = index">
+                <mat-icon mat-list-icon>arrow_right</mat-icon>
+                <h4 mat-line>{{punt.antwoord}}</h4>
+                <span mat-line>{{(punt.aantal / (punt.deelnemers)) | number:'1.0-1'}}</span>
             </mat-list-item>
         </mat-list>
-        <mat-expansion-panel *ngIf="resultdata?.scoren.length > 3" [@grow]>
-            <mat-expansion-panel-header style="background:lightgrey;">
-                <mat-panel-title style="color:black">
-                    Bekijk meer verbeterpunten
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <mat-list>
-                <mat-list-item *ngFor="let punt of resultdata?.scoren | slice:3; let i = index">
-                    <mat-icon mat-list-icon>arrow_right</mat-icon>
-                    <h4 mat-line>{{punt.antwoord}} ({{(punt.aantal / (punt.deelnemers)) | number:'1.0-1'}})</h4>
-                </mat-list-item>
-
-            </mat-list>
-        </mat-expansion-panel>
     </mat-expansion-panel>
 </mat-accordion>
