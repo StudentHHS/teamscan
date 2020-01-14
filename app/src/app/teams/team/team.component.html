@@ -170,6 +170,20 @@
     </mat-card-content>
 </mat-card>
 
+<mat-card *ngIf="teamdata.team?.ingevuld && teamdata.team" >
+    <mat-card-header>
+        <mat-card-title>
+            Individuele score
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-list *ngFor="let dimensie of objectKeys(individualResults.lijst);">
+           <p>test</p>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
+
 <mat-card>
     <mat-card-header>
         <mat-card-title>
