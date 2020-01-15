@@ -30,11 +30,11 @@
     <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px"><mat-icon>add</mat-icon>Teamscan</button>
 
     <mat-menu #choosestatus="matMenu">
-        <p style="margin:10px;font-size:14px">Dit veranderd de status van de teamscan voor alle leden.</p>
+        <p style="margin:10px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
-        <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Sluiten</button>
+        <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten</button>
     </mat-menu>
 
 </mat-expansion-panel>
@@ -102,7 +102,7 @@
         <button mat-stroked-button style="float:right" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.team?.beheerder" >Aanpassen <mat-icon>keyboard_arrow_down</mat-icon></button>
     
         <mat-menu #choosestatus="matMenu">
-            <p style="margin:10px;font-size:14px">Dit veranderd de status van de teamscan voor alle leden.</p>
+            <p style="margin:10px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
             <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
