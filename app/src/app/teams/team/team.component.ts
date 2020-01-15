@@ -13,7 +13,7 @@ import { throwIfEmpty } from 'rxjs/operators';
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html',
-  styleUrls: ['./../teams.component.css'],
+  styleUrls: ['./../teams.component.css', "./resultaten/resultaten.component.css"],
   animations: [
     trigger('grow', [
       transition(':enter', [

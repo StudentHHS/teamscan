@@ -30,10 +30,12 @@
                 Resultaat per thema
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <canvas id="themaChart" width="400" height="400" style="max-width:400px"></canvas>
+        <canvas id="themaChart" width="400" height="400" style="max-width:400px;margin:auto"></canvas>
+        <br>
         <div *ngIf="resultdata" [@grow]>
             <div *ngFor="let thema of themas" style="padding:6px 0 14px 0">
                 <b style="font-weight:500">{{thema.naam}}: </b>{{thema.beschrijving}}
+                <br>
                 <div class="phase1" style="color: #fff;display: inline-block;padding: 2px 8px;border-radius: 5px;" *ngIf="(thema.gemiddelde | number:'1.0-0') == 1"><b style="font-weight:500">Gemiddeld fase 1:</b> Iedere medewerker gaat zijn weg</div>
                 <div class="phase2" style="color: #fff;display: inline-block;padding: 2px 8px;border-radius: 5px;" *ngIf="(thema.gemiddelde | number:'1.0-0') == 2"><b style="font-weight:500">Gemiddeld fase 2:</b> Accent op organisatorische taken in het team</div>
                 <div class="phase3" style="color: #fff;display: inline-block;padding: 2px 8px;border-radius: 5px;" *ngIf="(thema.gemiddelde | number:'1.0-0') == 3"><b style="font-weight:500">Gemiddeld fase 3:</b> Doelgericht werken binnen het team</div>
@@ -154,10 +156,10 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-list class="nowrap-list">
-            <mat-list-item *ngFor="let punt of resultdata?.scoren; let i = index">
-                <mat-icon mat-list-icon>arrow_right</mat-icon>
-                <h4 mat-line>{{punt.antwoord}}</h4>
-                <span mat-line>{{(punt.aantal / (punt.deelnemers)) | number:'1.0-1'}}</span>
+            <mat-list-item *ngFor="let punt of resultdata?.scoren; let i = index; last as isLast" style="padding:8px 0 0 0;">
+                <h4 mat-line style="font-weight:500">{{punt.antwoord}}</h4>
+                <span mat-line style="margin-bottom:6px;">Score {{(punt.aantal / (punt.deelnemers)) | number:'1.0-1'}}</span>
+                <mat-divider *ngIf="!isLast"></mat-divider>
             </mat-list-item>
         </mat-list>
     </mat-expansion-panel>

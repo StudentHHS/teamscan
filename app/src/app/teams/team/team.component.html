@@ -74,7 +74,7 @@
     </mat-card>
 </div>
 
-<div *ngIf="teamdata.team?.ingevuld && teamdata.team">
+<div *ngIf="teamdata.team?.ingevuld && teamdata.team" style="margin-bottom:19px;">
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -86,17 +86,31 @@
         </mat-expansion-panel-header>
 
         <mat-list class="nowrap-list">
-            <div *ngFor="let dimensie of objectKeys(individualResults.lijst); let i = index">
-                <mat-list-item style="height: initial; padding: 10px 0;">
-                    <mat-icon mat-list-icon>arrow_right</mat-icon>
-                    <h4 mat-line style="word-wrap: break-word; white-space: prewrap;">{{individualResults.lijst[dimensie][1].dimensie_naam}}</h4>
-                    <span mat-line>{{individualResults.lijst[dimensie][1].fase}}</span>
+            <span style="margin-left:20px;">Fases:</span>
+            <ol>
+                <li>
+                    <div class="phase1" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Iedere medewerker gaat zijn weg</li>
+                <li>
+                    <div class="phase2" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op organisatorische taken in het team</li>
+                <li>
+                    <div class="phase3" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Doelgericht werken binnen het team</li>
+                <li>
+                    <div class="phase4" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
+            </ol>
+            <div *ngFor="let dimensie of objectKeys(individualResults.lijst); let i = index; last as isLast">
+                <mat-list-item style="height: initial; padding: 6px 0 0 0;">
+                    <h4 mat-line style="word-wrap: break-word; white-space: prewrap; font-weight:500;">{{individualResults.lijst[dimensie][1].dimensie_naam}}</h4>
+                    <span mat-line style="margin-bottom:4px">
+                        <div [class]="'phase'+individualResults.lijst[dimensie][1].fase" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div>
+                        Fase {{individualResults.lijst[dimensie][1].fase}}
+                    </span>
+                    <mat-divider *ngIf="!isLast"></mat-divider>
                 </mat-list-item>
             </div>
         </mat-list>
     </mat-expansion-panel>
 </div>
-<br>
+
 <mat-card *ngIf="teamdata.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card-content>
         <button mat-stroked-button style="float:right" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.team?.beheerder" >Aanpassen <mat-icon>keyboard_arrow_down</mat-icon></button>
