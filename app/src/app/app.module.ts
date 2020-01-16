@@ -13,7 +13,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
-import { TodoComponent } from './todo/todo.component';
 import { TeamsComponent } from './teams/teams.component';
 import { CreateTeamComponent } from './teams/createteam/createteam.component';
 import { TeamComponent } from './teams/team/team.component';
@@ -61,7 +60,7 @@ import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, LoginComponent, TodoComponent,
+  declarations: [AppComponent, MenuComponent, LoginComponent,
      TeamsComponent, TeamComponent, InvullenComponent, ResultatenComponent,
      RegisterComponent, AanmakenComponent, ScorenComponent, CreateTeamComponent,
      SettingsComponent, DialogComponent],

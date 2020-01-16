@@ -28,8 +28,8 @@
   <mat-divider [inset]="true"></mat-divider>
       <mat-list *ngIf="teams != null" style="padding-top:0;" [@grow]>
           <ng-container *ngFor="let team of teams; last as isLast; first as isFirst">
-              <div class="card-button" matRipple >
-              <mat-list-item [routerLink]="team.id ? ('team/'+team.id) : null">
+              <div class="card-button" matRipple [routerLink]="team.id ? ('team/'+team.id) : null">
+              <mat-list-item >
                   <mat-icon mat-list-icon>people</mat-icon>
                   <h4 mat-line>{{team.naam}}</h4>
                   <p mat-line> {{team.beschrijving}} </p>
@@ -39,11 +39,23 @@
               <mat-divider *ngIf="!isLast" [inset]="true"></mat-divider>
           </ng-container>
       </mat-list>
+
+      <mat-list *ngIf="teams == null && !requestFailed" style="padding-top:0;" >
+      <div class="card-button">
+        <mat-list-item>
+            <mat-icon mat-list-icon>people</mat-icon>
+            <h4 mat-line><mat-spinner diameter="30" style="display:inline-block; margin-right: 10px; vertical-align: middle;"></mat-spinner> Even geduld...</h4>
+            <p mat-line></p>
+        </mat-list-item>
+        <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
+      </div>
+      </mat-list>
+
       <div *ngIf="teams?.length == 0" style="text-align:center">
-          <p>Je bent nog geen lid van een team.<br>Kom later terug wanneer je toegevoegd bent of maak een team aan.</p>
+          <p>Je bent nog geen lid van een team.<br>Kom later terug wanneer je toegevoegd bent of maak zelf een team aan.</p>
           <button mat-stroked-button style="margin:10px auto;" (click)="reload()">Overzicht verversen</button>
       </div>
-      <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="teams == null && !requestFailed"></mat-spinner>
+
       <div *ngIf="requestFailed" style="text-align:center; margin-top:20px;">
           Er kon geen verbinding worden gemaakt.<br><br>
           <button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>

@@ -113,7 +113,7 @@
 
 <mat-card *ngIf="teamdata.teamscan" [@grow] style="margin-bottom:19px;">
     <mat-card-content>
-        <button mat-stroked-button style="float:right" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.team?.beheerder" >Aanpassen <mat-icon>keyboard_arrow_down</mat-icon></button>
+        <button mat-stroked-button style="display:block;line-height: 26px;margin: -6px 0 4px auto;" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.team?.beheerder" >Wijzig <mat-icon>keyboard_arrow_down</mat-icon></button>
     
         <mat-menu #choosestatus="matMenu">
             <p style="margin:10px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>

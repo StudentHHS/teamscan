@@ -4,38 +4,41 @@
     </mat-card-header>
 
     <mat-card-content>
+        <p>
+            Door een teamscan aan te maken plan je in principe een toetsmoment in om erachter te komen hoe het er voor staat met jouw team. Geef de teamscan een naam waaruit in één keer duidelijk wordt voor welke periode je de teamscan nu maakt.
+        </p>
         <form [formGroup]="createTeamScan" (ngSubmit)="createTeamscan(createTeamScan.value)">
             <mat-form-field>
                 <mat-label>Titel teamscan</mat-label>
-                <input matInput type="text" placeholder="Teamscan naam" name="teamscannaam" formControlName="teamscannaam" required>
+                <input matInput type="text" placeholder="Bijv. Kwartaal 3 of Najaar {{minDate | date: 'yyyy'}}" name="teamscannaam" formControlName="teamscannaam" required>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Startdatum</mat-label>
-                <input matInput [matDatepicker]="Startdatum" [min]="minDate" placeholder="{{minDate | date: 'dd-MM-yyyy'}}" name="teamscanstartdatum" formControlName="teamscanstartdatum" required disabled>
+                <input matInput [matDatepicker]="Startdatum" [min]="minDate" placeholder="dd-mm-yyyy" name="teamscanstartdatum" formControlName="teamscanstartdatum" required disabled>
                 <mat-datepicker-toggle matSuffix [for]="Startdatum"></mat-datepicker-toggle>
                 <mat-datepicker #Startdatum disabled="false" touchUi></mat-datepicker>
-                <mat-error *ngIf="createTeamScan.get('teamscanstartdatum').invalid">Vul een geldige datum in</mat-error>
+                <mat-error *ngIf="createTeamScan.get('teamscanstartdatum').invalid">Vul een datum in van vandaag of later (formaat dd-mm-yyyy)</mat-error>
             </mat-form-field>
             <button type="button" #tooltip1="matTooltip" matTooltip="Op deze datum wordt de teamscan beschikbaar voor de teamleden." (click)="tooltip1.toggle()" class="infobutton" matTooltipPosition="left">
               <mat-icon>info</mat-icon>
             </button>
             <mat-form-field>
                 <mat-label>Einddatum invullen teamscan</mat-label>
-                <input matInput [matDatepicker]="Einddatum" [min]="minDate" placeholder="{{minDate | date: 'dd-MM-yyyy'}}" name="teamscaneinddatum" formControlName="teamscaneinddatum" required disabled>
+                <input matInput [matDatepicker]="Einddatum" [min]="minDate" placeholder="dd-mm-yyyy" name="teamscaneinddatum" formControlName="teamscaneinddatum" required disabled>
                 <mat-datepicker-toggle matSuffix [for]="Einddatum"></mat-datepicker-toggle>
                 <mat-datepicker #Einddatum disabled="false" touchUi></mat-datepicker>
-                <mat-error *ngIf="createTeamScan.get('teamscaneinddatum').invalid">Vul een geldige datum in</mat-error>
+                <mat-error *ngIf="createTeamScan.get('teamscaneinddatum').invalid">Vul een datum in van vandaag of later (formaat dd-mm-yyyy)</mat-error>
             </mat-form-field>
             <button type="button" #tooltip2="matTooltip" matTooltip="Tot deze datum hebben de teamleden de tijd om de teamscan in te vullen." (click)="tooltip2.toggle()" class="infobutton" matTooltipPosition="left">
               <mat-icon>info</mat-icon>
             </button>
             <mat-form-field>
                 <mat-label>Einddatum scoren verbeterpunten</mat-label>
-                <input matInput [matDatepicker]="EinddatumOpenvraag" [min]="minDate" placeholder="{{minDate | date: 'dd-MM-yyyy'}}" name="teamscanopenvraageinddatum" formControlName="teamscanopenvraageinddatum" required disabled>
+                <input matInput [matDatepicker]="EinddatumOpenvraag" [min]="minDate" placeholder="dd-mm-yyyy" name="teamscanopenvraageinddatum" formControlName="teamscanopenvraageinddatum" required disabled>
                 <mat-datepicker-toggle matSuffix [for]="EinddatumOpenvraag"></mat-datepicker-toggle>
                 <mat-datepicker #EinddatumOpenvraag disabled="false" touchUi></mat-datepicker>
-                <mat-error *ngIf="createTeamScan.get('teamscanopenvraageinddatum').invalid">Vul een geldige datum in</mat-error>
+                <mat-error *ngIf="createTeamScan.get('teamscanopenvraageinddatum').invalid">Vul een datum in van vandaag of later (formaat dd-mm-yyyy)</mat-error>
             </mat-form-field>
             <button type="button" #tooltip3="matTooltip" matTooltip="Tot deze datum hebben de teamleden de tijd om de feedback over het team te beoordelen." (click)="tooltip3.toggle()" class="infobutton" matTooltipPosition="left">
               <mat-icon>info</mat-icon>

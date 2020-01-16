@@ -22,7 +22,8 @@ import { trigger, transition, animate, style, group } from '@angular/animations'
 
 export class MenuComponent {
 
-  public teams: Object = [{naam: ". . ."}];
+  public teams: Object = null;
+  public requestFailed: Boolean = false;
 
   constructor(private authService: AuthService, private http: HttpClient) {
     setTimeout(this.getData.bind(this),200);
@@ -35,18 +36,25 @@ export class MenuComponent {
           { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "menu"}}
         ).subscribe(data => {
           console.log("resultaat", data);
+          this.requestFailed = false;
           this.teams = data;
         },
         error => {
           if(error.status=="404") { //no teams
             this.teams = [];
           } else {
-            //failed
+            this.requestFailed = true;
           }
           console.log("error at data request", error);
         }
       );
     }
+  }
+
+  reload() {
+    this.getData();
+    this.teams = null;
+    this.requestFailed = false;
   }
 
   openDashboard() {
