@@ -77,13 +77,13 @@
                         </div>
                         <div class="phaseBarChart colors">
                             <div [style.width.%]="(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
-                                {{(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                                {{(resultdata.lijst[dimensie][1].aantal / resultdata.lijst[dimensie][1].totaal) * 100 | number:'0.0-0'}}%</div>
                             <div [style.width.%]="(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
-                                {{(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                                {{(resultdata.lijst[dimensie][2].aantal / resultdata.lijst[dimensie][1].totaal) * 100 | number:'0.0-0'}}%</div>
                             <div [style.width.%]="(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
-                                {{(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                                {{(resultdata.lijst[dimensie][3].aantal / resultdata.lijst[dimensie][1].totaal) * 100 | number:'0.0-0'}}%</div>
                             <div [style.width.%]="(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100">
-                                {{(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100}}%</div>
+                                {{(resultdata.lijst[dimensie][4].aantal / resultdata.lijst[dimensie][1].totaal) * 100 | number:'0.0-0'}}%</div>
                         </div>
                         <mat-divider *ngIf="!isLast" inset="true"></mat-divider>
                     </div>
@@ -157,7 +157,7 @@
         </mat-expansion-panel-header>
         <mat-list class="nowrap-list">
             <mat-list-item *ngFor="let punt of resultdata?.scoren; let i = index; last as isLast" style="padding:8px 0 0 0;">
-                <h4 mat-line style="font-weight:500">{{punt.antwoord}}</h4>
+                <h4 mat-line style="font-weight:500">"{{punt.antwoord}}"</h4>
                 <span mat-line style="margin-bottom:6px;">Score {{(punt.aantal / (punt.deelnemers)) | number:'1.0-1'}}</span>
                 <mat-divider *ngIf="!isLast"></mat-divider>
             </mat-list-item>

@@ -45,7 +45,7 @@
         </mat-card-title>
         <mat-card-content *ngIf="!teamdata.team?.ingevuld && teamdata.team">
             <div>Er staan vragen voor je klaar.</div><br>
-            <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'">Beantwoord de vragen</button>
+            <button mat-raised-button color="primary" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'">Beantwoord de vragen <mat-icon>chevron_right</mat-icon></button>
         </mat-card-content>
         <mat-card-content *ngIf="teamdata.team?.ingevuld && teamdata.team">
             <div>Je bent klaar met invullen. Wacht tot de eerstvolgende sluitingsdatum ({{endDate|date: 'dd/M'}}) voor het scoren van de verbeterpunten.</div>
@@ -57,7 +57,7 @@
         </mat-card-title>
         <mat-card-content *ngIf="!teamdata.team?.gescoord">
             <div>Geef je mening over de verbeterpunten die je teamleden aandragen.</div><br>
-            <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'">Geef je mening</button>
+            <button mat-raised-button color="primary" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'">Geef je mening <mat-icon>chevron_right</mat-icon></button>
         </mat-card-content>
         <mat-card-content *ngIf="teamdata.team?.gescoord">
             <div>Je hebt de opmerkingen van je teamgenoten gescoord. Wacht tot de eerstvolgende sluitingsdatum ({{endDate|date: 'dd/M'}}) om de resultaten van de teamscan te kunnen bekijken.</div>
@@ -69,7 +69,7 @@
         </mat-card-title>
         <mat-card-content class="">
             <div>Bekijk de resultaten van deze teamscan.</div><br>
-            <button mat-stroked-button [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Laat resultaten zien</button>
+            <button mat-raised-button color="primary" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Laat resultaten zien <mat-icon>chevron_right</mat-icon></button>
         </mat-card-content>
     </mat-card>
 </div>
@@ -209,12 +209,12 @@
                 </div>
             </div>
             <div style="text-align:center;" *ngIf="daysUntillStatusEnd < 0">
-                <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De termijn voor het invullen van de teamscan is ten einde.</div>
+                <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De termijn voor het invullen van de teamscan is ten einde.</div>
             </div>
         </div>
         <div *ngIf="teamdata.teamscan?.status == 'gesloten'">
             <div style="text-align:center;">
-                <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i>De teamscan is gesloten.<br><span [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Bekijk de resultaten.</span></div>
+                <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De teamscan is gesloten.<br><span [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Bekijk de resultaten.</span></div>
             </div>
         </div>
     </mat-card-content>
@@ -226,7 +226,7 @@
     </mat-card-title>
     <mat-card-content>
         Je hebt nu een team aangemaakt. Start zo snel mogelijk een teamscan om van start te gaan.<br>
-        <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-top:8px"><mat-icon>add</mat-icon>Teamscan</button>
+        <button mat-raised-button color="primary" [routerLink]="'/team/'+id+'/aanmaken'" style="margin-top:8px"><mat-icon>add</mat-icon>Teamscan</button>
     </mat-card-content>
 </mat-card>
 
