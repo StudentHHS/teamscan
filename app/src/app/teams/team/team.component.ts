@@ -78,6 +78,7 @@ export class TeamComponent {
         console.log(data);
         this.requestFailed = false;
         this.teamdata = data;
+        this.individualResults = data["individueelResultaat"];
         if (this.teamdata.team)
           this.us.changeTitle(this.teamdata.team.naam);
         if (this.teamdata.teamscan) {
@@ -103,7 +104,6 @@ export class TeamComponent {
     } else {
       setTimeout(this.getData.bind(this), 100);
     }
-    this.getIndividualResult();
   }
 
   getTeamscan() {
@@ -122,28 +122,6 @@ export class TeamComponent {
       );
     } else {
       setTimeout(this.getTeamscan.bind(this), 100);
-    }
-  }
-
-  getIndividualResult() {
-    if (this.authService.token) {
-      this.http.get(
-        AuthService.apiUrl,
-        { headers: { Authorization: "Bearer " + this.authService.token }, responseType: 'json', params: { teamid: this.id, teamscanid: this.teamscan, function: "getindividualresults" } }
-      ).subscribe(data => {
-        console.log("Individuele resultaten");
-        console.log(data);
-        this.requestFailed = false;
-        this.individualResults = data;
-      },
-        error => {
-          this.showToast("De gegevens konden niet worden ingeladen. Ben je nog verbonden?", 3000);
-          this.requestFailed = true;
-          console.log("error at data request", error);
-        }
-      );
-    } else {
-      setTimeout(this.getData.bind(this), 100);
     }
   }
 

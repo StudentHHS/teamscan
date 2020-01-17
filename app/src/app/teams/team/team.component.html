@@ -74,7 +74,7 @@
     </mat-card>
 </div>
 
-<div *ngIf="teamdata.team?.ingevuld && teamdata.team" style="margin-bottom:19px;">
+<div *ngIf="teamdata.team?.ingevuld && teamdata.team  && individualResults" style="margin-bottom:19px;">
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -97,12 +97,12 @@
                 <li>
                     <div class="phase4" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div> Accent op zelfstandig verbeteren m.b.t. de omgeving</li>
             </ol>
-            <div *ngFor="let dimensie of objectKeys(individualResults.lijst); let i = index; last as isLast">
+            <div *ngFor="let dimensie of objectKeys(individualResults); let i = index; last as isLast">
                 <mat-list-item style="height: initial; padding: 6px 0 0 0;">
-                    <h4 mat-line style="word-wrap: break-word; white-space: prewrap; font-weight:500;">{{individualResults.lijst[dimensie][1].dimensie_naam}}</h4>
+                    <h4 mat-line style="word-wrap: break-word; white-space: prewrap; font-weight:500;">{{individualResults[dimensie][1].dimensie_naam}}</h4>
                     <span mat-line style="margin-bottom:4px">
-                        <div [class]="'phase'+individualResults.lijst[dimensie][1].fase" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div>
-                        Fase {{individualResults.lijst[dimensie][1].fase}}
+                        <div [class]="'phase'+individualResults[dimensie][1].fase" style="border-radius: 50%; height:10px; width:10px; display:inline-block"></div>
+                        Fase {{individualResults[dimensie][1].fase}}
                     </span>
                     <mat-divider *ngIf="!isLast"></mat-divider>
                 </mat-list-item>
