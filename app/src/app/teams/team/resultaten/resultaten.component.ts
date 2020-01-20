@@ -85,11 +85,11 @@ export class ResultatenComponent {
     }
 
     private gemVanDimensie(dimensie) {
-        return (1*this.resultdata.lijst[dimensie][1].aantal
+        return Math.round((1*this.resultdata.lijst[dimensie][1].aantal
                 +2*this.resultdata.lijst[dimensie][2].aantal
                 +3*this.resultdata.lijst[dimensie][3].aantal
                 +4*this.resultdata.lijst[dimensie][4].aantal)
-                  /this.resultdata.lijst[dimensie][4].totaal;
+                  /this.resultdata.lijst[dimensie][4].totaal * 10) / 10;
     }
 
     getData() {

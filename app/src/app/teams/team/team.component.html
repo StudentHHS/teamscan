@@ -33,7 +33,7 @@
         <p style="margin:10px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
-        <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
+        <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren verbeterpunten</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten</button>
     </mat-menu>
 
@@ -81,7 +81,7 @@
                 Individuele resultaten
             </mat-panel-title>
             <mat-panel-description>
-                Bekijk je ingevulde teamscan
+                Je ingevulde teamscan
             </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -119,7 +119,7 @@
             <p style="margin:10px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
-            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren</button>
+            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren verbeterpunten</button>
             <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten</button>
         </mat-menu>
 
@@ -202,7 +202,7 @@
             <br><br>
             <mat-progress-bar mode="determinate" color="#9ea700" [value]="progressBarValue"></mat-progress-bar>
             <br>
-            <div style="text-align:center;" *ngIf="daysUntillStatusEnd >= 0">
+            <div style="text-align:center;" *ngIf="daysUntillStatusEnd >= 0 && progressBarValue>0">
                 <div style="vertical-align:middle;">
                     <i class="material-icons" style="vertical-align:middle;">schedule</i> Er zijn nog <b style="font-weight:500">{{daysUntillStatusEnd}} dagen</b> {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?"
                     om de verbeterpunten te scoren":""}}
@@ -212,6 +212,7 @@
                 <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De termijn voor het invullen van de teamscan is ten einde.</div>
             </div>
         </div>
+
         <div *ngIf="teamdata.teamscan?.status == 'gesloten'">
             <div style="text-align:center;">
                 <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De teamscan is gesloten.<br><span [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Bekijk de resultaten.</span></div>

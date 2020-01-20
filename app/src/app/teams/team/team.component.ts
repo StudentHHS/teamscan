@@ -221,7 +221,7 @@ export class TeamComponent {
       { headers: { Authorization: "Bearer " + this.authService.token }, responseType: 'json', params: { function: "verwijderlid" } })
       .subscribe(data => {
         console.log("send", data)
-        this.showToast('Gebruker is verwijderd!', 2000);
+        this.showToast('Teamlid is verwijderd!', 2000);
         context.reload();
       }, error => {
         this.showToast('We ondervonden een probleem bij het verzenden.', 3000);
