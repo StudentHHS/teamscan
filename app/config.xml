@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ga.teamscan.teamscan" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="net.azurewebsites.hhs-teamscan" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Teamscan</name>
     <description>Teamscan helpt je team verbeteren.</description>
-    <author email="info@teamscan.ga" href="http://teamscan.ga">Checq</author>
+    <author email="hhs.teamscan@gmail.com" href="http://hhs-teamscan.azurewebsites.net">Checq</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
