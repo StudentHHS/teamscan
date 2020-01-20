@@ -30,9 +30,9 @@
           <ng-container *ngFor="let team of teams; last as isLast; first as isFirst">
               <div class="card-button" matRipple [routerLink]="team.id ? ('team/'+team.id) : null">
               <mat-list-item >
-                  <mat-icon mat-list-icon>people</mat-icon>
+                  <mat-icon mat-list-icon>{{(team.ingevuld==0 || team.gescoord==0) && team.teamscan!=null ? "notifications" : "people"}}</mat-icon>
                   <h4 mat-line>{{team.naam}}</h4>
-                  <p mat-line> {{team.beschrijving}} </p>
+                  <p mat-line> <b style="font-weight:500" *ngIf="(team.ingevuld==0 || team.gescoord==0) && team.teamscan!=null">To do -</b> {{team.beschrijving}} </p>
               </mat-list-item>
               <div class="right-icon"><mat-icon>navigate_next</mat-icon></div>
               </div>
