@@ -51,10 +51,11 @@ import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule} from '@angular/material';
 import { MatChipsModule} from '@angular/material/chips';
-import { MatRippleModule, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatRippleModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter} from '@angular/material/core';
 import { MatExpansionModule} from '@angular/material/expansion'
 import { MatDialogModule } from '@angular/material';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatMomentDateModule,MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 
 import { MsalModule } from '@azure/msal-angular';
 import { OAuthSettings } from '../oauth';
@@ -73,7 +74,7 @@ import { OAuthSettings } from '../oauth';
     MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatAutocompleteModule,
     MatSlideToggleModule, HttpClientModule, MatDatepickerModule, MatNativeDateModule,
     HttpClientModule, RoundProgressModule, MatProgressBarModule, MatChipsModule, MatRippleModule,
-    MatExpansionModule, MatDialogModule, MatTabsModule
+    MatExpansionModule, MatDialogModule, MatTabsModule, MatMomentDateModule
   ],
   providers: [
     StatusBar,
@@ -81,7 +82,9 @@ import { OAuthSettings } from '../oauth';
     UtilityService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},
-    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'check'}
+    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'check'},
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
   bootstrap: [AppComponent]
 })
