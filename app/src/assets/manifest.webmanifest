@@ -1,0 +1,20 @@
+{
+    "background_color": "#9ea700",
+    "description": "Helpt je team verder",
+    "display": "fullscreen",
+    "icons": [
+      {
+        "src": "icon/favicon.png",
+        "sizes": "64x64",
+        "type": "image/png"
+      },
+      {
+        "src": "icon/logo192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "name": "HHS Teamscan",
+    "short_name": "Teamscan",
+    "start_url": "../"
+  }
