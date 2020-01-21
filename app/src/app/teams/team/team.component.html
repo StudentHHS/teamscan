@@ -26,18 +26,18 @@
         </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.teamscan">Status: {{teamdata.teamscan?.status}} <mat-icon>keyboard_arrow_down</mat-icon></button>
-    <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px"><mat-icon>add</mat-icon>Teamscan</button>
+    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.teamscan" matTooltip="Verander wat teamleden kunnen doen">Status: {{teamdata.teamscan?.status}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+    <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px" matTooltip="Start een nieuwe testperiode"><mat-icon>add</mat-icon>Teamscan</button>
     <mat-divider inset style="margin:10px 0"></mat-divider>
-    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="deleteteam"><mat-icon>delete</mat-icon>Verwijder team</button>
-    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="deleteteamscan" *ngIf="teamdata.teamscan"><mat-icon>delete</mat-icon>Verwijder teamscan</button>
+    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="deleteteam" matTooltip="Klik voor info"><mat-icon>delete</mat-icon>Verwijder team</button>
+    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="deleteteamscan" *ngIf="teamdata.teamscan" matTooltip="Klik voor info"><mat-icon>delete</mat-icon>Verwijder teamscan</button>
 
     <mat-menu #choosestatus="matMenu">
         <p style="margin:10px 15px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren verbeterpunten</button>
-        <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten</button>
+        <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten tonen</button>
     </mat-menu>
 
     <mat-menu #deleteteam="matMenu">
@@ -97,11 +97,8 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Individuele resultaten
+                Jouw resultaat
             </mat-panel-title>
-            <mat-panel-description>
-                Je ingevulde teamscan
-            </mat-panel-description>
         </mat-expansion-panel-header>
 
         <mat-list class="nowrap-list">
@@ -139,16 +136,16 @@
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
             <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren verbeterpunten</button>
-            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten</button>
+            <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten tonen</button>
         </mat-menu>
 
         <div class="customStepper" *ngIf="teamdata.teamscan?.status == 'invullen'">
-            <div *ngIf="!teamdata.team?.ingevuld && teamdata.team" [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'" style='cursor: pointer; outline: none'>
+            <div *ngIf="!teamdata.team?.ingevuld && teamdata.team" [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/invullen'" style='cursor: pointer; outline: none' matTooltip="Klik om in te vullen">
                 <div class="opener"></div>
                 <div class="middle">Invullen</div>
                 <div class="closer"></div>
             </div>
-            <div *ngIf="teamdata.team?.ingevuld && teamdata.team" [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" style='cursor: pointer; outline: none'>
+            <div *ngIf="teamdata.team?.ingevuld && teamdata.team" [class]="(teamdata.teamscan?.status == 'invullen') ? 'stepChip selected' : 'stepChip'" style='outline: none'>
                 <div class="opener"></div>
                 <div class="middle">Invullen</div>
                 <div class="closer"></div>
@@ -171,12 +168,12 @@
                 <div class="middle">Invullen</div>
                 <div class="closer"></div>
             </div>
-            <div *ngIf="!teamdata.team?.gescoord" [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'" style='cursor: pointer; outline: none'>
+            <div *ngIf="!teamdata.team?.gescoord" [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'" style='cursor: pointer; outline: none' matTooltip="Klik om de verbeterpunten te scoren">
                 <div class="opener"></div>
                 <div class="middle">Scoren</div>
                 <div class="closer"></div>
             </div>
-            <div *ngIf="teamdata.team?.gescoord" [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'" style='cursor: pointer; outline: none'>
+            <div *ngIf="teamdata.team?.gescoord" [class]="(teamdata.teamscan?.status == 'scoren') ? 'stepChip selected' : 'stepChip'" style='outline: none' >
                 <div class="opener"></div>
                 <div class="middle">Scoren</div>
                 <div class="closer"></div>
@@ -199,7 +196,7 @@
                 <div class="middle">Scoren</div>
                 <div class="closer"></div>
             </div>
-            <div [class]="(teamdata.teamscan?.status == 'gesloten') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'" style='cursor: pointer; outline: none'>
+            <div [class]="(teamdata.teamscan?.status == 'gesloten') ? 'stepChip selected' : 'stepChip'" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'" style='cursor: pointer; outline: none' matTooltip="Klik om de groepsresultaten te bekijken">
                 <div class="opener"></div>
                 <div class="middle">Resultaten</div>
                 <div class="closer"></div>
