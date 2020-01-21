@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/auth.service';
 import { ToastController } from '@ionic/angular';
 import { trigger, transition, animate, style, group } from '@angular/animations'
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Location } from '@angular/common';
 import { MatMenuTrigger } from '@angular/material'
 import * as moment from 'moment';
 import { throwIfEmpty } from 'rxjs/operators';
@@ -49,7 +50,8 @@ export class TeamComponent {
     private http: HttpClient,
     private authService: AuthService,
     private toastController: ToastController,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private location: Location) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -171,6 +173,7 @@ export class TeamComponent {
   }
 
   updateBeheerder(beheerder, userPrincipalName, mail) {
+    this.showToast("Een momentje...", 1000);
     console.log(beheerder, userPrincipalName, mail);
     let data: FormData = new FormData();
     data.append('beheerder', beheerder);
@@ -211,6 +214,7 @@ export class TeamComponent {
   }
 
   verwijderLid(userPrincipalName, mail) {
+    this.showToast("Een momentje...", 1000);
     var context = this;
     let data: FormData = new FormData();
     data.append('userPrincipalName', userPrincipalName);
@@ -228,11 +232,46 @@ export class TeamComponent {
       });
   }
 
+  verwijderTeam() {
+    this.showToast("Een momentje...", 1000);
+    var context = this;
+    let data: FormData = new FormData();
+    data.append('teamid', this.id);
+    this.http.post(
+      AuthService.apiUrl, data,
+      { headers: { Authorization: "Bearer " + this.authService.token }, responseType: 'json', params: { function: "verwijderteam" } })
+      .subscribe(data => {
+        console.log("send", data)
+        this.showToast('Team is verwijderd!', 3000);
+        this.location.back();
+      }, error => {
+        this.showToast('We ondervonden een probleem bij het verzenden.', 3000);
+      });
+  }
+
+  verwijderTeamscan() {
+    this.showToast("Een momentje...", 1000);
+    var context = this;
+    let data: FormData = new FormData();
+    data.append('teamscan', this.teamdata.teamscan.id);
+    this.http.post(
+      AuthService.apiUrl, data,
+      { headers: { Authorization: "Bearer " + this.authService.token }, responseType: 'json', params: { function: "verwijderteamscan" } })
+      .subscribe(data => {
+        console.log("send", data)
+        this.showToast('Teamscan is verwijderd!', 3000);
+        this.location.back();
+      }, error => {
+        this.showToast('We ondervonden een probleem bij het verzenden.', 3000);
+      });
+  }
+
   addmemberform: FormGroup = this.fb.group({
     email: ['', [Validators.required, this.validateEmail]]
   });
 
   onSubmitMember(formData, menuTrigger) {
+    this.showToast("Een momentje...", 1000);
     console.log(formData);
     let data: FormData = new FormData();
     for (let key in formData) {

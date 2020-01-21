@@ -28,13 +28,32 @@
 
     <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.teamscan">Status: {{teamdata.teamscan?.status}} <mat-icon>keyboard_arrow_down</mat-icon></button>
     <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px"><mat-icon>add</mat-icon>Teamscan</button>
+    <mat-divider inset style="margin:10px 0"></mat-divider>
+    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="deleteteam"><mat-icon>delete</mat-icon>Verwijder team</button>
+    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="deleteteamscan" *ngIf="teamdata.teamscan"><mat-icon>delete</mat-icon>Verwijder teamscan</button>
 
     <mat-menu #choosestatus="matMenu">
-        <p style="margin:10px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
+        <p style="margin:10px 15px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren verbeterpunten</button>
         <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'gesloten')" [disabled]="teamdata.teamscan?.status=='gesloten'?'disabled':NULL">3. Resultaten</button>
+    </mat-menu>
+
+    <mat-menu #deleteteam="matMenu">
+        <div style="padding:5px 30px;">
+            <p style="font-size:14px"><b>Let op!</b> Weet je zeker dat je het complete <b>team {{teamdata.team.naam}}</b> definitief wil verwijderen voor jou en al je teamleden? Alle resultaten en teamscans zullen ook verdwijnen.</p>
+            <button mat-stroked-button color="primary">Niets doen</button>
+            <button mat-flat-button color="warn" style="float:right" (click)="verwijderTeam()">Verwijder</button>
+        </div>
+    </mat-menu>
+
+    <mat-menu #deleteteamscan="matMenu">
+        <div style="padding:5px 30px;">
+            <p style="font-size:14px"><b>Let op!</b> Weet je zeker dat je deze <b>teamscan {{teamdata.teamscan.naam}}</b> definitief wil verwijderen voor jou en al je teamleden? Je team blijft behouden maar alle resultaten binnen deze teamscan zullen wel verdwijnen.</p>
+            <button mat-stroked-button color="primary">Niets doen</button>
+            <button mat-flat-button color="warn" style="float:right" (click)="verwijderTeamscan()">Verwijder</button>
+        </div>
     </mat-menu>
 
 </mat-expansion-panel>
@@ -116,7 +135,7 @@
         <button mat-stroked-button style="display:block;line-height: 26px;margin: -6px 0 4px auto;" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.team?.beheerder" >Wijzig <mat-icon>keyboard_arrow_down</mat-icon></button>
     
         <mat-menu #choosestatus="matMenu">
-            <p style="margin:10px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
+            <p style="margin:10px 15px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'invullen')" [disabled]="teamdata.teamscan?.status=='invullen'?'disabled':NULL">1. Invullen</button>
             <button mat-menu-item (click)="teamscanChangeState(teamdata.teamscan?.id,'scoren')" [disabled]="teamdata.teamscan?.status=='scoren'?'disabled':NULL">2. Scoren verbeterpunten</button>
