@@ -3,7 +3,7 @@
         <mat-card-title style="margin-left:-6px">Voor we van start gaan</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <p>Wat leuk dat je de teamscan gaat invullen! Elke vraag is onderverdeeld in 4 fases. Elk antwoord is genummerd
+        <p>Wat leuk dat je de teamscan gaat invullen! De teamscan bestaat uit 12 dimensies en elke dimensie is onderverdeeld in 4 fases. Elk antwoord is genummerd
             met de bijbehorende fase. De fases staan voor:</p>  
             <ol>
                 <li>Iedere medewerker gaat zijn weg</li>
@@ -50,11 +50,13 @@
 
                 <mat-step stepControl="firstFormGroup">
                     <ng-template matStepLabel>Feedback</ng-template>
-                    <p>Wat zijn voor jou belangrijke verbeterpunten waarmee je jouw team verder kan ontwikkelen?</p>
+                    <p>Wat is voor jou een belangrijk verbeterpunt waarmee je jouw team verder kan ontwikkelen? (niet verplicht)</p>
                     <mat-form-field>
-                        <textarea matInput type="text" placeholder="Antwoord" formControlName="feedback"></textarea>
+                        <textarea matInput type="text" placeholder="Noem een verbeterpunt voor jouw team" formControlName="feedback"></textarea>
                     </mat-form-field>
-                    <p>Deze verbeterpunten worden later gescoord door je teamleden en is voor je teamleden zichtbaar.</p>
+                    <p> Dit verbeterpunt zal later in de test zichtbaar zijn voor alle teamleden.
+                        Nadat alle teamleden de teamscan hebben ingevuld krijg je de mogelijkheid om de verbeterpunten (inclusief bovenstaande) van alle teamleden te scoren naar prioriteit.
+                    </p>
                     <p *ngIf="antwoordForm.invalid" style="color:red"><mat-icon style="vertical-align: -7px;">warning</mat-icon> Je hebt nog niet alle meerkeuzevragen beantwoord.</p>
                     <button mat-stroked-button *ngIf="!isFirst" matStepperPrevious>Terug</button>
                     <button mat-flat-button color="primary" style="float:right" type="submit" [disabled]="antwoordForm.invalid">Bewaren</button>

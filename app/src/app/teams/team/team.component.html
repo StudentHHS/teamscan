@@ -26,11 +26,11 @@
         </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.teamscan" matTooltip="Verander wat teamleden kunnen doen">Status: {{teamdata.teamscan?.status}} <mat-icon>keyboard_arrow_down</mat-icon></button>
-    <button mat-stroked-button [routerLink]="'/team/'+id+'/aanmaken'" style="margin-right:4px" matTooltip="Start een nieuwe testperiode"><mat-icon>add</mat-icon>Teamscan</button>
-    <mat-divider inset style="margin:10px 0"></mat-divider>
-    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="deleteteam" matTooltip="Klik voor info"><mat-icon>delete</mat-icon>Verwijder team</button>
-    <button mat-stroked-button style="margin-right:4px" [matMenuTriggerFor]="deleteteamscan" *ngIf="teamdata.teamscan" matTooltip="Klik voor info"><mat-icon>delete</mat-icon>Verwijder teamscan</button>
+    <button mat-stroked-button style="margin:0 4px 2px 0" [matMenuTriggerFor]="choosestatus" *ngIf="teamdata.teamscan" matTooltip="Verander wat teamleden kunnen doen">Status: {{teamdata.teamscan?.status}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+    <button mat-stroked-button style="margin:0 4px 2px 0" [routerLink]="'/team/'+id+'/aanmaken'" matTooltip="Start een nieuwe testperiode"><mat-icon>add</mat-icon>Teamscan</button>
+    <mat-divider inset style="margin:8px 0 10px 0"></mat-divider>
+    <button mat-stroked-button style="margin:0 4px 2px 0" [matMenuTriggerFor]="deleteteam" matTooltip="Klik voor info"><mat-icon>delete</mat-icon>Verwijder team</button>
+    <button mat-stroked-button style="margin:0 4px 2px 0" [matMenuTriggerFor]="deleteteamscan" *ngIf="teamdata.teamscan" matTooltip="Klik voor info"><mat-icon>delete</mat-icon>Verwijder teamscan</button>
 
     <mat-menu #choosestatus="matMenu">
         <p style="margin:10px 15px;font-size:14px">Dit verandert de status van deze teamscan voor alle leden.</p>
@@ -75,11 +75,11 @@
             {{teamdata.team?.gescoord ? NULL : 'To do: '}}Scoren verbeterpunten
         </mat-card-title>
         <mat-card-content *ngIf="!teamdata.team?.gescoord">
-            <div>Geef je mening over de verbeterpunten die je teamleden aandragen.</div><br>
-            <button mat-raised-button color="primary" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'">Geef je mening <mat-icon>chevron_right</mat-icon></button>
+            <div>Welke verbeterpunten die je teamleden aandragen vind jij belangrijk? Geef ze een cijfer.</div><br>
+            <button mat-raised-button color="primary" [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/scoren'">Beoordeel de verbeterpunten <mat-icon>chevron_right</mat-icon></button>
         </mat-card-content>
         <mat-card-content *ngIf="teamdata.team?.gescoord">
-            <div>Je hebt de opmerkingen van je teamgenoten gescoord. Wacht tot de eerstvolgende sluitingsdatum ({{endDate|date: 'dd/M'}}) om de resultaten van de teamscan te kunnen bekijken.</div>
+            <div>Je hebt de verbeterpunten van je teamgenoten gescoord. Wacht tot de eerstvolgende sluitingsdatum ({{endDate|date: 'dd/M'}}) om de resultaten van de teamscan te kunnen bekijken.</div>
         </mat-card-content>
     </mat-card>
     <mat-card class="" style="width:100%" *ngIf="teamdata.teamscan?.status === 'gesloten'">
@@ -216,24 +216,32 @@
                 </div>
             </div>
             <br><br>
-            <mat-progress-bar mode="determinate" color="#9ea700" [value]="progressBarValue"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" color="#9ea700" [value]="(startDate.getTime() == endDate.getTime()) && daysUntillStatusEnd >= 0 ? 75 : progressBarValue"></mat-progress-bar>
             <br>
-            <div style="text-align:center;" *ngIf="daysUntillStatusEnd >= 0 && progressBarValue>0">
+        </div>
+            
+            <div style="text-align:center;">
                 <div style="vertical-align:middle;">
-                    <i class="material-icons" style="vertical-align:middle;">schedule</i> Er zijn nog <b style="font-weight:500">{{daysUntillStatusEnd}} dagen</b> {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?"
-                    om de verbeterpunten te scoren":""}}
+                    <i class="material-icons" style="vertical-align:middle;">schedule</i>
+                    <span *ngIf="teamdata.teamscan?.status !== 'gesloten' && daysUntillStatusEnd >= 0 && progressBarValue>0">
+                        <span *ngIf="daysUntillStatusEnd > 0">
+                        Er zijn nog <b style="font-weight:500">{{daysUntillStatusEnd}} dagen</b>
+                        </span>
+                        <span *ngIf="daysUntillStatusEnd == 0">                            
+                            Je hebt alleen vandaag {{startDate.getTime() == endDate.getTime() ? null : "nog"}}
+                        </span>
+                        {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?" om de verbeterpunten te scoren":""}}.
+                    </span>
+                    <span *ngIf="teamdata.teamscan?.status !== 'gesloten' && daysUntillStatusEnd < 0">
+                        De termijn voor het invullen van de teamscan is ten einde.
+                    </span>
+                    <span *ngIf="teamdata.teamscan?.status == 'gesloten'">
+                        De teamscan is gesloten.<br><span [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Bekijk de resultaten.</span>
+                    </span>
                 </div>
             </div>
-            <div style="text-align:center;" *ngIf="daysUntillStatusEnd < 0">
-                <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De termijn voor het invullen van de teamscan is ten einde.</div>
-            </div>
-        </div>
+        
 
-        <div *ngIf="teamdata.teamscan?.status == 'gesloten'">
-            <div style="text-align:center;">
-                <div style="vertical-align:middle;"><i class="material-icons" style="vertical-align:middle;">schedule</i> De teamscan is gesloten.<br><span [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Bekijk de resultaten.</span></div>
-            </div>
-        </div>
     </mat-card-content>
 </mat-card>
 
