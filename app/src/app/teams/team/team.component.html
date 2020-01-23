@@ -42,7 +42,7 @@
 
     <mat-menu #deleteteam="matMenu">
         <div style="padding:5px 30px;">
-            <p style="font-size:14px"><b>Let op!</b> Weet je zeker dat je het complete <b>team {{teamdata.team.naam}}</b> definitief wil verwijderen voor jou en al je teamleden? Alle resultaten en teamscans zullen ook verdwijnen.</p>
+            <p style="font-size:14px"><b>Let op!</b> Weet je zeker dat je het complete <b>team {{teamdata.team?.naam}}</b> definitief wil verwijderen voor jou en al je teamleden? Alle resultaten en teamscans zullen ook verdwijnen.</p>
             <button mat-stroked-button color="primary">Niets doen</button>
             <button mat-flat-button color="warn" style="float:right" (click)="verwijderTeam()">Verwijder</button>
         </div>
@@ -50,7 +50,7 @@
 
     <mat-menu #deleteteamscan="matMenu">
         <div style="padding:5px 30px;">
-            <p style="font-size:14px"><b>Let op!</b> Weet je zeker dat je deze <b>teamscan {{teamdata.teamscan.naam}}</b> definitief wil verwijderen voor jou en al je teamleden? Je team blijft behouden maar alle resultaten binnen deze teamscan zullen wel verdwijnen.</p>
+            <p style="font-size:14px"><b>Let op!</b> Weet je zeker dat je deze <b>teamscan {{teamdata.teamscan?.naam}}</b> definitief wil verwijderen voor jou en al je teamleden? Je team blijft behouden maar alle resultaten binnen deze teamscan zullen wel verdwijnen.</p>
             <button mat-stroked-button color="primary">Niets doen</button>
             <button mat-flat-button color="warn" style="float:right" (click)="verwijderTeamscan()">Verwijder</button>
         </div>
