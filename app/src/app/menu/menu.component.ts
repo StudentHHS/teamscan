@@ -58,7 +58,7 @@ export class MenuComponent {
   }
 
   openDashboard() {
-    window.location.href = 'https://hhs-teamscan.azurewebsites.net/dashboard';
+    window.location.href = AuthService.dashboardURL;
   }
 
   signOut(): void {

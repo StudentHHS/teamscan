@@ -20,6 +20,7 @@ export class AuthService {
   private graphClient: Client;
   public redirectUri: string;
   public static apiUrl: string = "https://hhs-teamscan.azurewebsites.net/api/";
+  public static dashboardURL: string = "https://hhs-teamscan.azurewebsites.net/dashboard";
   private latestToastController: HTMLIonToastElement;
 
   constructor(

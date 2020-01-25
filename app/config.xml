@@ -12,7 +12,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="ScrollEnabled" value="true" />
-    <preference name="resizeOnFullScreen" value="true" />
+    <preference name="resizeOnFullScreen" value="false" />
     <preference name="fullscreen" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
@@ -27,7 +27,7 @@
             <application android:networkSecurityConfig="@xml/network_security_config" />
         </edit-config>
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application/activity" xmlns:android="http://schemas.android.com/apk/res/android">
-            <activity android:theme="@style/Theme.Green" android:windowSoftInputMode="adjustResize" />
+            <activity android:theme="@style/Theme.Green" />
         </edit-config>
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <resource-file src="resources/android/values/colors.xml" target="app/src/main/res/values/colors.xml" />
