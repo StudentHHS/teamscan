@@ -1,0 +1,92 @@
+<!--   Core JS Files   -->
+<script src="http://hhs-teamscan.azurewebsites.net/dashboard/db.php"></script>
+<script src="dashboard-opmaak/assets/js/core/jquery.min.js"></script>
+<script src="dashboard-opmaak/assets/js/core/popper.min.js"></script>
+<script src="dashboard-opmaak/assets/js/core/bootstrap-material-design.min.js"></script>
+<script src="dashboard-opmaak/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!-- Plugin for ChartJS-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<!-- Plugin for the momentJs  -->
+<script src="dashboard-opmaak/assets/js/plugins/moment.min.js"></script>
+<!--  Plugin for Sweet Alert -->
+<script src="dashboard-opmaak/assets/js/plugins/sweetalert2.js"></script>
+<!-- Forms Validations Plugin -->
+<script src="dashboard-opmaak/assets/js/plugins/jquery.validate.min.js"></script>
+<!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+<script src="dashboard-opmaak/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+<script src="dashboard-opmaak/assets/js/plugins/bootstrap-selectpicker.js"></script>
+<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+<script src="dashboard-opmaak/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="dashboard-opmaak/assets/js/plugins/jquery.dataTables.min.js"></script>
+<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+<script src="dashboard-opmaak/assets/js/plugins/bootstrap-tagsinput.js"></script>
+<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="dashboard-opmaak/assets/js/plugins/jasny-bootstrap.min.js"></script>
+<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+<script src="dashboard-opmaak/assets/js/plugins/fullcalendar.min.js"></script>
+<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+<script src="dashboard-opmaak/assets/js/plugins/jquery-jvectormap.js"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="dashboard-opmaak/assets/js/plugins/nouislider.min.js"></script>
+<!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+<!-- Library for adding dinamically elements -->
+<script src="dashboard-opmaak/assets/js/plugins/arrive.min.js"></script>
+<!-- Chartist JS -->
+<script src="dashboard-opmaak/assets/js/plugins/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="dashboard-opmaak/assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="dashboard-opmaak/assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="dashboard-opmaak/assets/demo/demo.js"></script>
+<script>
+    $('.switch-sidebar-mini input').change(function () {
+        $body = $('body');
+
+        $input = $(this);
+
+        if (md.misc.sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            md.misc.sidebar_mini_active = false;
+
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+        } else {
+
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+            setTimeout(function () {
+                $('body').addClass('sidebar-mini');
+
+                md.misc.sidebar_mini_active = true;
+            }, 300);
+        }
+
+        // we simulate the window Resize so the charts will get updated in realtime.
+        var simulateWindowResize = setInterval(function () {
+            window.dispatchEvent(new Event('resize'));
+        }, 180);
+
+        // we stop the simulation of Window Resize after the animations are completed
+        setTimeout(function () {
+            clearInterval(simulateWindowResize);
+        }, 1000);
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        // Javascript method's body can be found in assets/js/demos.js
+        md.initDashboardPageCharts();
+
+    });
+</script>
+<script>
+    $(function () {
+        $('.rol').on('change', function () {
+            $(this).closest("form").submit();
+        });
+    });
+</script>

@@ -1,5 +1,5 @@
 <?php
-//Dit script veranderd automatisch de status van de teamscan naar de volgende fase op de opgegeven einddata. Teambeheerders kunnen de status nog steeds veranderen.
+//Dit script verandert automatisch de status van de teamscan naar de volgende fase op de opgegeven einddata. Teambeheerders kunnen de status nog steeds veranderen.
 
 //MYSQL Configuration
 define('MYSQLHost', "localhost");
