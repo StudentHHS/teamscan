@@ -82,7 +82,7 @@ export class ScorenComponent implements OnInit {
       { headers: { Authorization: "Bearer " + this.authService.token }, responseType: 'json', params: { function: "addOpenEndedQuestionScore" } })
       .subscribe(data => {
         console.log("send", data)
-        this.showToast('Uw antwoorden zijn opgeslagen!', 2000);
+        this.showToast('Je antwoorden zijn opgeslagen!', 2000);
         this.location.back();
       }, error => {
         console.log(error.message);
