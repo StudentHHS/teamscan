@@ -271,8 +271,8 @@
             <ng-container *ngFor="let lid of teamdata.leden; last as isLast; first as isFirst">
                 <mat-list-item *ngIf="isFirst">
                     <mat-icon mat-list-icon>add_comment</mat-icon>
-                    <h4 mat-line> Aangemaakt door: </h4>
-                    <p mat-line> {{lid.leider_mail}} </p>
+                    <h4 mat-line style="font-size:14px; color:#444"> Team aangemaakt door: </h4>
+                    <p mat-line style="font-size:14px; color:#444"> {{lid.leider_mail}} </p>
                 </mat-list-item>
                 <mat-divider *ngIf="isFirst"></mat-divider>
                 <mat-list-item *ngIf="lid.givenName">

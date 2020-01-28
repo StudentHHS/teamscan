@@ -59,7 +59,7 @@ export class TeamComponent {
       this.teamscan = this.route.snapshot.paramMap.get('scan');
     }
     this.getData();
-    this.loadInterval = setInterval(this.getData.bind(this), 15000);
+    this.loadInterval = setInterval(this.getData.bind(this), 30000);
   }
 
   ngOnDestroy() {
@@ -79,26 +79,28 @@ export class TeamComponent {
         console.log("resultaat");
         console.log(data);
         this.requestFailed = false;
-        this.teamdata = data;
-        this.individualResults = data["individueelResultaat"];
-        if (this.teamdata.team)
-          this.us.changeTitle(this.teamdata.team.naam);
-        if (this.teamdata.teamscan) {
-          if (this.teamdata.teamscan.status == "invullen") {
-            this.startDate = new Date(this.teamdata.teamscan.start + " 00:00");
-            this.endDate = new Date(this.teamdata.teamscan.eind + " 23:59:59");
+        if(JSON.stringify(this.teamdata) != JSON.stringify(data)) {
+          this.teamdata = data;
+          this.individualResults = data["individueelResultaat"];
+          if (this.teamdata.team)
+            this.us.changeTitle(this.teamdata.team.naam);
+          if (this.teamdata.teamscan) {
+            if (this.teamdata.teamscan.status == "invullen") {
+              this.startDate = new Date(this.teamdata.teamscan.start + " 00:00");
+              this.endDate = new Date(this.teamdata.teamscan.eind + " 23:59:59");
+            }
+            if (this.teamdata.teamscan.status == "scoren" || this.teamdata.teamscan.status == "gesloten") {
+              this.startDate = new Date(this.teamdata.teamscan.eind+  " 00:00");
+              this.endDate = new Date(this.teamdata.teamscan.eindOpenVraag + " 23:59:59");
+            }
+            var diff = this.endDate.getTime() - new Date().getTime();
+            this.daysUntillStatusEnd = Math.ceil(diff / (1000 * 3600 * 24));
+            this.progressBarValue = ((new Date().getTime() - this.startDate.getTime()) / (this.endDate.getTime() - this.startDate.getTime())) * 100;
           }
-          if (this.teamdata.teamscan.status == "scoren" || this.teamdata.teamscan.status == "gesloten") {
-            this.startDate = new Date(this.teamdata.teamscan.eind+  " 00:00");
-            this.endDate = new Date(this.teamdata.teamscan.eindOpenVraag + " 23:59:59");
-          }
-          var diff = this.endDate.getTime() - new Date().getTime();
-          this.daysUntillStatusEnd = Math.ceil(diff / (1000 * 3600 * 24));
-          this.progressBarValue = ((new Date().getTime() - this.startDate.getTime()) / (this.endDate.getTime() - this.startDate.getTime())) * 100;
         }
       },
         error => {
-          this.showToast("De vragen konden niet worden ingeladen. Ben je nog verbonden?", 3000);
+          this.showToast("Dit team kon niet worden geladen. Ben je nog verbonden?", 3000);
           this.requestFailed = true;
           console.log("error at data request", error);
         }
