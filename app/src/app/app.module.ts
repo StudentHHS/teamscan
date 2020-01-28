@@ -67,7 +67,7 @@ import { OAuthSettings } from '../oauth';
      SettingsComponent, DialogComponent],
   entryComponents: [DialogComponent],
   imports: [BrowserModule, ChartsModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule,
-    BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45"}),
+    BrowserAnimationsModule, MsalModule.forRoot({ clientID: OAuthSettings.appId, authority: "https://login.microsoftonline.com/"+OAuthSettings.tenantId}),
     MatButtonModule, MatCheckboxModule, MatSidenavModule, MatSidenavModule, MatToolbarModule, MatCardModule,
     MatGridListModule, MatMenuModule, MatIconModule, MatListModule, MatSliderModule,
     FormsModule,ReactiveFormsModule, MatRadioModule, MatTooltipModule, MatStepperModule,

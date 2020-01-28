@@ -85,12 +85,12 @@ export class TeamComponent {
           this.us.changeTitle(this.teamdata.team.naam);
         if (this.teamdata.teamscan) {
           if (this.teamdata.teamscan.status == "invullen") {
-            this.startDate = new Date(this.teamdata.teamscan.start);
-            this.endDate = new Date(this.teamdata.teamscan.eind);
+            this.startDate = new Date(this.teamdata.teamscan.start + " 00:00");
+            this.endDate = new Date(this.teamdata.teamscan.eind + " 23:59:59");
           }
           if (this.teamdata.teamscan.status == "scoren" || this.teamdata.teamscan.status == "gesloten") {
-            this.startDate = new Date(this.teamdata.teamscan.eind);
-            this.endDate = new Date(this.teamdata.teamscan.eindOpenVraag);
+            this.startDate = new Date(this.teamdata.teamscan.eind+  " 00:00");
+            this.endDate = new Date(this.teamdata.teamscan.eindOpenVraag + " 23:59:59");
           }
           var diff = this.endDate.getTime() - new Date().getTime();
           this.daysUntillStatusEnd = Math.ceil(diff / (1000 * 3600 * 24));

@@ -15,14 +15,14 @@ if ($mysqli->connect_errno) {
 }
 $mysqli->set_charset("utf8");
 
-$stmt = $mysqli->prepare("UPDATE `teamscans` set status='scoren' WHERE eind=CURDATE() and status='invullen'");
+$stmt = $mysqli->prepare("UPDATE `teamscans` set status='scoren' WHERE eind+1=CURDATE() and status='invullen'");
 $ex = $stmt->execute();
 if ( false===$ex ) {
 	echo 'Query 1 execute() failed: ' . htmlspecialchars($stmt->error).'\n';
 }
 echo "Query 1 affected rows: ".$stmt->affected_rows.'\n';
 
-$stmt = $mysqli->prepare("UPDATE `teamscans` set status='gesloten' WHERE eindOpenVraag=CURDATE() and status='scoren'");
+$stmt = $mysqli->prepare("UPDATE `teamscans` set status='gesloten' WHERE eindOpenVraag+1=CURDATE() and status='scoren'");
 $ex = $stmt->execute();
 if ( false===$ex ) {
 	echo 'Query 2 execute() failed: ' . htmlspecialchars($stmt->error).'\n';

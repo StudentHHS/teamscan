@@ -216,23 +216,26 @@
                 </div>
             </div>
             <br><br>
-            <mat-progress-bar mode="determinate" color="#9ea700" [value]="(startDate.getTime() == endDate.getTime()) && daysUntillStatusEnd >= 0 ? 75 : progressBarValue"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" color="#9ea700" [value]="progressBarValue"></mat-progress-bar>
             <br>
         </div>
             
             <div style="text-align:center;">
                 <div style="vertical-align:middle;">
                     <i class="material-icons" style="vertical-align:middle;">schedule</i>
-                    <span *ngIf="teamdata.teamscan?.status !== 'gesloten' && daysUntillStatusEnd >= 0 && progressBarValue>0">
-                        <span *ngIf="daysUntillStatusEnd > 0">
-                        Er zijn nog <b style="font-weight:500">{{daysUntillStatusEnd}} dagen</b>
+                    <span *ngIf="teamdata.teamscan?.status !== 'gesloten' && daysUntillStatusEnd > 0">
+                        <span *ngIf="daysUntillStatusEnd > 2">
+                            Er zijn nog <b style="font-weight:500">{{daysUntillStatusEnd}} dagen</b>
                         </span>
-                        <span *ngIf="daysUntillStatusEnd == 0">                            
-                            Je hebt alleen vandaag {{startDate.getTime() == endDate.getTime() ? null : "nog"}}
+                        <span *ngIf="daysUntillStatusEnd == 2">                            
+                            Je hebt alleen morgen nog
+                        </span>
+                        <span *ngIf="daysUntillStatusEnd == 1">                            
+                            Je hebt alleen vandaag nog
                         </span>
                         {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?" om de verbeterpunten te scoren":""}}.
                     </span>
-                    <span *ngIf="teamdata.teamscan?.status !== 'gesloten' && daysUntillStatusEnd < 0">
+                    <span *ngIf="teamdata.teamscan?.status !== 'gesloten' && daysUntillStatusEnd <= 0">
                         De termijn voor het invullen van de teamscan is ten einde.
                     </span>
                     <span *ngIf="teamdata.teamscan?.status == 'gesloten'">

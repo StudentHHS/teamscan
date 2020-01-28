@@ -24,11 +24,11 @@ export class LoginComponent {
 
     async loginButton(): Promise<void> {
         if(this.platform.is('cordova') ) {
-            window.open('https://login.microsoftonline.com/a2586b9b-f867-4b3c-9363-5b435c5dbc45/oauth2/v2.0/authorize\
+            window.open('https://login.microsoftonline.com/'+OAuthSettings.tenantId+'/oauth2/v2.0/authorize\
 ?response_type=id_token+token\
 &scope=user.read%20openid%20profile\
 &client_id='+encodeURI(OAuthSettings.appId)+'\
-&redirect_uri=teamscan%3A%2F%2Foauth2&state=566c4ca0-4a35-4ec9-a753-64a69b2c17b6\
+&redirect_uri='+encodeURIComponent(OAuthSettings.redirectURI)+'&state=566c4ca0-4a35-4ec9-a753-64a69b2c17b6\
 &nonce=b3525a1f-1918-477c-a089-b8f2f968c79c\
 &client_info=1\
 &x-client-SKU=MSAL.JS\
@@ -40,10 +40,4 @@ export class LoginComponent {
             await this.authService.signIn();
         }
     }
-  //loginButton() {
-      //console.log("set");
-        //this.storage.set('userid', '16080203');
-        //this.storage.remove('userid');
-        //this.router.navigateByUrl('');
-  //}
 }
