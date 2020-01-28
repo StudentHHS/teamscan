@@ -6,6 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { startWith, map } from 'rxjs/operators';
+import { trigger, transition, animate, style, group } from '@angular/animations'
 
 export interface OpleidingenGroup {
   naam: string;
@@ -22,6 +23,17 @@ export const _filter = (opt: string[], value: string): string[] => {
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
+  animations: [
+    trigger('grow', [
+      transition(':enter', [
+        style({ height: '0', opacity: 0 }),
+        group([
+          animate("200ms cubic-bezier(0,.97,.53,1)", style({ height: '*' })),
+          animate('400ms ease-out', style({ 'opacity': '1' }))
+        ])
+      ])
+    ])
+  ]
 })
 export class SettingsComponent implements OnInit {
 
@@ -40,10 +52,7 @@ export class SettingsComponent implements OnInit {
 
 
     ngOnInit() {
-
-          this.getData();
-
-          setTimeout(this.getOpleidingen.bind(this),400);
+      this.getData();
     }
 
     getOpleidingen() {
@@ -63,7 +72,7 @@ export class SettingsComponent implements OnInit {
         this.stateForm.addControl("opleidingEnFaculteit", new FormControl(this.user.opleiding + " — " + this.user.faculteit,[this.validateFaculteit.bind(this)]));
       },
       error => {
-        this.showToast("We konden de data niet ophalen. Ben je nog verbonden?", 3000);
+        this.showToast("We konden de opleidingen en diensten niet ophalen. Ben je nog verbonden?", 3000);
         console.log("error at data request", error);
       });
     }
@@ -116,7 +125,9 @@ getData() {
       AuthService.apiUrl,
        { headers: {Authorization: "Bearer " + this.authService.token}, responseType: 'json', params: {function: "user"}}
      ).subscribe(data => {
-       this.user = data;
+      this.getOpleidingen();
+      this.requestFailed = false;
+      this.user = data;
       this.stateForm.setValue({
         opleidingEnFaculteit: this.user.opleiding + " — " + this.user.faculteit,
         geslacht: this.user.geslacht,
@@ -135,7 +146,7 @@ getData() {
        if(error.status=="404") {
          this.user = [];
        } else {
-         //failed
+          this.requestFailed = true;
        }
        console.log("error at data request", error);
      }
@@ -143,6 +154,12 @@ getData() {
   } else {
     setTimeout(this.getData.bind(this),100);
   }
+}
+
+reload() {
+  this.getData();
+  this.user = null;
+  this.requestFailed = false;
 }
 
 stateForm: FormGroup = this._formBuilder.group({

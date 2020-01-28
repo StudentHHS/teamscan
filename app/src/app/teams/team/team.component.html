@@ -13,9 +13,11 @@
         <div style="min-width:250px;">
             <mat-spinner style="margin:10px auto;" diameter="30" *ngIf="!teamscans"></mat-spinner>
         </div>
-        <button mat-menu-item *ngFor="let scan of teamscans" [routerLink]="'/team/'+id+'/'+scan.id">
-            <mat-icon>assessment</mat-icon>
-            <span>{{scan.naam}} ({{scan.status=='gesloten'?"gesloten op": "sluit"}} {{scan.eindOpenVraag|date:'d/M'}})</span>
+        <button mat-menu-item *ngFor="let scan of teamscans" [routerLink]="'/team/'+id+'/'+scan.id" [disabled]="scan.id == teamdata.teamscan?.id">
+            <mat-icon [style.color]="(scan.id == teamdata.teamscan?.id) ? '#aaa' : null">assessment</mat-icon>
+            <span>{{scan.naam}}
+                <span style="font-size:11px"> {{scan.status=='gesloten'?"gesloten": "sluiting"}} {{scan.eindOpenVraag|date:'d/M'}}</span>
+            </span>
         </button>
     </mat-menu>
 </div>
@@ -236,7 +238,7 @@
                         {{teamdata.teamscan?.status=="invullen"?" om de teamscan in te vullen":""}} {{teamdata.teamscan?.status=="scoren"?" om de verbeterpunten te scoren":""}}.
                     </span>
                     <span *ngIf="teamdata.teamscan?.status !== 'gesloten' && daysUntillStatusEnd <= 0">
-                        De termijn voor het invullen van de teamscan is ten einde.
+                        De termijn voor het {{teamdata.teamscan?.status == 'invullen' ? "invullen van de teamscan" : "scoren van de verbeterpunten"}} is ten einde.
                     </span>
                     <span *ngIf="teamdata.teamscan?.status == 'gesloten'">
                         De teamscan is gesloten.<br><span [routerLink]="'/team/'+id+'/'+teamdata.team?.teamscan+'/resultaten'">Bekijk de resultaten.</span>

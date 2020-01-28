@@ -1,5 +1,5 @@
 <mat-card>
-    <mat-card-content>
+    <mat-card-content *ngIf="user" [@grow]>
         <form [formGroup]="stateForm" id="updateForm" (ngSubmit)="onSubmit(stateForm.value)">
             <mat-form-field class="inputfield">
                 <input type="text" matInput placeholder="Opleiding of unit" formControlName="opleidingEnFaculteit" required [matAutocomplete]="autoGroup">
@@ -31,6 +31,7 @@
                 <mat-radio-button value="OP" style="width: 140px; margin: 0 0 4px 0;">Onderwijzend</mat-radio-button>
                 <mat-radio-button value="OBP" style="margin: 0 -5px 4px 0">Niet-onderwijzend personeel</mat-radio-button>
             </mat-radio-group>
+            <br>
             <br>
             <mat-form-field class="inputfield">
                 <mat-select placeholder="Contractsoort" formControlName="contractsoort">
@@ -84,11 +85,9 @@
             <br>
         </form>
     </mat-card-content>
-    <mat-divider [inset]="true"></mat-divider>
-    <mat-card-content class="dashboard-card-content" (click)="signOut()">
-        <button mat-button style="width:100%;text-align:left" *ngIf="this.authService?.user !== null">
-      <mat-icon>vpn_key</mat-icon>
-      Log uit (ingelogd als {{this.authService.user?.givenName}})
-    </button>
+    <mat-card-content *ngIf="requestFailed" style="text-align:center; margin-top:20px;">
+        Er kon geen verbinding worden gemaakt.<br><br>
+        <button mat-raised-button style="margin:auto;" (click)="reload()">Probeer opnieuw</button>
     </mat-card-content>
+    <mat-spinner style="margin:20px auto;" diameter="50" color="black" *ngIf="!user && !requestFailed"></mat-spinner>
 </mat-card>
