@@ -1,12 +1,23 @@
 <?php
 include 'db.php';
 
+/**
+ * Teamscan API Functions Class
+ */
 class APIFunctions {
     private $db;
 	private $userid = null;
 	private $params;
 	private $rights;
 
+	/**
+	 * Checks authorization, builds class
+	 * 
+	 * @param string $token Token from database table gebruikers
+	 * @param boolean $msal True: In case of user registration, do not check authorization. False: check authorzation
+	 * @param mixed $params The parameters from the HTTP-request
+	 * @return void
+	 */
     function __construct($token, $msal, $params) {
 		$this->db = new MYSQLConnection();
 		$this->params = $params;
@@ -32,6 +43,12 @@ class APIFunctions {
     function __destruct() {
     }
 
+	/**
+	 * Convert a teamscan id to a team id
+	 * 
+	 * @param int $teamscan Teamscan ID
+	 * @return int Team ID, returns -1 when not found
+	 */
 	function teamscanToTeam($teamscan) {
 		foreach($this->db->query("SELECT team_id FROM `teamscans` where id=?","i",array($teamscan)) as $row) {
 			return $row["team_id"];
@@ -39,6 +56,11 @@ class APIFunctions {
 		return -1;
 	}
 
+	/**
+	 * Returns teamscan question list. No params.
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure
+	 */
     public function invullijst() {
 		$result = array();
 		foreach ($this->db->simple_query("SELECT * FROM `antwoorden` INNER JOIN dimensies on antwoorden.dimensie_id = dimensies.id ORDER BY dimensies.id, antwoorden.fase_id") as $row) {
@@ -50,6 +72,11 @@ class APIFunctions {
 		return json_encode($result);
 	}
 
+	/**
+	 * Returns faculties-studieslist. No params.
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure
+	 */
 	public function getFaculteitEnOpleiding() {
 		function findInData($products, $field, $value) {
 			foreach($products as $key => $product) {
@@ -74,10 +101,20 @@ class APIFunctions {
 		return json_encode($result);
 	}
 
+	/**
+	 * Custom function for main page. See also getteams().
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure
+	 */
 	public function menu() {
 		return $this->getteams();
 	}
 	
+	/**
+	 * Returns all user info of the current user from table gebruikers. No params.
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure
+	 */
 	public function user() {		
 		foreach ($this->db->query("SELECT * FROM `gebruikers` where id=?", "s", array($this->userid)) as $row) {
 			$result = $row;
@@ -85,6 +122,13 @@ class APIFunctions {
 		return json_encode($result??["error"=>"Gebruiker niet gevonden"]);
 	}
 
+	/**
+	 * Update user in table. 
+	 * 
+	 * Params:geslacht, opOfObp, contractsoort, locatie, geboortejaar, aanstellingsomvang, startjaarDienst, startjaarOnderwijs, startjaarFunctie.
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200)
+	 */
 	public function saveuserinfo() {
 		list($opleiding, $faculteit) = explode(" — ", $this->params["opleidingEnFaculteit"]);
 		$aanstellingsomvang = str_replace(',', '.', $this->params["aanstellingsomvang"]);
@@ -104,6 +148,15 @@ class APIFunctions {
 		return '{"status":"OK"}';
 	}
 	
+	/**
+	 * Creates new team. 
+	 * 
+	 
+	 * 
+	 * Params:naam, beschrijving, opleidingEnFaculteit, teamledenstring
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 400)
+	 */
 	public function createnewteam() {
 		if(isset($this->params["opleidingEnFaculteit"])) {
 			list($opleiding, $faculteit) = explode(" — ", $this->params["opleidingEnFaculteit"]);
@@ -146,11 +199,12 @@ class APIFunctions {
 		}
 		return '{"status":"OK"}';
 	}
-	
-	public function getOpenvraagAntwoorden(){
 
-    }
-
+	/**
+	 * Returns all teams the current user is part of.
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure. Or {"error":...} (HTTP 404)
+	 */
 	public function getteams() {
 		$element = array();
 		foreach ($this->db->query(
@@ -183,6 +237,13 @@ class APIFunctions {
 			
 	}
 
+	/**
+	 * Returns team info
+	 * 
+	 * Params:teamid, [teamscan]
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure. Or {"error":...} (HTTP 403/404)
+	 */
 	public function getteam() {
 		if(!in_array($this->params['teamid'], $this->rights["view_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -256,6 +317,13 @@ class APIFunctions {
 		return json_encode(["team"=>$teaminfo, "teamscan"=>$teamscaninfo, "leden" => $element, "individueelResultaat" => $indivResult]);
 	}
 
+	/**
+	 * Change team member to team admin or not. Returns getteam()
+	 * 
+	 * Params:beheerder (bool), teamid, userPrincipalName, mail
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure.  Or {"error":...} (HTTP 400/403)
+	 */
 	public function updateteambeheer() {
 		if(!in_array($this->params['teamid'], $this->rights["edit_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -286,6 +354,14 @@ class APIFunctions {
 		return $this->getteam();
 	}
 	
+	/**
+	 * Returns userinfo
+	 * 
+	 * Params:mail
+	 * 
+	 * @param string $mail Can be given by function parameter or by the class variable params. Accepts mail or userPrinipalName
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure. Or {"error":...} (HTTP 400/404)
+	 */
 	public function getuseridbymail($mail) {
 		if($mail == null) {
 			$mail = $this->params["mail"];
@@ -305,6 +381,13 @@ class APIFunctions {
 			
 	}
 
+	/**
+	 * Returns 'scoren verbeterpunten' list
+	 * 
+	 * Params:teamscan
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure
+	 */
 	public function getscoring() {
 		if(!in_array($this->teamscanToTeam($this->params['teamscan']), $this->rights["view_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -321,6 +404,11 @@ class APIFunctions {
 		return json_encode($element);
 	}
 
+	/**
+	 * Saves filled teamscan enquete list
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 403/400)
+	 */
 	public function saveinvullijst() {
 		if(!in_array($this->teamscanToTeam($this->params['teamscan']), $this->rights["view_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -366,6 +454,12 @@ class APIFunctions {
 		return '{"status":"OK"}';
 	}
 	
+	/**
+	 * Register new user, make access token for teamscan
+	 * 
+	 * @param string $MSALToken token given by Microsoft
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure
+	 */
 	public function userregistration($MSALToken) {
 		$ch = curl_init('https://graph.microsoft.com/v1.0/me'); // Initialise cURL
 		$authorization = "Authorization: Bearer ".$MSALToken; // Prepare the authorisation token
@@ -394,6 +488,14 @@ class APIFunctions {
 		}
 		return json_encode($result??["error"=>"Gebruiker niet gevonden"]);
 	}
+
+	/**
+	 * Create new teamscan
+	 * 
+	 * Params:teamscannaam, teamscanstartdatum, teamscaneinddatum, teamscanopenvraageinddatum, teamid
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 403/400)
+	 */
 	public function addnewteamscan(){
 		if(!in_array($this->params['teamId'], $this->rights["edit_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -411,6 +513,14 @@ class APIFunctions {
 		}
 		return '{"status":"OK"}';
 	}
+
+	/**
+	 * Get list of teamscans for team
+	 * 
+	 * Params:teamid
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure. Or {"error":...} (HTTP 403/404)
+	 */
 	public function getteamscans(){
 		if(!in_array($this->params['teamid'], $this->rights["view_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -432,6 +542,13 @@ class APIFunctions {
 		return json_encode($element);
 	}
 
+	/**
+	 * Change teamscan status
+	 * 
+	 * Params:teamscanid, status: ('invullen', 'scoren', 'gesloten')
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 403/400)
+	 */
 	public function updateteamscanstatus(){
 		if(!in_array($this->teamscanToTeam($this->params['teamscanid']), $this->rights["edit_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -450,6 +567,13 @@ class APIFunctions {
 		return '{"status":"OK"}';
 	}
 
+	/**
+	 * Get team results
+	 * 
+	 * Params:teamscanid
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure. Or {"error":...} (HTTP 403/404)
+	 */
 	public function getresults(){
 		if(!in_array($this->teamscanToTeam($this->params['teamscanid']), $this->rights["view_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -507,6 +631,13 @@ class APIFunctions {
 		return json_encode(["lijst"=>$lijst, "scoren"=>$scoren, "gemiddelde"=>$gemiddelde]);
 	}
 
+	/**
+	 * Get list of results of enquete of current user
+	 * 
+	 * Params:teamcan
+	 * 
+	 * @return string|false  a JSON encoded string on success or FALSE on JSON encoding failure. Or {"error":...} (HTTP 403)
+	 */
 	public function getindividualresults(){
 		$lijst = array();
 		if(!isset($this->params['teamscan'])) {
@@ -540,6 +671,13 @@ class APIFunctions {
 		return json_encode($lijst);
 	}
 
+	/**
+	 * Removes given team member
+	 * 
+	 * Params:teamid, userPrincipalName, mail
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 403/400)
+	 */
 	public function verwijderlid() {
 		if(!in_array($this->params["teamid"], $this->rights["edit_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -557,6 +695,13 @@ class APIFunctions {
 		return '{"status":"OK"}';
 	}
 
+	/**
+	 * Adds team member to team
+	 * 
+	 * Params:teamid, email (references to mail or userPrincipalName)
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 403/400)
+	 */
 	public function nieuwlid() {
 		if(!in_array($this->params["teamid"], $this->rights["edit_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -574,6 +719,13 @@ class APIFunctions {
 		return '{"status":"OK"}';
 	}
 
+	/**
+	 * Remove team
+	 * 
+	 * Params:teamid
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 403/400)
+	 */
 	public function verwijderteam() {
 		if(!in_array($this->params["teamid"], $this->rights["edit_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -591,7 +743,13 @@ class APIFunctions {
 		return '{"status":"OK"}';
 	}
 
-	
+	/**
+	 * Remove teamscan
+	 * 
+	 * Params:teamscan
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 403/400)
+	 */
 	public function verwijderteamscan() {
 		if(!in_array($this->teamscanToTeam($this->params['teamscan']), $this->rights["edit_team"])) {
 			header('HTTP/1.0 403 Forbidden');
@@ -609,7 +767,14 @@ class APIFunctions {
 		return '{"status":"OK"}';
 	}
 
-
+	/**
+	 * Save results of 'scoren verbeterpunten'
+	 * 
+	 * Params:teamscan, $userid=$value, $userid=$value, $userid=$value, ... <br />
+	 * Params contain the id of each question (the $userid) and the value is the score (1 to 10) that is has given (the $value).
+	 * 
+	 * @return string {"status":"OK"} (HTTP 200) or {"error":...} (HTTP 403/400)
+	 */
 	public function addOpenEndedQuestionScore(){
 		if(!in_array($this->teamscanToTeam($this->params['teamscan']), $this->rights["view_team"])) {
 			header('HTTP/1.0 403 Forbidden');
