@@ -32,7 +32,7 @@
     "@ionic/storage": "^2.2.0",
     "@microsoft/microsoft-graph-client": "^1.7.0",
     "angular-svg-round-progressbar": "^3.0.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "cordova-android": "8.1.0",
     "cordova-browser": "6.0.0",
     "cordova-plugin-customurlscheme": "^4.4.0",
